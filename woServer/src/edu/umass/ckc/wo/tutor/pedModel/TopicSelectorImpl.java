@@ -8,6 +8,8 @@ import edu.umass.ckc.wo.db.DbClass;
 import edu.umass.ckc.wo.db.DbTopics;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
+import edu.umass.ckc.wo.tutconfig.LessonModelDescription;
+import edu.umass.ckc.wo.tutconfig.TopicModelDescription;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
 import edu.umass.ckc.wo.tutor.studmod.StudentProblemData;
 import edu.umass.ckc.wo.tutor.studmod.StudentProblemHistory;
@@ -41,17 +43,34 @@ public class TopicSelectorImpl implements TopicSelector {
     private SessionManager smgr;
     private Connection conn;
     private PedagogicalModelParameters pmParameters;
+    private TopicModelDescription topicModelDescription;
     private ProblemGrader.difficulty nextProbDesiredDifficulty;
-    private PedagogicalModel pedagogicalModel;
+
 
     public TopicSelectorImpl() {
     }
 
-    public TopicSelectorImpl(SessionManager smgr, PedagogicalModelParameters params, PedagogicalModel pedagogicalModel) throws SQLException {
+    public TopicSelectorImpl(SessionManager smgr, PedagogicalModelParameters params) throws SQLException {
         this.smgr = smgr;
         this.conn = smgr.getConnection();
-        this.pedagogicalModel=pedagogicalModel;
         this.pmParameters = params;
+        this.classID = smgr.getClassID();  // get either the default class (with default lesson plan) or the actual class (with a custom plan)
+
+    }
+
+    /**
+     * Construct a TopicSelector that implements that policy in the TopicModelDescription.  Makes use of
+     * PedagogicalModelParameters too.
+     * @param smgr
+     * @param pmParameters
+     * @param topicModelDescription
+     * @throws SQLException
+     */
+    public TopicSelectorImpl(SessionManager smgr, PedagogicalModelParameters pmParameters, TopicModelDescription topicModelDescription) throws SQLException {
+        this.smgr = smgr;
+        this.conn = smgr.getConnection();
+        this.pmParameters = pmParameters;
+        this.topicModelDescription = topicModelDescription;
         this.classID = smgr.getClassID();  // get either the default class (with default lesson plan) or the actual class (with a custom plan)
 
     }
@@ -218,14 +237,14 @@ public class TopicSelectorImpl implements TopicSelector {
     public EndOfTopicInfo isEndOfTopic(long probElapsedTime, ProblemGrader.difficulty difficulty) throws Exception {
         boolean maxProbsReached=false, maxTimeReached=false, topicMasteryReached=false, contentFailure=false;
         // if maxProbs then we're done
-        if (smgr.getStudentState().getTopicNumPracticeProbsSeen() >= pmParameters.getMaxNumberProbs())
+        if (smgr.getStudentState().getTopicNumPracticeProbsSeen() >= topicModelDescription.getMaxNumberProbs())
             maxProbsReached=true;
 
         //if maxTime then we're done
-        else if (smgr.getStudentState().getTimeInTopic() + probElapsedTime >= pmParameters.getMaxTimeInTopic())
+        else if (smgr.getStudentState().getTimeInTopic() + probElapsedTime >= topicModelDescription.getMaxTimeInTopic())
             maxTimeReached=true;
 
-        else if (smgr.getStudentModel().getTopicMastery(smgr.getStudentState().getCurTopic()) >= pmParameters.getTopicMastery()) {
+        else if (smgr.getStudentModel().getTopicMastery(smgr.getStudentState().getCurTopic()) >= topicModelDescription.getTopicMastery()) {
             topicMasteryReached=true;
         }
         EndOfTopicInfo info = isContentFailure(difficulty);

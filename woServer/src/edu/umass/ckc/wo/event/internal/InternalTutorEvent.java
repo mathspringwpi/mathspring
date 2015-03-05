@@ -1,4 +1,7 @@
-package edu.umass.ckc.wo.event;
+package edu.umass.ckc.wo.event.internal;
+
+import edu.umass.ckc.wo.event.SessionEvent;
+import edu.umass.ckc.wo.tutor.response.Response;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,8 +10,9 @@ package edu.umass.ckc.wo.event;
  * Time: 3:30 PM
  * To change this template use File | Settings | File Templates.
  */
-public class InternalTutorEvent {
+public class InternalTutorEvent extends Response {
     private SessionEvent userEvent;
+
 
     public InternalTutorEvent (SessionEvent e) {
         this.userEvent = e;
@@ -17,5 +21,9 @@ public class InternalTutorEvent {
 
     public InternalTutorEvent (){
 
+    }
+
+    public SessionEvent getUserEvent() {
+        return userEvent;
     }
 }

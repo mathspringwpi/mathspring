@@ -1,16 +1,11 @@
 package edu.umass.ckc.wo.xml;
 
+import org.jdom.*;
 import org.jdom.input.SAXBuilder;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.Attribute;
-import org.jdom.CDATA;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.StringReader;
+import java.io.*;
 import java.util.List;
 import java.util.Iterator;
 
@@ -192,6 +187,27 @@ public class JDOMUtils {
 
     public static Element failure() {
        return new Element("failure");
+    }
+
+    /**
+     * Make a JDOM Document out of the file.
+     * @param str
+     * @return  JDOM Document
+     */
+    public static Document makeDocument (InputStream str) {
+
+        SAXBuilder parser = new SAXBuilder();
+        try {
+            Document doc = parser.build(str);
+            Element root = doc.getRootElement();
+            String defaultClasspath = root.getAttribute("defaultClasspath").getValue();
+            return doc;
+        } catch (JDOMException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return null;
     }
 
     public static void main(String[] args) {

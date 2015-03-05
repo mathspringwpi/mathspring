@@ -1,23 +1,16 @@
 package edu.umass.ckc.wo.html.tutor;
 
 import edu.umass.ckc.wo.content.Problem;
-import edu.umass.ckc.wo.event.tutorhut.MPPTopicEvent;
 import edu.umass.ckc.wo.event.tutorhut.TutorHomeEvent;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.response.InterventionResponse;
 import edu.umass.ckc.wo.tutor.response.ProblemResponse;
-import edu.umass.ckc.wo.tutor.response.Response;
 import edu.umass.ckc.wo.tutormeta.LearningCompanion;
-import edu.umass.ckc.wo.woserver.ServletInfo;
+import ckc.servlet.servbase.ServletInfo;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * Created with IntelliJ IDEA.

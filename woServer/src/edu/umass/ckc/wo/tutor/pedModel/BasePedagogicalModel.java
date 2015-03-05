@@ -1,5 +1,6 @@
 package edu.umass.ckc.wo.tutor.pedModel;
 
+import ckc.servlet.servbase.ServletInfo;
 import edu.umass.ckc.wo.assistments.AssistmentsHandler;
 import edu.umass.ckc.wo.assistments.AssistmentsUser;
 import edu.umass.ckc.wo.beans.Topic;
@@ -9,6 +10,8 @@ import edu.umass.ckc.wo.content.Problem;
 import edu.umass.ckc.wo.content.TopicIntro;
 import edu.umass.ckc.wo.content.Video;
 import edu.umass.ckc.wo.db.DbAssistmentsUsers;
+import edu.umass.ckc.wo.event.SessionEvent;
+import edu.umass.ckc.wo.event.internal.EndTopicEvent;
 import edu.umass.ckc.wo.event.tutorhut.*;
 import edu.umass.ckc.wo.interventions.NextProblemIntervention;
 import edu.umass.ckc.wo.interventions.SelectHintSpecs;
@@ -16,6 +19,8 @@ import edu.umass.ckc.wo.interventions.SelectProblemSpecs;
 import edu.umass.ckc.wo.log.TutorLogger;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
+import edu.umass.ckc.wo.tutconfig.LessonModelDescription;
+import edu.umass.ckc.wo.tutconfig.TopicModelDescription;
 import edu.umass.ckc.wo.tutor.Pedagogy;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorSpec;
@@ -25,6 +30,8 @@ import edu.umass.ckc.wo.tutor.intervSel2.NextProblemInterventionSelector;
 import edu.umass.ckc.wo.tutor.probSel.*;
 import edu.umass.ckc.wo.tutor.response.*;
 import edu.umass.ckc.wo.tutor.vid.BaseVideoSelector;
+import edu.umass.ckc.wo.tutor2.LessonModel;
+import edu.umass.ckc.wo.tutor2.TopicModel;
 import edu.umass.ckc.wo.tutormeta.*;
 import org.apache.log4j.Logger;
 
@@ -47,6 +54,7 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
     protected TopicSelector topicSelector;
     ProblemGrader.difficulty nextDiff;
     List<PedagogicalMoveListener> pedagogicalMoveListeners;
+    LessonModel lessonModel;
 
 
     public BasePedagogicalModel() {
@@ -66,7 +74,11 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
             pedagogicalMoveListeners = new ArrayList<PedagogicalMoveListener>();
             // Use the params from the pedagogy and then overwrite any values with things that are set up for the class
             params = setParams(smgr.getPedagogicalModelParameters(),pedagogy.getParams());
-            topicSelector = new TopicSelectorImpl(smgr,params, this);
+            // TODO figure out how to make this class use the lessonModel rather than the topicSelector which now lives inside
+            // the lessonModel if the its a TopicModel.
+            topicSelector = new TopicSelectorImpl(smgr,params);
+            // Will get back either a TopicModel or a LessonModel
+            lessonModel = LessonModel.buildLessonModel(smgr,params,pedagogy.getLessonModelDescription());
             setStudentModel((StudentModel) Class.forName(pedagogy.getStudentModelClass()).getConstructor(SessionManager.class).newInstance(smgr));
             smgr.setStudentModel(getStudentModel());
             setProblemSelector((ProblemSelector) Class.forName(pedagogy.getProblemSelectorClass()).getConstructor(SessionManager.class, TopicSelector.class, PedagogicalModelParameters.class).newInstance(smgr, topicSelector, params));
@@ -93,6 +105,12 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
+    }
+
+    public Response processUserEvent (SessionEvent e, ServletInfo servletInfo, SessionManager smgr) throws Exception {
+        if (e instanceof NextProblemEvent)
+            return processNextProblemRequest((NextProblemEvent) e);
+        return null;
     }
 
     public void addPedagogicalMoveListener (PedagogicalMoveListener listener) {
@@ -650,24 +668,30 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
         // We have a fixed sequence which prefers forced problems, followed by topic intros, examples, interventions, regular problems.
         // If we ever want something more customized (e.g. from a XML pedagogy defn),  this would have to operate based on that defn
 
-        Response r;
+        Response r=null;
         StudentState state = smgr.getStudentState();
         Problem curProb=null;
 
         //Don't carry over an answer from the last problem.
         state.setProblemAnswer(null);
-
-        r = getProblemSelectedByStudent(e);
+        if (e.isForceProblem())
+            r = getProblemSelectedByStudent(e);
         if (r == null) r = getChallengingProblem(e);
         if (r == null) r = getReviewProblem(e);
+
 //        r = getNonPracticeModeProblem(e);
         // only grade the problem if we aren't trying to force a topic or problem
+        this.lessonModel.processUserEvent(e,smgr.getServletInfo(),smgr);
+
         if (r == null)
             gradeProblem(e.getProbElapsedTime());
 
         int curTopic = smgr.getStudentState().getCurTopic();
         this.reasonsForEndOfTopic=  topicSelector.isEndOfTopic(e.getProbElapsedTime(), nextDiff);
         boolean topicDone = curTopic == -1 || reasonsForEndOfTopic.isTopicDone();
+        // If the topic is done return an EndTopicEvent
+        if (topicDone)
+            return new EndTopicEvent(e, curTopic,this.reasonsForEndOfTopic);
         // second we try to find an intervention
         if (r == null) r = getNextProblemIntervention(e);
         // Some interventions are designed to be shown while a problem is being shown
@@ -934,10 +958,8 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
         else {
             // TODO make sure we don't need to do the below and that we have an analog for it
             // we are done with post-attempt interventions.  Its now time to grade the problem.
-            if (smgr.getStudentState().isProblemSolved())
-                r= new Response("grade=true&isCorrect=true");
-            else
-                r= new Response("grade=true&isCorrect=false");
+                r= new AttemptResponse(true,smgr.getStudentState().isProblemSolved(),studentModel.getTopicMasteries(),smgr.getStudentState().getCurTopic());
+
         }
         new TutorLogger(smgr).logContinueAttemptIntervention(e, r);
         if (learningCompanion != null )
@@ -994,10 +1016,7 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
         }
         else {
             // we are done with post-attempt interventions.  Its now time to grade the problem.
-            if (smgr.getStudentState().isProblemSolved())
-                r= new Response("&grade=true&isCorrect=true");
-            else
-                r= new Response("&grade=true&isCorrect=false");
+           r= new AttemptResponse(true,smgr.getStudentState().isProblemSolved(),studentModel.getTopicMasteries(),smgr.getStudentState().getCurTopic());
         }
         new TutorLogger(smgr).logInputResponseAttemptIntervention( e, r);
         if (learningCompanion != null )

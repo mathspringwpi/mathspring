@@ -1,10 +1,12 @@
 package edu.umass.ckc.wo.tutor.pedModel;
 
 import ckc.servlet.servbase.BaseServlet;
+import ckc.servlet.servbase.ServletInfo;
 import edu.umass.ckc.email.Emailer;
 import edu.umass.ckc.wo.cache.ProblemMgr;
 import edu.umass.ckc.wo.content.Problem;
 import edu.umass.ckc.wo.content.ProblemAnswer;
+import edu.umass.ckc.wo.event.SessionEvent;
 import edu.umass.ckc.wo.event.tutorhut.*;
 import edu.umass.ckc.wo.interventions.SelectHintSpecs;
 import edu.umass.ckc.wo.log.TutorLogger;
@@ -115,6 +117,10 @@ public abstract class PedagogicalModel { // extends PedagogicalModelOld {
 
     public SessionManager getSessionMgr () {
         return smgr;
+    }
+
+    public Response processUserEvent (SessionEvent e, ServletInfo servletInfo, SessionManager smgr) throws Exception {
+        return null;
     }
 
 

@@ -1,9 +1,10 @@
-package edu.umass.ckc.wo.admin;
+package edu.umass.ckc.wo.tutconfig;
 
 import edu.umass.ckc.wo.tutor.Pedagogy;
 import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorParam;
 import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorSpec;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
+import edu.umass.ckc.wo.xml.JDOMUtils;
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 
@@ -21,8 +22,7 @@ import java.util.List;
  * Date: Dec 19, 2007
  * Time: 4:22:53 PM    kk
  */
-public class PedConfig {
-    private String defaultClasspath;
+public class PedagogyParser {
     private List<Pedagogy> pedagogies;
 
     public static final String DEFAULT_PROBLEM_SELECTOR = "BaseTopicProblemSelector";
@@ -32,9 +32,9 @@ public class PedConfig {
     public static final String DEFAULT_REVIEW_MODE_PROBLEM_SELECTOR = "ReviewModeProblemSelector";
     public static final String DEFAULT_CHALLENGE_MODE_PROBLEM_SELECTOR = "ChallengeModeProblemSelector";
 
-    public PedConfig(InputStream str) throws ClassNotFoundException, IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, DataConversionException {
+    public PedagogyParser(InputStream str) throws ClassNotFoundException, IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, DataConversionException {
 //        File f = new File(filename);
-        Document d = makeDocument(str);
+        Document d = JDOMUtils.makeDocument(str);
         pedagogies = readPedagogies(d);
     }
 
@@ -138,6 +138,13 @@ public class PedConfig {
         if (e != null)
             readControlParams(params, e);
         p.setParams(params);
+        e = pedElt.getChild("lessonModel");
+        if (e != null) {
+            String lessonName = e.getText();
+            LessonModelDescription lmDescr = LessonModels.getLessonDescription(lessonName) ;
+            p.setLessonModelDescription(lmDescr);
+        }
+
         e = pedElt.getChild("package");
         String packg = null ;
         if ( e != null )
@@ -151,6 +158,8 @@ public class PedConfig {
         return p;
 
     }
+
+
 
     // Given a set of pm params that have default settings this reads the XML config and
     // overwrites any that are provided.
@@ -302,25 +311,6 @@ public class PedConfig {
     }
 
 
-    /**
-     * Make a JDOM Document out of the file.
-     * @param str
-     * @return  JDOM Document
-     */
-    public Document makeDocument (InputStream str) {
 
-        SAXBuilder parser = new SAXBuilder();
-        try {
-            Document doc = parser.build(str);
-            Element root = doc.getRootElement();
-            this.defaultClasspath = root.getAttribute("defaultClasspath").getValue();
-            return doc;
-        } catch (JDOMException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        return null;
-    }
 
 }

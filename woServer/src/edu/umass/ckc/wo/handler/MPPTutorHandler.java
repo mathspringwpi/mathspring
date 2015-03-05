@@ -11,7 +11,7 @@ import edu.umass.ckc.wo.tutor.pedModel.PedagogicalModel;
 import edu.umass.ckc.wo.tutor.response.InterventionResponse;
 import edu.umass.ckc.wo.tutor.response.ProblemResponse;
 import edu.umass.ckc.wo.tutor.response.Response;
-import edu.umass.ckc.wo.woserver.ServletInfo;
+import ckc.servlet.servbase.ServletInfo;
 
 import java.sql.SQLException;
 

@@ -1,5 +1,6 @@
 package edu.umass.ckc.wo.login;
 
+import ckc.servlet.servbase.ServletInfo;
 import edu.umass.ckc.wo.db.DbSession;
 import ckc.servlet.servbase.ServletAction;
 import ckc.servlet.servbase.ServletParams;
@@ -27,10 +28,16 @@ public class Login2 implements ServletAction {
     protected String login_existingSess_jsp;
     protected String clientType;
 
-
+    public String process (ServletInfo servletInfo) throws Exception {
+        return doProcess(servletInfo.getConn(),servletInfo.getParams(),servletInfo.getRequest());
+    }
 
     public String process(Connection conn, ServletContext servletContext, ServletParams params, HttpServletRequest req, HttpServletResponse response,
                           StringBuffer servletOutput) throws Exception {
+        return doProcess(conn,params,req);
+    }
+
+    private String doProcess (Connection conn, ServletParams params, HttpServletRequest req) throws Exception {
         String uName = params.getString(LoginParams.USER_NAME,"");
         String pw = params.getString(LoginParams.PASSWORD,"");
         boolean logoutExistingSession = params.getBoolean(LoginParams.LOGOUT_EXISTING_SESSION,false);
@@ -38,8 +45,8 @@ public class Login2 implements ServletAction {
         LoginResult lr = smgr.login(uName,pw,System.currentTimeMillis(), logoutExistingSession);
 
         if (!lr.isFailed())
-        // subclass binds clientType so it is either adult or k12.  Store in session row
-         DbSession.setClientType(conn, smgr.getSessionNum(), clientType);
+            // subclass binds clientType so it is either adult or k12.  Store in session row
+            DbSession.setClientType(conn, smgr.getSessionNum(), clientType);
 
         // want to save the flashClient with the studId as the key so that we can build URLs later
         if (lr.getStatus()== LoginResult.ALREADY_LOGGED_IN) {
@@ -55,12 +62,12 @@ public class Login2 implements ServletAction {
             return login1_jsp;
         }
         else {
-             req.setAttribute(LoginParams.SESSION_ID,smgr.getSessionNum());
-             if (lr.hasExistingSession()) {
-                 req.setAttribute(LoginParams.MESSAGE, "You had an old session which has been automatically logged out.");
-                 List<User> students = DbClass.getClassStudents(conn,smgr.getStudentClass(smgr.getStudentId()));
-                 req.setAttribute(LoginParams.STUDENTS,students);
-                 return login_getFlankingUsers_jsp;
+            req.setAttribute(LoginParams.SESSION_ID,smgr.getSessionNum());
+            if (lr.hasExistingSession()) {
+                req.setAttribute(LoginParams.MESSAGE, "You had an old session which has been automatically logged out.");
+                List<User> students = DbClass.getClassStudents(conn,smgr.getStudentClass(smgr.getStudentId()));
+                req.setAttribute(LoginParams.STUDENTS,students);
+                return login_getFlankingUsers_jsp;
             }
             boolean isFirstLogin = smgr.isFirstLogin();
             if (isFirstLogin) {

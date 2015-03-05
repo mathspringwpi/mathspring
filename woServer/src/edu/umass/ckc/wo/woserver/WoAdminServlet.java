@@ -1,6 +1,7 @@
 package edu.umass.ckc.wo.woserver;
 
 
+import ckc.servlet.servbase.ServletInfo;
 import edu.umass.ckc.wo.cache.ProblemMgr;
 import edu.umass.ckc.wo.event.WoAdminEventFactory;
 import ckc.servlet.servbase.BaseServlet;
@@ -54,16 +55,15 @@ public class WoAdminServlet extends BaseServlet {
 
     }
 
-    public boolean handleRequest(ServletContext servletContext, Connection conn, HttpServletRequest request,
-                                 HttpServletResponse response, ServletParams params, StringBuffer servletOutput) throws Exception {
+    public boolean handleRequest(ServletInfo servletInfo) throws Exception {
         try {
-            ServletContext sc = this.getServletContext();
             ServletEvent e;
             WoAdminEventFactory f = new WoAdminEventFactory();
-            e = f.buildEvent(params);
+            e = f.buildEvent(servletInfo.getParams());
 
             boolean wroteToBuffer;
-            wroteToBuffer = new AdminHandler().handleEvent(request, response, servletContext, conn, e, servletOutput);
+            wroteToBuffer = new AdminHandler().handleEvent(servletInfo.getRequest(), servletInfo.getResponse(),
+                    servletInfo.getServletContext(), servletInfo.getConn(), e, servletInfo.getOutput());
             return wroteToBuffer;
         } catch (Exception e1) {
             e1.printStackTrace();  //To change body of catch statement use Options | File Templates.

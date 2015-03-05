@@ -3,6 +3,7 @@ package edu.umass.ckc.wo.login;
 import ckc.servlet.servbase.ServletAction;
 import ckc.servlet.servbase.ServletParams;
 import edu.umass.ckc.wo.tutor.Settings;
+import ckc.servlet.servbase.ServletInfo;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -33,6 +34,15 @@ public class LoginAdult_1 implements ServletAction {
      */
     public String process(Connection conn, ServletContext servletContext, ServletParams params,
                           HttpServletRequest req, HttpServletResponse resp, StringBuffer servletOutput) throws ServletException, IOException {
+        return doProcess(req);
+    }
+
+    public String process (ServletInfo servletInfo) {
+        HttpServletRequest req = servletInfo.getRequest();
+        return doProcess(req);
+    }
+
+    private String doProcess (HttpServletRequest req) {
         req.setAttribute(LoginParams.USER_NAME,"" );
         req.setAttribute(LoginParams.PASSWORD,"" );
         req.setAttribute(LoginParams.LOGOUT_EXISTING_SESSION,"false");

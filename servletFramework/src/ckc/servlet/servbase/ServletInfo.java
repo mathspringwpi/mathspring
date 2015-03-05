@@ -1,4 +1,4 @@
-package edu.umass.ckc.wo.woserver;
+package ckc.servlet.servbase;
 
 import ckc.servlet.servbase.ServletParams;
 
@@ -16,17 +16,31 @@ import java.sql.Connection;
  */
 public class ServletInfo {
 
-    ServletContext servletContext;
-    Connection conn;
-    HttpServletRequest request;
-    HttpServletResponse response;
-    ServletParams params;
-    StringBuffer output;
-    String hostPath;
-    String contextPath;
-    String servletName;
+    private ServletContext servletContext;
+    private Connection conn;
+    private HttpServletRequest request;
+    private HttpServletResponse response;
+    private ServletParams params;
+    private StringBuffer output;
+    private String hostPath;
+    private String contextPath;
+    private String servletName;
 
-    public ServletInfo(ServletContext servletContext, Connection conn, HttpServletRequest request, HttpServletResponse response, ServletParams params, StringBuffer output, String hostPath, String contextPath, String servletName) {
+    public ServletInfo(ServletContext servletContext, Connection conn, HttpServletRequest request, HttpServletResponse response,
+                       ServletParams params, String hostPath, String contextPath, String servletName) {
+        this.servletContext = servletContext;
+        this.conn = conn;
+        this.request = request;
+        this.response = response;
+        this.params = params;
+        this.output = new StringBuffer();
+        this.hostPath = hostPath;
+        this.contextPath = contextPath;
+        this.servletName = servletName;
+    }
+
+    public ServletInfo(ServletContext servletContext, Connection conn, HttpServletRequest request, HttpServletResponse response,
+                            ServletParams params, StringBuffer output, String hostPath, String contextPath, String servletName) {
         this.servletContext = servletContext;
         this.conn = conn;
         this.request = request;
@@ -73,4 +87,6 @@ public class ServletInfo {
     public String getServletName() {
         return servletName;
     }
+
+
 }

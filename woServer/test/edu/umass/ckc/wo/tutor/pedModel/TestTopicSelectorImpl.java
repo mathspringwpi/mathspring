@@ -1,24 +1,15 @@
 package edu.umass.ckc.wo.tutor.pedModel;
 
-import edu.umass.ckc.wo.admin.PedMap;
-import edu.umass.ckc.wo.cache.ProblemMgr;
-import edu.umass.ckc.wo.db.DbUtil;
-import edu.umass.ckc.wo.settings.UnitTestSettings;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
 import edu.umass.ckc.wo.smgr.TestSessionManager;
-import edu.umass.ckc.wo.tutor.Settings;
-import edu.umass.ckc.wo.tutor.probSel.BaseExampleSelector;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
-import edu.umass.ckc.wo.tutor.vid.BaseVideoSelector;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,7 +33,7 @@ import java.sql.SQLException;
             conn = smgr.getConnection();
             params = smgr.getPedagogicalModelParameters();
             studState = smgr.getStudentState();
-            topicSelector = new TopicSelectorImpl(smgr,smgr.getPedagogicalModelParameters(),smgr.getPedagogicalModel());
+            topicSelector = new TopicSelectorImpl(smgr,smgr.getPedagogicalModelParameters());
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

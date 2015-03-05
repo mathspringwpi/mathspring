@@ -2,6 +2,7 @@ package edu.umass.ckc.wo.login;
 
 import ckc.servlet.servbase.ServletAction;
 import ckc.servlet.servbase.BaseServlet;
+import ckc.servlet.servbase.ServletInfo;
 import ckc.servlet.servbase.ServletParams;
 import edu.umass.ckc.wo.cache.ProblemMgr;
 import edu.umass.ckc.wo.content.CCContentMgr;
@@ -34,16 +35,15 @@ public class WoLoginServlet extends BaseServlet {
          return servletConfig.getServletContext().getInitParameter("wodb.datasource");
      }
 
-    protected boolean handleRequest(ServletContext servletContext, Connection conn, HttpServletRequest request,
-                                    HttpServletResponse response, ServletParams params, StringBuffer servletOutput) throws Exception {
-        ServletAction action = ActionFactory.buildAction(params);
-        Settings.getSurveys(conn); // makes sure the latest survey URLS from the DB are used.
-        logger.info(">>" + params.toString());
-        String viewName = action.process(conn, servletContext,params, request,response, servletOutput);
+    protected boolean handleRequest(ServletInfo servletInfo) throws Exception {
+        ServletAction action = ActionFactory.buildAction(servletInfo.getParams());
+        Settings.getSurveys(servletInfo.getConn()); // makes sure the latest survey URLS from the DB are used.
+        logger.info(">>" + servletInfo.getParams().toString());
+        String viewName = action.process(servletInfo);
         logger.info("<< JSP: " + viewName);
         if (viewName != null) {
-            RequestDispatcher disp = request.getRequestDispatcher(viewName);
-            disp.forward(request,response);
+            RequestDispatcher disp = servletInfo.getRequest().getRequestDispatcher(viewName);
+            disp.forward(servletInfo.getRequest(),servletInfo.getResponse());
             return false; // tells the superclass servlet not to write to the output stream because the request has been forwarded.
         }
         else return true; // the action just wrote some stuff into servletOutput so the servlet should flush it out

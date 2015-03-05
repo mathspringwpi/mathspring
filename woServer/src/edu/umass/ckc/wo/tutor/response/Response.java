@@ -47,12 +47,7 @@ public class Response  {
     }
 
 
-    public void addExtra (String extra) {
-        if (!extraOutputParams.equals(""))
-            this.extraOutputParams += "&"+extra;
-        else  this.extraOutputParams=extra;
 
-    }
 
 
 

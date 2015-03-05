@@ -3,6 +3,7 @@ package edu.umass.ckc.wo.woserver;
 import edu.umass.ckc.wo.admin.PedMap;
 import edu.umass.ckc.wo.mrcommon.Names;
 import edu.umass.ckc.wo.smgr.SessionDemon;
+import edu.umass.ckc.wo.tutconfig.LessonModels;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.woreports.ClassStatusReporter;
 import edu.umass.ckc.wo.woreports.StudentStatusReporter;
@@ -90,8 +91,13 @@ public class ServletUtil {
         // Flash client must be on same machine but can be served by other than servletEngine
         // (e.g. it is best served by apache)
         String pedagogiesFile = servletContext.getInitParameter(Names.PEDAGOGIES_FILE);
+        String lessonsFile = servletContext.getInitParameter(Names.LESSONS_FILE);
+        InputStream str =   servletContext.getResourceAsStream(lessonsFile);
+        if (!LessonModels.lessonsLoaded())
+            LessonModels.readLessonModels(str);
         if (Settings.pedagogyGroups == null) {
-            InputStream str = servletContext.getResourceAsStream(pedagogiesFile);
+
+            str = servletContext.getResourceAsStream(pedagogiesFile);
             Settings.pedagogyGroups = new PedMap(str);
         }
 

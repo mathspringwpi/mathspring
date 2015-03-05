@@ -1,6 +1,7 @@
 package edu.umass.ckc.wo.login;
 
 import ckc.servlet.servbase.ServletAction;
+import ckc.servlet.servbase.ServletInfo;
 import ckc.servlet.servbase.ServletParams;
 import edu.umass.ckc.wo.beans.ClassInfo;
 import edu.umass.ckc.wo.db.DbClass;
@@ -26,6 +27,15 @@ public class AssistmentsLogin implements ServletAction {
     // This was for testing only
     public String process(Connection conn, ServletContext servletContext, ServletParams params, HttpServletRequest req,
                           HttpServletResponse resp, StringBuffer servletOutput) throws Exception {
+        return doProcess(conn,params,req,servletOutput,servletContext);
+    }
+
+    @Override
+    public String process(ServletInfo servletInfo) throws Exception {
+        return doProcess(servletInfo.getConn(),servletInfo.getParams(),servletInfo.getRequest(),servletInfo.getOutput(),servletInfo.getServletContext());
+    }
+
+    private String doProcess (Connection conn, ServletParams params, HttpServletRequest req, StringBuffer servletOutput, ServletContext servletContext) throws Exception {
         String flashClientURL = (String) servletContext.getAttribute("flashClientURI");
         String userName = params.getString("userName");
         int studId = UserRegistrationHandler.registerTemporaryUser(conn, DbClass.ASSISTMENTS_CLASS_NAME, User.UserType.assistmentStudent);

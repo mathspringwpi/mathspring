@@ -1,5 +1,6 @@
 package edu.umass.ckc.wo.tutor;
 
+import edu.umass.ckc.wo.tutconfig.LessonModelDescription;
 import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorSpec;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
 
@@ -35,6 +36,7 @@ public class Pedagogy implements Comparable {
     private List<InterventionSelectorSpec> subAttemptInterventionSelectors;
     private String reviewModeProblemSelectorClass;
     private String challengeModeProblemSelectorClass;
+    private LessonModelDescription lessonModelDescription;
 
 
     public Pedagogy() {
@@ -243,5 +245,13 @@ public class Pedagogy implements Comparable {
 
     public String getChallengeModeProblemSelectorClass() {
         return challengeModeProblemSelectorClass;
+    }
+
+    public void setLessonModelDescription(LessonModelDescription lessonModelDescription) {
+        this.lessonModelDescription = lessonModelDescription;
+    }
+
+    public LessonModelDescription getLessonModelDescription() {
+        return lessonModelDescription;
     }
 }

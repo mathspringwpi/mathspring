@@ -21,25 +21,18 @@ to a pedagogy.  Currently,  there is only one pedagogy set as the default (pedag
         <problemSelectorClass>BaseProblemSelector</problemSelectorClass>
         <reviewModeProblemSelectorClass>ReviewModeProblemSelector</reviewModeProblemSelectorClass>
         <challengeModeProblemSelectorClass>ChallengeModeProblemSelector</challengeModeProblemSelectorClass>
+        <lessonModel>StandardTopicWithIntroAndExample</lessonModel>
         <controlParameters>
-            <lessonStyle>topics</lessonStyle>
-
-            <maxTimeInTopicSecs>900</maxTimeInTopicSecs>
-            <contentFailureThreshold>1</contentFailureThreshold>
-            <topicMastery>1.2</topicMastery>
             <minNumberProbs>3</minNumberProbs>
             <maxNumberProbs>10</maxNumberProbs>
-            <minTimeInTopicSecs>120</minTimeInTopicSecs>
+
             <difficultyRate>3</difficultyRate>
             <externalActivityTimeThresholdMins>10</externalActivityTimeThresholdMins>
-            <showTopicIntro>true</showTopicIntro>
-            <showExampleFirst>true</showExampleFirst>
+
             <!-- number of sessions that determines when solved problems and demos can be given again-->
             <problemReuseIntervalSessions>6</problemReuseIntervalSessions>
             <problemReuseIntervalDays>10</problemReuseIntervalDays>
-            <!-- legal values never, oncePerSession, always-->
-            <topicIntroFrequency>oncePerSession</topicIntroFrequency>
-            <topicExampleFrequency>oncePerSession</topicExampleFrequency>
+
             <!--valid values for the below: true, false.   If true and a MPP nextProblemIntervention selector is present, then MPP is off until the intervention selector
             turns it on.   If false, intervention selector has no effect - it is always off-->
             <displayMyProgressPage>true</displayMyProgressPage>
@@ -110,30 +103,20 @@ to a pedagogy.  Currently,  there is only one pedagogy set as the default (pedag
         <problemSelectorClass>BaseProblemSelector</problemSelectorClass>
         <reviewModeProblemSelectorClass>ReviewModeProblemSelector</reviewModeProblemSelectorClass>
         <challengeModeProblemSelectorClass>ChallengeModeProblemSelector</challengeModeProblemSelectorClass>
+        <lessonModel>StandardTopicWithIntroAndExample</lessonModel>
         <controlParameters>
             <lessonStyle>topics</lessonStyle>
-
-            <maxTimeInTopicSecs>900</maxTimeInTopicSecs>
-            <contentFailureThreshold>1</contentFailureThreshold>
-            <topicMastery>1.2</topicMastery>
             <minNumberProbs>3</minNumberProbs>
             <maxNumberProbs>10</maxNumberProbs>
-            <minTimeInTopicSecs>120</minTimeInTopicSecs>
             <difficultyRate>3</difficultyRate>
             <externalActivityTimeThresholdMins>10</externalActivityTimeThresholdMins>
-            <showTopicIntro>true</showTopicIntro>
-            <showExampleFirst>true</showExampleFirst>
             <!-- number of sessions that determines when solved problems and demos can be given again-->
             <problemReuseIntervalSessions>6</problemReuseIntervalSessions>
             <problemReuseIntervalDays>10</problemReuseIntervalDays>
-            <!-- legal values never, oncePerSession, always-->
-            <topicIntroFrequency>always</topicIntroFrequency>
-            <topicExampleFrequency>oncePerSession</topicExampleFrequency>
             <!--valid values for the below: true, false.   If true and a MPP nextProblemIntervention selector is present, then MPP is off until the intervention selector
            turns it on.   If false, intervention selector has no effect - it is always off-->
             <displayMyProgressPage>true</displayMyProgressPage>
         </controlParameters>
-
         <hintSelectorClass>PercentageHintSelector</hintSelectorClass>
         <package>pedModel2</package>
         <nextProblemInterventionSelector class="NextProblemListCombinerIS">
@@ -184,6 +167,9 @@ to a pedagogy.  Currently,  there is only one pedagogy set as the default (pedag
             <attemptInterventionSelector class="HighlightHintButtonIS">
                 <param name="threshold">1</param>
             </attemptInterventionSelector>
+            <attemptInterventionSelector class="GuessingAskAffectIS">
+
+            </attemptInterventionSelector>
             <!--<attemptInterventionSelector class="GuessingAskAffectIS"/>-->
         </attemptInterventionSelector>
         <learningCompanionClass>JakeEmpathicLC</learningCompanionClass>
@@ -200,25 +186,17 @@ to a pedagogy.  Currently,  there is only one pedagogy set as the default (pedag
         <problemSelectorClass>BaseProblemSelector</problemSelectorClass>
         <reviewModeProblemSelectorClass>ReviewModeProblemSelector</reviewModeProblemSelectorClass>
         <challengeModeProblemSelectorClass>ChallengeModeProblemSelector</challengeModeProblemSelectorClass>
+        <lessonModel>StandardTopicWithIntroAndExample</lessonModel>
         <controlParameters>
-            <lessonStyle>topics</lessonStyle>
 
-            <maxTimeInTopicSecs>900</maxTimeInTopicSecs>
-            <contentFailureThreshold>1</contentFailureThreshold>
-            <topicMastery>1.2</topicMastery>
             <minNumberProbs>3</minNumberProbs>
             <maxNumberProbs>10</maxNumberProbs>
-            <minTimeInTopicSecs>120</minTimeInTopicSecs>
             <difficultyRate>3</difficultyRate>
             <externalActivityTimeThresholdMins>10</externalActivityTimeThresholdMins>
-            <showTopicIntro>true</showTopicIntro>
-            <showExampleFirst>true</showExampleFirst>
             <!-- number of sessions that determines when solved problems and demos can be given again-->
             <problemReuseIntervalSessions>6</problemReuseIntervalSessions>
             <problemReuseIntervalDays>10</problemReuseIntervalDays>
-            <!-- legal values never, oncePerSession, always-->
-            <topicIntroFrequency>always</topicIntroFrequency>
-            <topicExampleFrequency>oncePerSession</topicExampleFrequency>
+
         </controlParameters>
 
         <hintSelectorClass>PercentageHintSelector</hintSelectorClass>

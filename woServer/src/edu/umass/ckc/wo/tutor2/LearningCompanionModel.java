@@ -1,7 +1,9 @@
 package edu.umass.ckc.wo.tutor2;
 
-import edu.umass.ckc.wo.event.InternalTutorEvent;
+import ckc.servlet.servbase.ServletInfo;
+import edu.umass.ckc.wo.event.internal.InternalTutorEvent;
 import edu.umass.ckc.wo.event.SessionEvent;
+import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.tutor.response.Response;
 
 /**
@@ -13,12 +15,12 @@ import edu.umass.ckc.wo.tutor.response.Response;
  */
 public class LearningCompanionModel implements TutorModelInterface {
     @Override
-    public Response processInternalTutorEvent(InternalTutorEvent e) {
+    public Response processInternalTutorEvent(InternalTutorEvent e, ServletInfo servletInfo, SessionManager smgr) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public Response processUserEvent(SessionEvent e) {
+    public Response processUserEvent(SessionEvent e, ServletInfo servletInfo, SessionManager smgr) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

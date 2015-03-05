@@ -1,6 +1,7 @@
 package edu.umass.ckc.wo.woserver;
 
 import ckc.servlet.servbase.BaseServlet;
+import ckc.servlet.servbase.ServletInfo;
 import ckc.servlet.servbase.ServletParams;
 
 import javax.servlet.ServletConfig;
@@ -24,14 +25,13 @@ public class SimpleJSPServlet extends BaseServlet {
     }
 
 
-    public boolean handleRequest(Connection conn, HttpServletRequest request,
-                                 HttpServletResponse response, ServletParams params, StringBuffer output) throws Exception {
+    public boolean handleRequest(ServletInfo servletInfo) throws Exception {
 
-        String myVar = params.getString("myVar");
-        HttpSession sess = request.getSession();
+        String myVar = servletInfo.getParams().getString("myVar");
+        HttpSession sess = servletInfo.getRequest().getSession();
         sess.setAttribute("myVarCookie",myVar);
-        request.setAttribute("person", "dave");
-        request.getRequestDispatcher("test/test.jsp").forward(request,response);
+        servletInfo.getRequest().setAttribute("person", "dave");
+        servletInfo.getRequest().getRequestDispatcher("test/test.jsp").forward(servletInfo.getRequest(),servletInfo.getResponse());
         return false;
 
     }

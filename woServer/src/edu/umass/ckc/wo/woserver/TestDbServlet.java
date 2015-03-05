@@ -1,6 +1,7 @@
 package edu.umass.ckc.wo.woserver;
 
 import ckc.servlet.servbase.BaseServlet;
+import ckc.servlet.servbase.ServletInfo;
 import ckc.servlet.servbase.ServletParams;
 import org.apache.log4j.Logger;
 
@@ -50,13 +51,12 @@ public class TestDbServlet extends BaseServlet {
         return servletConfig.getServletContext().getInitParameter("wodb.datasource");
     }
 
-    protected boolean handleRequest(ServletContext servletContext, Connection conn, HttpServletRequest request,
-                                    HttpServletResponse response, ServletParams params, StringBuffer servletOutput) throws Exception {
+    protected boolean handleRequest(ServletInfo servletInfo) throws Exception {
         try {
-            response.setContentType("text/html");    // set the response type before sending data
-            PrintWriter out = response.getWriter();    // for outputting text
-            logger.info(">>" + params.toString());
-            String msg = testConnection(conn);
+            servletInfo.getResponse().setContentType("text/html");    // set the response type before sending data
+            PrintWriter out = servletInfo.getResponse().getWriter();    // for outputting text
+            logger.info(">>" + servletInfo.getParams().toString());
+            String msg = testConnection(servletInfo.getConn());
             out.print("<HTML>");
             out.print("<HEAD><TITLE>4mality Test DB Connection Servlet</TITLE></HEAD>");
             out.print("<BODY>");
@@ -66,12 +66,12 @@ public class TestDbServlet extends BaseServlet {
             out.print("</BODY>");
             out.print("</HTML>");
             out.close();
-            logger.info("<<" + servletOutput.toString());
+            logger.info("<<" + servletInfo.getOutput().toString());
             return true;
         } catch (Exception e) {
             logger.info("", e);
             e.printStackTrace();  //To change body of catch statement use Options | File Templates.
-            servletOutput.append("ack=false&message=" + e.getMessage());
+            servletInfo.getOutput().append("ack=false&message=" + e.getMessage());
             return true;
         }
     }

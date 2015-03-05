@@ -19,6 +19,7 @@ public class Names {
   public static final String POLICY_FILE = "policyFile"; // servlet init param name for policy file
   public static final String ML_LOG_FILE = "mlLogFile"; // servlet init param name for mach learn log file
   public static final String PEDAGOGIES_FILE = "pedagogiesFile"; // servlet init param name for path to pedagogies XML file
+  public static final String LESSONS_FILE = "lessonsFile"; // servlet init param name for path to lessons XML file
 
   public static final String RESULT_TIME = "time";
   public static final String RESULT_ISCORRECT = "isCorrect";

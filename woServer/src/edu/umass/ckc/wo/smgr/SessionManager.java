@@ -1,5 +1,6 @@
 package edu.umass.ckc.wo.smgr;
 
+import ckc.servlet.servbase.ServletInfo;
 import edu.umass.ckc.wo.admin.PedagogyRetriever;
 import edu.umass.ckc.wo.db.*;
 import edu.umass.ckc.wo.event.AdventurePSolvedEvent;
@@ -48,7 +49,7 @@ public class SessionManager {
     private static int guestIDCounter = 0; // used for generating guest user IDS
 
     private Connection connection;
-
+    private ServletInfo servletInfo;
 
     private int studId = -1;
     private int classId = -1;
@@ -175,15 +176,25 @@ public class SessionManager {
      */
     public SessionManager(Connection connection,
                           int sessionId, String hostPath, String contextPath) throws Exception {
+        System.out.println("Should be calling the constructor SessionManager (ServletInfo servletInfo...");
         this.connection = connection;
         this.sessionId = sessionId;
         this.hostPath = hostPath;
         this.contextPath = contextPath;
     }
 
+    public SessionManager (ServletInfo servletInfo, int sessionId) throws Exception {
+        this(servletInfo.getConn(),sessionId,servletInfo.getHostPath(),servletInfo.getContextPath());
+        this.servletInfo = servletInfo;
+    }
+
     public SessionManager buildExistingSession () throws Exception {
         buildSession(connection, sessionId);
         return this;
+    }
+
+    public ServletInfo getServletInfo () {
+        return this.servletInfo;
     }
 
     // will look something like http://cadmium.cs.umass.edu/  or http://localhost/  (port removed)

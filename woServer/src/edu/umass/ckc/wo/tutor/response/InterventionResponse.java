@@ -17,14 +17,9 @@ public class InterventionResponse extends Response {
         buildJSON();
     }
 
-    public InterventionResponse(Intervention interv, String extra) {
-        this.interv = interv;
-        this.extraOutputParams = extra;
-        buildJSON();
-    }
 
     public InterventionResponse(Intervention interv) {
-        this(interv,"");
+        this.interv = interv;
         buildJSON();
     }
 

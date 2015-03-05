@@ -27,7 +27,7 @@ import edu.umass.ckc.wo.tutor.studmod.StudentProblemHistory;
 import edu.umass.ckc.wo.tutormeta.LearningCompanion;
 import edu.umass.ckc.wo.tutormeta.PedagogyParams;
 import edu.umass.ckc.wo.util.HTTPRequest;
-import edu.umass.ckc.wo.woserver.ServletInfo;
+import ckc.servlet.servbase.ServletInfo;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import org.apache.commons.io.IOUtils;

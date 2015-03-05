@@ -2,14 +2,9 @@ package edu.umass.ckc.wo.woserver;
 
 
 import ckc.servlet.servbase.ServletEvent;
-import ckc.servlet.servbase.View;
+import ckc.servlet.servbase.ServletInfo;
 import edu.umass.ckc.wo.event.*;
-import edu.umass.ckc.wo.event.tutorhut.TutorHomeEvent;
-import edu.umass.ckc.wo.event.tutorhut.TutorHutEvent;
-import edu.umass.ckc.wo.handler.TutorHutEventHandler;
-import edu.umass.ckc.wo.html.tutor.TutorPage;
 import edu.umass.ckc.wo.smgr.SessionManager;
-import edu.umass.ckc.wo.tutor.Settings;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -35,8 +30,9 @@ public class MathSpringTutorHandler {
 
 
     public boolean handleRequest() throws Throwable {
-        ServletEvent e = eventFactory.buildEvent(servletInfo.params, "tutorhut");
-        SessionManager smgr = new SessionManager(servletInfo.conn,((SessionEvent) e).getSessionId(), servletInfo.hostPath, servletInfo.contextPath).buildExistingSession();
+        ServletEvent e = eventFactory.buildEvent(servletInfo.getParams(), "tutorhut");
+        SessionManager smgr = new SessionManager(servletInfo.getConn(),((SessionEvent) e).getSessionId(), servletInfo.getHostPath(),
+                servletInfo.getContextPath()).buildExistingSession();
         if (e instanceof DbTestEvent) {
             if (testDB(servletInfo.getConn()))
                 servletInfo.getOutput().append("Successful db query ran.");

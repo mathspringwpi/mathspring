@@ -5,7 +5,7 @@ import edu.umass.ckc.wo.handler.DashboardHandler;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.tutor.probSel.BaseExampleSelector;
 import edu.umass.ckc.wo.tutor.vid.BaseVideoSelector;
-import edu.umass.ckc.wo.woserver.ServletInfo;
+import ckc.servlet.servbase.ServletInfo;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,0 +1,35 @@
+<lessons>
+
+    <LessonModel style="topic" name="StandardTopicWithIntroAndExample">
+        <controlParameters>
+            <showTopicIntro>true</showTopicIntro>
+            <showExampleFirst>true</showExampleFirst>
+            <!-- legal values never, oncePerSession, always-->
+            <topicIntroFrequency>oncePerSession</topicIntroFrequency>
+            <topicExampleFrequency>oncePerSession</topicExampleFrequency>
+            <maxTimeInTopicSecs>900</maxTimeInTopicSecs>
+            <contentFailureThreshold>1</contentFailureThreshold>
+            <topicMastery>1.2</topicMastery>
+            <minTimeInTopicSecs>120</minTimeInTopicSecs>
+        </controlParameters>
+        <controlRules class="edu.umass.ckc.wo.tutrules.TopicModelRules"/>
+
+
+    </LessonModel>
+
+    <LessonModel style="topic" name="StandardTopicWithIntro">
+        <controlParameters>
+            <showTopicIntro>true</showTopicIntro>
+            <showExampleFirst>false</showExampleFirst>
+            <!-- legal values never, oncePerSession, always-->
+            <topicIntroFrequency>oncePerSession</topicIntroFrequency>
+            <topicExampleFrequency>never</topicExampleFrequency>
+            <maxTimeInTopicSecs>900</maxTimeInTopicSecs>
+            <contentFailureThreshold>1</contentFailureThreshold>
+            <topicMastery>1.2</topicMastery>
+            <minTimeInTopicSecs>120</minTimeInTopicSecs>
+        </controlParameters>
+        <controlRules class="edu.umass.ckc.wo.tutrules.TopicModelRules"/>
+    </LessonModel>
+
+</lessons>

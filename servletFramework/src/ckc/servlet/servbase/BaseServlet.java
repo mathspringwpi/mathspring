@@ -180,22 +180,31 @@ public class BaseServlet extends HttpServlet {
         return result;
     }
 
+    protected ServletInfo getServletInfo (HttpServletRequest req, HttpServletResponse res, Connection conn) {
+        ServletParams params = new ServletParams(req);
+
+        ServletContext servletContext = getServletContext();
+        setHostAndContextPath(this.getServletName(),servletContext,req);
+        return new ServletInfo(servletContext,conn, req, res, params, hostPath, contextPath, this.getServletName());
+    }
 
     protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        StringBuffer output = new StringBuffer();
+
 
         //System.out.println("DEBUG:\t\t In BaseServlet.service: request:" + req.toString());
         Connection conn=null;
+        ServletInfo servletInfo=null;
         try {
             conn = getConnection();
             res.setContentType("text/html");
             ServletParams params = new ServletParams(req);
-            boolean producedOutput = this.handleRequest(conn,req,res,params,output);
+            servletInfo = getServletInfo(req,res,conn);
+            boolean producedOutput = this.handleRequest(servletInfo);
             // Some servlets may not write output into the output buffer.   They may forward
             // the request to JSP for example.  Only write into the response's output stream
             // if the handleRequest method produces output.
             if (producedOutput) {
-                res.getWriter().print(output.toString());
+                res.getWriter().print(servletInfo.getOutput().toString());
                 res.getWriter().flush();
                 res.getWriter().close();
             }
@@ -219,8 +228,8 @@ public class BaseServlet extends HttpServlet {
             errElt.addContent(e.getMessage());
             Format f = Format.getPrettyFormat();
             XMLOutputter xout = new XMLOutputter(f);
-            output.append(xout.outputString(errElt));
-            res.getWriter().print(output.toString());
+            servletInfo.getOutput().append(xout.outputString(errElt));
+            res.getWriter().print(servletInfo.getOutput().toString());
             res.getWriter().flush();
         } finally {
             if (conn != null)
@@ -271,15 +280,8 @@ public class BaseServlet extends HttpServlet {
     }
 
 
-    public boolean handleRequest(Connection conn, HttpServletRequest request,
-                                HttpServletResponse response, ServletParams params, StringBuffer output) throws Exception {
-        return handleRequest(this.getServletContext(),conn,request,response,params,output);
-   }
-
-    protected boolean handleRequest(ServletContext servletContext, Connection conn, HttpServletRequest request,
-                                    HttpServletResponse response, ServletParams params, StringBuffer servletOutput) throws Exception {
-        // subclasses should override this method
-        return false;
+    protected boolean handleRequest (ServletInfo servletInfo) throws Exception {
+        return handleRequest(servletInfo);
     }
 
 

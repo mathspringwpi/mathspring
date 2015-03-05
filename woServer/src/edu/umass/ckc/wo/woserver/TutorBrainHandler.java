@@ -1,6 +1,7 @@
 package edu.umass.ckc.wo.woserver;
 
 
+import ckc.servlet.servbase.ServletInfo;
 import edu.umass.ckc.wo.assistments.AssistmentsHandler;
 import edu.umass.ckc.wo.cache.ProblemMgr;
 import edu.umass.ckc.wo.db.*;
@@ -19,7 +20,6 @@ import edu.umass.ckc.wo.login.LoginParams;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
 import edu.umass.ckc.wo.tutor.Settings;
-import edu.umass.ckc.wo.tutor.pedModel.PedagogicalModel;
 import edu.umass.ckc.wo.tutor.response.Response;
 import edu.umass.ckc.wo.tutormeta.LearningCompanion;
 import edu.umass.ckc.wo.content.Problem;
@@ -98,7 +98,7 @@ public class TutorBrainHandler {
 
     // All servlet requests handled through this method
     public boolean handleRequest() throws Throwable {
-        ServletEvent e = eventFactory.buildEvent(servletInfo.params, "tutorhut");
+        ServletEvent e = eventFactory.buildEvent(servletInfo.getParams(), "tutorhut");
         if (e instanceof TutorHomeEvent) {
             SessionManager smgr = new SessionManager(servletInfo.getConn(),((SessionEvent) e).getSessionId(), servletInfo.getHostPath(), servletInfo.getContextPath()).buildExistingSession();
             TutorPage tutorPage = new TutorPage(this.servletInfo,smgr);

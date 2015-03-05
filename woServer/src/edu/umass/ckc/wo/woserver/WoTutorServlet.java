@@ -1,7 +1,7 @@
 package edu.umass.ckc.wo.woserver;
 
+import ckc.servlet.servbase.ServletInfo;
 import edu.umass.ckc.wo.assistments.AssistmentsHandler;
-import edu.umass.ckc.wo.beans.Teacher;
 import edu.umass.ckc.wo.beans.TeacherEntity;
 import edu.umass.ckc.wo.content.CCContentMgr;
 import edu.umass.ckc.wo.content.LessonMgr;
@@ -126,29 +126,22 @@ public class WoTutorServlet extends BaseServlet {
     /**
      * Overrides the handleRequest method in BaseServlet.  This handles all requests coming into this servlet.
      *
-     * @param servletContext
-     * @param conn
-     * @param request
-     * @param response
-     * @param params
-     * @param servletOutput
+     * @param servletInfo
+
      * @return whether to flush output to the servlet output stream
      */
-    protected boolean handleRequest(ServletContext servletContext, Connection conn, HttpServletRequest request,
-                                    HttpServletResponse response, ServletParams params, StringBuffer servletOutput) throws Exception {
+    protected boolean handleRequest(ServletInfo servletInfo) throws Exception {
         try {
-            logger.info(">>" + params.toString());
-            setHostAndContextPath(this.getServletName(),servletContext,request);
-            ServletInfo servletInfo = new ServletInfo(servletContext,conn, request, response, params, servletOutput, hostPath, contextPath, this.getServletName());
+            logger.info(">>" + servletInfo.getParams().toString());
 //            boolean res = new TutorBrainHandler(servletContext, conn, request, response, params, servletOutput, this.hostPath, this.contextPath).handleRequest();
             boolean res = new TutorBrainHandler(servletInfo).handleRequest();
             if (res)
-                logger.info("<<" + servletOutput.toString());
+                logger.info("<<" + servletInfo.getOutput().toString());
             return res;
         }
         catch (AssistmentsBadInputException e) {
             // sends a 500 error with message that Assistments will need to deal with.
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,e.getMessage());
+            servletInfo.getResponse().sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,e.getMessage());
             // pretty sure the above puts this on the output stream of the servlet so that we don't need to do anything
             // more to return stuff to caller
             return false;
@@ -156,7 +149,7 @@ public class WoTutorServlet extends BaseServlet {
         catch (Throwable e) {
             logger.info("", e);
             e.printStackTrace();  //To change body of catch statement use Options | File Templates.
-            servletOutput.append("ack=false&message=" + e.getMessage());
+            servletInfo.getOutput().append("ack=false&message=" + e.getMessage());
             return true;
         }
     }

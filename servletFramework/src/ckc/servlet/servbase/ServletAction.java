@@ -14,6 +14,8 @@ import java.sql.Connection;
  */
 public interface ServletAction {
 
-    public abstract String process(Connection conn, ServletContext servletContext, ServletParams params, HttpServletRequest req,
+    public String process(Connection conn, ServletContext servletContext, ServletParams params, HttpServletRequest req,
                                    HttpServletResponse resp, StringBuffer servletOutput) throws Exception;
+
+    public String process (ServletInfo servletInfo) throws Exception;
 }

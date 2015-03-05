@@ -1,9 +1,10 @@
 package edu.umass.ckc.wo.tutor2;
 
-import ckc.servlet.servbase.ActionEvent;
-import edu.umass.ckc.wo.event.InternalTutorEvent;
+import ckc.servlet.servbase.ServletInfo;
+import edu.umass.ckc.wo.event.internal.InternalTutorEvent;
 import edu.umass.ckc.wo.event.LoginEvent;
 import edu.umass.ckc.wo.event.SessionEvent;
+import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.tutor.pedModel.PedagogicalModel;
 import edu.umass.ckc.wo.tutor.response.Response;
 
@@ -16,7 +17,6 @@ import edu.umass.ckc.wo.tutor.response.Response;
  */
 public class TutorModel implements TutorModelInterface {
     private PedagogicalModel pedModel;
-    private LessonModel lessonModel;
     private LearningCompanionModel lcModel;
     private SessionModel sessModel;
 
@@ -29,13 +29,27 @@ public class TutorModel implements TutorModelInterface {
     }
 
     @Override
-    public Response processInternalTutorEvent(InternalTutorEvent e) {
+    public Response processInternalTutorEvent(InternalTutorEvent e, ServletInfo servletInfo, SessionManager smgr) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public Response processUserEvent(SessionEvent e) {
+    public Response processUserEvent(SessionEvent e, ServletInfo servletInfo, SessionManager smgr) {
+        // All user events other than logins are handled by the PedagogicalModel.   When it finally chooses
+        // a response, we then pass this to the LearningCompanionModel to augment the response with a learning companion behavior
+        Response r;
+        if (e instanceof SessionEvent)
+            r = pedModel.processUserEvent(e, servletInfo, smgr);
+
+        // TODO
+        // if the user event was converted to an internalTutorEvent which method on the lcModel do I call?
+        lcModel.processUserEvent(e,servletInfo,smgr);
         return null;
+
+    }
+
+    public Response processLoginEvent (LoginEvent e) {
+        return sessModel.processLoginEvent(e);
     }
 
 

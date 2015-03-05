@@ -7,7 +7,7 @@ import edu.umass.ckc.wo.handler.UserRegistrationHandler;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.User;
 import edu.umass.ckc.wo.tutormeta.LearningCompanion;
-import edu.umass.ckc.wo.woserver.ServletInfo;
+import ckc.servlet.servbase.ServletInfo;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +25,15 @@ public class GuestLogin implements ServletAction {
 
     public String process(Connection conn, ServletContext servletContext, ServletParams params, HttpServletRequest req,
                           HttpServletResponse resp, StringBuffer servletOutput) throws Exception {
+        return doProcess(conn,params,req,resp,servletOutput,servletContext);
+    }
+
+    @Override
+    public String process(ServletInfo servletInfo) throws Exception {
+        return doProcess(servletInfo.getConn(),servletInfo.getParams(),servletInfo.getRequest(),servletInfo.getResponse(),servletInfo.getOutput(),servletInfo.getServletContext());
+    }
+
+    private String doProcess (Connection conn, ServletParams params, HttpServletRequest req, HttpServletResponse resp,StringBuffer servletOutput, ServletContext servletContext) throws Exception {
         int studId = UserRegistrationHandler.registerTemporaryUser(conn, edu.umass.ckc.wo.db.DbClass.GUEST_USER_CLASS_NAME, User.UserType.guest);
         SessionManager smgr = new SessionManager(conn).guestLoginSession(studId);
         DbSession.setClientType(conn, smgr.getSessionNum(), params.getString(LoginParams.CLIENT_TYPE));
@@ -34,5 +43,6 @@ public class GuestLogin implements ServletAction {
         ServletInfo si = new ServletInfo(servletContext,null,req,resp,params,servletOutput,null,servletContext.getContextPath(),"TutorBrain");
         new LandingPage(si,smgr).handleRequest();
         return null;
+
     }
 }

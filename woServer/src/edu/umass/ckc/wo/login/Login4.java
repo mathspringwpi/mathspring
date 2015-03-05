@@ -2,19 +2,16 @@ package edu.umass.ckc.wo.login;
 
 import ckc.servlet.servbase.ServletAction;
 import ckc.servlet.servbase.ServletParams;
-import edu.umass.ckc.wo.db.DbSession;
-import edu.umass.ckc.wo.event.tutorhut.TutorHomeEvent;
-import edu.umass.ckc.wo.html.tutor.TutorPage;
 import edu.umass.ckc.wo.smgr.SessionManager;
-import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutormeta.LearningCompanion;
 import edu.umass.ckc.wo.db.DbUser;
-import edu.umass.ckc.wo.woserver.ServletInfo;
+import ckc.servlet.servbase.ServletInfo;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,6 +27,16 @@ public class Login4 implements ServletAction {
     }
 
     public String process(Connection conn, ServletContext servletContext, ServletParams params, HttpServletRequest req, HttpServletResponse resp, StringBuffer servletOutput) throws Exception {
+        return doProcess(conn,params,req,resp,servletOutput,servletContext);
+
+
+    }
+
+    public String process (ServletInfo servletInfo) throws Exception {
+        return doProcess(servletInfo.getConn(),servletInfo.getParams(),servletInfo.getRequest(),servletInfo.getResponse(),servletInfo.getOutput(),servletInfo.getServletContext());
+    }
+
+    private String doProcess(Connection conn, ServletParams params, HttpServletRequest req, HttpServletResponse resp, StringBuffer servletOutput, ServletContext servletContext) throws Exception {
         int left = params.getInt(LoginParams.LEFT);
         int right = params.getInt(LoginParams.RIGHT);
 
@@ -46,7 +53,7 @@ public class Login4 implements ServletAction {
         new LandingPage(si,smgr).handleRequest();
 
         return null;
-
-
     }
+
+
 }
