@@ -54,9 +54,6 @@ public class LessonModel implements TutorModelInterface{
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public void init () {
-
-    }
 
 
     public static LessonModel buildLessonModel(SessionManager smgr, PedagogicalModelParameters params, LessonModelDescription lessonModelDescription) throws SQLException {
