@@ -19,8 +19,6 @@ import edu.umass.ckc.wo.interventions.SelectProblemSpecs;
 import edu.umass.ckc.wo.log.TutorLogger;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
-import edu.umass.ckc.wo.tutconfig.LessonModelDescription;
-import edu.umass.ckc.wo.tutconfig.TopicModelDescription;
 import edu.umass.ckc.wo.tutor.Pedagogy;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorSpec;
@@ -31,7 +29,6 @@ import edu.umass.ckc.wo.tutor.probSel.*;
 import edu.umass.ckc.wo.tutor.response.*;
 import edu.umass.ckc.wo.tutor.vid.BaseVideoSelector;
 import edu.umass.ckc.wo.tutor2.LessonModel;
-import edu.umass.ckc.wo.tutor2.TopicModel;
 import edu.umass.ckc.wo.tutormeta.*;
 import org.apache.log4j.Logger;
 
@@ -51,7 +48,7 @@ import java.util.List;
 public class BasePedagogicalModel extends PedagogicalModel implements PedagogicalMoveListener {
 
     private static Logger logger = Logger.getLogger(BasePedagogicalModel.class);
-    protected TopicSelector topicSelector;
+//    protected TopicSelector topicSelector;
     ProblemGrader.difficulty nextDiff;
     List<PedagogicalMoveListener> pedagogicalMoveListeners;
     LessonModel lessonModel;
@@ -303,17 +300,17 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
     }
 
     protected TopicIntro getTopicIntro (int curTopic) throws Exception {
-        PedagogicalModelParameters.frequency topicIntroFreq, exampleFreq;
+        frequency topicIntroFreq, exampleFreq;
         topicIntroFreq= this.params.getTopicIntroFrequency();
         // if the topic intro sho
-        if (topicIntroFreq == PedagogicalModelParameters.frequency.always) {
+        if (topicIntroFreq == frequency.always) {
             if (!smgr.getStudentState().isTopicIntroSeen(curTopic))
                 smgr.getStudentState().addTopicIntrosSeen(curTopic);
             TopicIntro intro =topicSelector.getIntro(curTopic);
             lessonIntroGiven(intro ); // inform pedagogical move listeners that an intervention is given
             return intro;
         }
-        else if (topicIntroFreq == PedagogicalModelParameters.frequency.oncePerSession &&
+        else if (topicIntroFreq == frequency.oncePerSession &&
                 !smgr.getStudentState().isTopicIntroSeen(curTopic)) {
             smgr.getStudentState().addTopicIntrosSeen(curTopic);
             TopicIntro intro =topicSelector.getIntro(curTopic);
@@ -335,9 +332,9 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
 
     protected Problem getTopicExample (int curTopic) throws Exception {
         Problem problem = null;
-        PedagogicalModelParameters.frequency exampleFreq= this.params.getTopicExampleFrequency();
+        frequency exampleFreq= this.params.getTopicExampleFrequency();
         if (!smgr.getStudentState().isExampleShown()) {
-            if (exampleFreq == PedagogicalModelParameters.frequency.always) {
+            if (exampleFreq == frequency.always) {
                 if (!smgr.getStudentState().isExampleSeen(curTopic))
                     smgr.getStudentState().addExampleSeen(curTopic);
                 problem = topicSelector.getExample(curTopic, this.hintSelector);
@@ -346,7 +343,7 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
                 initiateDemoProblem(problem);
                 return problem;
             }
-            else if (exampleFreq == PedagogicalModelParameters.frequency.oncePerSession &&
+            else if (exampleFreq == frequency.oncePerSession &&
                     !smgr.getStudentState().isExampleSeen(curTopic)) {
                 smgr.getStudentState().addExampleSeen(curTopic);
                 problem = topicSelector.getExample(curTopic, this.hintSelector);
@@ -423,7 +420,7 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
         setProblemTopic(p, topicId);
         boolean showAsDemo = false;
         if (e.getProbMode() == null) {
-            if (!smgr.getStudentState().isExampleShown() && params.getTopicExampleFrequency() != PedagogicalModelParameters.frequency.never) {
+            if (!smgr.getStudentState().isExampleShown() && params.getTopicExampleFrequency() != frequency.never) {
                 showAsDemo = true;
             }
         }

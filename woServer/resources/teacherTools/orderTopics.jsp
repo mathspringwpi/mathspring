@@ -4,6 +4,7 @@
 
 
 <jsp:useBean id="params" scope="request" type="edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters"/>
+<jsp:useBean id="topicModelParams" scope="request" type="edu.umass.ckc.wo.tutconfig.TopicModelParameters"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="mainPageMargin">
@@ -74,7 +75,8 @@
       </table>
      </c:if>
     <br>
-    <%--@elvariable id="params" type="edu.umass.ckc.wo.tutor.probSel.ProblemSelectorParamters"--%>
+
+
     <table>
         <tr>
     <td><font color="#00000"><font face="Arial, Helvetica, sans-serif">Max Number of Problems Per Topic: </font></td>
@@ -100,7 +102,7 @@
                             's_name': 'maxNumberProbsPerTopic',
                             'n_minValue' : 0,
                             'n_maxValue' : 30,
-                            'n_value' : <c:out value="${params.maxNumberProbs}"/>,
+                            'n_value' : <c:out value="${topicModelParams.maxNumberProbs}"/>,
                             'n_step' : 1
                         }
                         new slider(A_INIT1h, A_TPL1h);
@@ -109,7 +111,7 @@
 
                 
             </td>
-            <td><input type="text" size="3" name="maxNumberProbsPerTopic" value="<c:out value="${params.maxNumberProbs}"/>"/>
+            <td><input type="text" size="3" name="maxNumberProbsPerTopic" value="<c:out value="${topicModelParams.maxNumberProbs}"/>"/>
             </td>
       </tr>
 
@@ -137,7 +139,7 @@
                             's_name': 'minNumberProbsPerTopic',
                             'n_minValue' : 0,
                             'n_maxValue' : 30,
-                            'n_value' : <c:out value="${params.minNumberProbs}"/>,
+                            'n_value' : <c:out value="${topicModelParams.minNumberProbs}"/>,
                             'n_step' : 1
                         }
                         new slider(A_INIT1h, A_TPL1h);
@@ -146,7 +148,7 @@
 
 
             </td>
-            <td><input type="text" size="3" name="minNumberProbsPerTopic" value="<c:out value="${params.minNumberProbs}"/>"/>
+            <td><input type="text" size="3" name="minNumberProbsPerTopic" value="<c:out value="${topicModelParams.minNumberProbs}"/>"/>
             </td>
       </tr>
 
@@ -174,14 +176,14 @@
                                             's_name': 'maxTimeInTopic',
                                             'n_minValue' : 1,
                                             'n_maxValue' : 30,
-                                            'n_value' : <c:out value="${params.maxTimeInTopicMinutes}"/>,
+                                            'n_value' : <c:out value="${topicModelParams.maxTimeInTopicMinutes}"/>,
                                             'n_step' : 1
                                         }
                                         new slider(A_INIT1h, A_TPL1h);
                                     </script>
 
             </td>
-            <td><input type="text" size="3" name="maxTimeInTopic"value="<c:out value="${params.maxTimeInTopicMinutes}"/>"/> </td>
+            <td><input type="text" size="3" name="maxTimeInTopic"value="<c:out value="${topicModelParams.maxTimeInTopicMinutes}"/>"/> </td>
     </tr>
 
  <tr>
@@ -208,14 +210,14 @@
                                             's_name': 'minTimeInTopic',
                                             'n_minValue' : 1,
                                             'n_maxValue' : 30,
-                                            'n_value' : <c:out value="${params.minTimeInTopicMinutes}"/>,
+                                            'n_value' : <c:out value="${topicModelParams.minTimeInTopicMinutes}"/>,
                                             'n_step' : 1
                                         }
                                         new slider(A_INIT1h, A_TPL1h);
                                     </script>
 
             </td>
-            <td><input type="text" size="3" name="minTimeInTopic"value="<c:out value="${params.minTimeInTopicMinutes}"/>"/> </td>
+            <td><input type="text" size="3" name="minTimeInTopic"value="<c:out value="${topicModelParams.minTimeInTopicMinutes}"/>"/> </td>
     </tr>
 
     <tr>
@@ -242,13 +244,13 @@
                                             's_name': 'contentFailureThreshold',
                                             'n_minValue' : 1,
                                             'n_maxValue' : 5,
-                                            'n_value' : <c:out value="${params.contentFailureThreshold}"/>,
+                                            'n_value' : <c:out value="${topicModelParams.contentFailureThreshold}"/>,
                                             'n_step' : 1
                                         }
                                         new slider(A_INIT1h, A_TPL1h);
                                     </script>
         </td>
-        <td><input type="text" size="3" name="contentFailureThreshold"value="<c:out value="${params.contentFailureThreshold}"/>"/> </td>
+        <td><input type="text" size="3" name="contentFailureThreshold"value="<c:out value="${topicModelParams.contentFailureThreshold}"/>"/> </td>
         </tr>
     <tr>
     <td><font color="#00000"><font face="Arial, Helvetica, sans-serif">Topic Mastery: </font></td>
@@ -274,13 +276,13 @@
                                             's_name': 'topicMastery',
                                             'n_minValue' : 0.5,
                                             'n_maxValue' : 1.2,
-                                            'n_value' : <c:out value="${params.topicMastery}"/>,
+                                            'n_value' : <c:out value="${topicModelParams.topicMastery}"/>,
                                             'n_step' : 0.05
                                         }
                                         new slider(A_INIT1h, A_TPL1h);
                                     </script>
         </td>
-        <td><input type="text" size="3" name="topicMastery" value="<c:out value="${params.topicMastery}"/>"/> </td> </tr>
+        <td><input type="text" size="3" name="topicMastery" value="<c:out value="${topicModelParams.topicMastery}"/>"/> </td> </tr>
 
 
  <tr>

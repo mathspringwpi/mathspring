@@ -1,6 +1,7 @@
 package edu.umass.ckc.wo.tutor.probSel;
 
 import edu.umass.ckc.wo.tutormeta.PedagogyParams;
+import edu.umass.ckc.wo.tutormeta.frequency;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,45 +11,27 @@ import edu.umass.ckc.wo.tutormeta.PedagogyParams;
  * To change this template use File | Settings | File Templates.
  */
 public class PedagogicalModelParameters {
-    public static final int MAX_NUM_PROBS_PER_TOPIC = 8;
-    public static final int MIN_NUM_PROBS_PER_TOPIC = 3;
-    public static final int MAX_TIME_IN_TOPIC = 10 * 60 * 1000;
-    public static final int MIN_TIME_IN_TOPIC = 30 * 1000;
-    public static final int CONTENT_FAILURE_THRESHOLD = 1;
-    public static final double TOPIC_MASTERY = 0.85;
+
     public static final int DIFFICULTY_RATE = 2;
     public static final int EXTERNAL_ACTIVITY_TIME_TRHRESHOLD = 10;   // given in minutes
-    public static final frequency DEFAULT_TOPIC_INTRO_FREQ = frequency.always;
-    public static final frequency DEFAULT_EXAMPLE_FREQ = frequency.always;
+
     public static final int DEFAULT_PROBLEM_REUSE_INTERVAL_SESSIONS =3;
     public static final int DEFAULT_PROBLEM_REUSE_INTERVAL_DAYS =10;
     public static final boolean DEFAULT_SHOW_MPP =true;
 
 
-
-    public enum frequency {
-        never,
-        oncePerSession,
-        always
-    }
-
-
-    private frequency topicIntroFrequency;
-    private frequency topicExampleFrequency;
     private String ccss;
     private int difficultyRate ; // this is the divisor that the problem selector uses to find increase/decrease its index into the
-    private int maxNumberProbs ;   // list of available problems
-    private int minNumberProbs ;
-    private long maxTimeInTopic;   // this is in milliseconds
-    private long minTimeInTopic;    // in milliseconds
-    private int contentFailureThreshold ; // the number of times it will select a problem within this topic when it can't meet
-    // the easier/harder/same criteria.   Once exceeded, jump topics
-    private double topicMastery;
+
+
+
+
+
     private int externalActivityTimeThreshold;
     private boolean showExampleFirst;
 
     private boolean showAllExample;
-    private boolean showTopicIntro;
+
     private boolean singleTopicMode = false;
     private int problemReuseIntervalSessions;
     private int problemReuseIntervalDays;
@@ -115,21 +98,9 @@ public class PedagogicalModelParameters {
 
 
 
-    public PedagogicalModelParameters(long maxTimeInTopic, int contentFailureThreshold, double topicMastery, int minNumberProbs,
-                                      long minTimeInTopic, int difficultyRate, int externalActivityTimeThreshold, int maxNumberProbs,
-                                      boolean showTopicIntro, boolean showExampleProblemFirst) {
-        this.maxNumberProbs = maxNumberProbs;
-        this.maxTimeInTopic = maxTimeInTopic;
-        this.contentFailureThreshold = contentFailureThreshold;
-        this.topicMastery = topicMastery;
-        this.minNumberProbs= minNumberProbs;
-        this.minTimeInTopic= minTimeInTopic;
+    public PedagogicalModelParameters(int difficultyRate, int externalActivityTimeThreshold) {
         this.difficultyRate= difficultyRate;
         this.externalActivityTimeThreshold= externalActivityTimeThreshold;
-        this.showExampleFirst= showExampleProblemFirst;
-        this.showTopicIntro = showTopicIntro;
-        this.topicIntroFrequency = DEFAULT_TOPIC_INTRO_FREQ;
-        this.topicExampleFrequency = DEFAULT_EXAMPLE_FREQ;
         this.problemReuseIntervalSessions =DEFAULT_PROBLEM_REUSE_INTERVAL_SESSIONS;
         this.problemReuseIntervalDays =DEFAULT_PROBLEM_REUSE_INTERVAL_DAYS;
     }
@@ -140,54 +111,28 @@ public class PedagogicalModelParameters {
                                       boolean showTopicIntro, boolean showExampleProblemFirst, frequency topicIntroFreq, frequency exampleFreq,
                                       int probReuseIntervalSessions, int probReuseIntervalDays) {
         this.maxNumberProbs = maxNumberProbs;
-        this.maxTimeInTopic = maxTimeInTopic;
         this.contentFailureThreshold = contentFailureThreshold;
         this.topicMastery = topicMastery;
         this.minNumberProbs= minNumberProbs;
-        this.minTimeInTopic= minTimeInTopic;
         this.difficultyRate= difficultyRate;
         this.externalActivityTimeThreshold= externalActivityTimeThreshold;
         this.showExampleFirst= showExampleProblemFirst;
-        this.showTopicIntro = showTopicIntro;
-        this.topicIntroFrequency = topicIntroFreq;
-        this.topicExampleFrequency = exampleFreq;
         this.problemReuseIntervalSessions = probReuseIntervalSessions;
         this.problemReuseIntervalDays = probReuseIntervalDays;
     }
 
     public PedagogicalModelParameters() {
-        this.maxNumberProbs = MAX_NUM_PROBS_PER_TOPIC;
-        this.maxTimeInTopic = MAX_TIME_IN_TOPIC;
-        this.contentFailureThreshold = CONTENT_FAILURE_THRESHOLD;
-        this.topicMastery = TOPIC_MASTERY;
-        this.minNumberProbs=MIN_NUM_PROBS_PER_TOPIC;
-        this.minTimeInTopic=MIN_TIME_IN_TOPIC;
+
+
         this.difficultyRate=DIFFICULTY_RATE;
         this.externalActivityTimeThreshold = EXTERNAL_ACTIVITY_TIME_TRHRESHOLD;
         this.showExampleFirst= true;
-        this.showTopicIntro = true;
-        this.topicIntroFrequency = DEFAULT_TOPIC_INTRO_FREQ;
-        this.topicExampleFrequency = DEFAULT_EXAMPLE_FREQ;
+
         this.problemReuseIntervalSessions =DEFAULT_PROBLEM_REUSE_INTERVAL_SESSIONS;
         this.problemReuseIntervalDays =DEFAULT_PROBLEM_REUSE_INTERVAL_DAYS;
         this.showMPP = DEFAULT_SHOW_MPP;
     }
 
-
-
-    // gets the given TopicIntro frequency from a string
-    public static frequency convertTopicIntroFrequency (String s) {
-        if (s != null && !s.trim().equalsIgnoreCase(""))
-            return frequency.valueOf(s);
-        else return DEFAULT_TOPIC_INTRO_FREQ;
-    }
-
-    // gets the given TopicIntro frequency from a string
-    public static frequency convertExampleFrequency (String s) {
-        if (s != null && !s.trim().equalsIgnoreCase(""))
-            return frequency.valueOf(s);
-        else return DEFAULT_EXAMPLE_FREQ;
-    }
 
     public PedagogicalModelParameters(String mode, boolean showIntro, long maxtime, int maxprobs, boolean singleTopicMode) {
         this();
@@ -237,62 +182,15 @@ public class PedagogicalModelParameters {
         this.ccss = ccss;
     }
 
-    public int getMaxNumberProbs() {
-        return maxNumberProbs;
-    }
-
-    public void setMaxNumberProbs(int maxNumberProbs) {
-        this.maxNumberProbs = maxNumberProbs;
-    }
-
-    public long getMaxTimeInTopic() {
-        return maxTimeInTopic;
-    }
-
-    public void setMaxTimeInTopic(long maxTimeInTopic) {
-        this.maxTimeInTopic = maxTimeInTopic;
-    }
-
-    public int getMaxTimeInTopicMinutes () {
-        return (int) (maxTimeInTopic / 60000);
-    }
 
 
-    public void setMaxTimeInTopicMinutes (double minutes) {
-        maxTimeInTopic = (long) (minutes * 1000 * 60);
-    }
 
-    public void setMinTimeInTopicMinutes (double minutes) {
-        minTimeInTopic = (long) (minutes * 1000 * 60);
-    }
 
-    public int getContentFailureThreshold() {
-        return contentFailureThreshold;
-    }
 
-    public void setContentFailureThreshold(int contentFailureThreshold) {
-        this.contentFailureThreshold = contentFailureThreshold;
-    }
 
-    public double getTopicMastery() {
-        return topicMastery;
-    }
 
-    public void setTopicMastery(double topicMastery) {
-        this.topicMastery = topicMastery;
-    }
 
-    public int getMinNumberProbs() {
-        return minNumberProbs;
-    }
 
-    public long getMinTimeInTopic() {
-        return minTimeInTopic;
-    }
-
-    public long getMinTimeInTopicMinutes() {
-        return minTimeInTopic/60000;
-    }
 
     public int getDifficultyRate() {
         return difficultyRate;
@@ -310,21 +208,8 @@ public class PedagogicalModelParameters {
         this.externalActivityTimeThreshold = externalActivityTimeThreshold;
     }
 
-    public boolean isShowExampleFirst() {
-        return showExampleFirst;
-    }
 
-    public void setShowExampleFirst(boolean showExampleFirst) {
-        this.showExampleFirst = showExampleFirst;
-    }
 
-    public boolean isShowTopicIntro() {
-        return showTopicIntro;
-    }
-
-    public void setShowTopicIntro(boolean showTopicIntro) {
-        this.showTopicIntro = showTopicIntro;
-    }
 
     public boolean isShowAllExample() {
         return showAllExample;
@@ -341,35 +226,11 @@ public class PedagogicalModelParameters {
         return ccss;
     }
 
-    public void setMaxTimeInTopicSecs(int maxTimeInTopicSecs) {
-        this.maxTimeInTopic = maxTimeInTopicSecs * 1000;
-    }
-
-    public void setMinNumberProbs(int minNumberProbs) {
-        this.minNumberProbs = minNumberProbs;
-    }
 
 
 
-    public void setMinTimeInTopicSecs(int minTimeInTopicSecs) {
-        this.minTimeInTopic = minTimeInTopicSecs * 1000;
-    }
 
-    public void setTopicIntroFrequency(String topicIntroFrequency) {
-        this.topicIntroFrequency = PedagogicalModelParameters.frequency.valueOf(topicIntroFrequency);
-    }
 
-    public frequency getTopicIntroFrequency() {
-        return topicIntroFrequency;
-    }
-
-    public void setTopicExampleFrequency(String topicExampleFrequency) {
-        this.topicExampleFrequency = PedagogicalModelParameters.frequency.valueOf(topicExampleFrequency);
-    }
-
-    public frequency getTopicExampleFrequency() {
-        return topicExampleFrequency;
-    }
 
     public void setProblemReuseIntervalSessions(String problemReuseIntervalSessions) {
         this.problemReuseIntervalSessions = Integer.parseInt(problemReuseIntervalSessions);

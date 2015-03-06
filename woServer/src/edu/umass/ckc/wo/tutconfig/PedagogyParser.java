@@ -165,13 +165,8 @@ public class PedagogyParser {
     // overwrites any that are provided.
     private void readControlParams(PedagogicalModelParameters params, Element p) {
 
-        Element c = p.getChild("maxTimeInTopicSecs");
+        Element c;
         String s;
-        if (c != null) {
-            s = c.getValue();
-            int maxTimeSecs = Integer.parseInt(s);
-            params.setMaxTimeInTopicSecs(maxTimeSecs);
-        }
 
         c = p.getChild("contentFailureThreshold");
         if (c != null) {
@@ -180,12 +175,7 @@ public class PedagogyParser {
             params.setContentFailureThreshold(contentFailureThreshold);
         }
 
-        c = p.getChild("topicMastery");
-        if (c != null) {
-            s = c.getValue();
-            double topicMastery = Double.parseDouble(s);
-            params.setTopicMastery(topicMastery);
-        }
+
 
         c = p.getChild("minNumberProbs");
         if (c != null) {
@@ -201,12 +191,7 @@ public class PedagogyParser {
             params.setMaxNumberProbs(maxNumberProbs);
         }
 
-        c = p.getChild("minTimeInTopicSecs");
-        if (c != null) {
-            s = c.getValue();
-            int minTimeInTopicSecs = Integer.parseInt(s);
-            params.setMinTimeInTopicSecs(minTimeInTopicSecs);
-        }
+
 
         c = p.getChild("difficultyRate");
         if (c != null) {
@@ -222,12 +207,7 @@ public class PedagogyParser {
             params.setExternalActivityTimeThreshold(externalActivityTimeThresholdMins);
         }
 
-        c = p.getChild("showTopicIntro");
-        if (c != null) {
-            s = c.getValue();
-            boolean showTopicIntro = Boolean.parseBoolean(s);
-            params.setShowTopicIntro(showTopicIntro);
-        }
+
 
         c = p.getChild("showExampleFirst");
         if (c != null) {
@@ -235,19 +215,7 @@ public class PedagogyParser {
             boolean showExampleFirst = Boolean.parseBoolean(s);
             params.setShowExampleFirst(showExampleFirst);
         }
-        // this will replace showTopicIntro
-        c = p.getChild("topicIntroFrequency");
-        if (c != null) {
-            s = c.getValue();
-            params.setTopicIntroFrequency(s);
-        }
 
-        // this will replace showExampleFirst
-        c = p.getChild("topicExampleFrequency");
-        if (c != null) {
-            s = c.getValue();
-            params.setTopicExampleFrequency(s);
-        }
         c = p.getChild("problemReuseIntervalSessions");
         if (c != null) {
             s = c.getValue();

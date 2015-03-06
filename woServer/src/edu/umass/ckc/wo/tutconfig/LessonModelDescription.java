@@ -14,9 +14,7 @@ public class LessonModelDescription {
     private String name;
     private Element controlParamsElt;
     private String ruleClass;
-    private int maxNumberProbs;
-    private long maxTimeInTopic;
-    private double topicMastery;
+
 
 
     public LessonModelDescription(Element lessonModelElt) {
@@ -46,27 +44,4 @@ public class LessonModelDescription {
         return controlParamsElt;
     }
 
-    public int getMaxNumberProbs() {
-        return maxNumberProbs;
-    }
-
-    public void setMaxNumberProbs(int maxNumberProbs) {
-        this.maxNumberProbs = maxNumberProbs;
-    }
-
-    public long getMaxTimeInTopic() {
-        return maxTimeInTopic;
-    }
-
-    public void setMaxTimeInTopic(long maxTimeInTopic) {
-        this.maxTimeInTopic = maxTimeInTopic;
-    }
-
-    public double getTopicMastery() {
-        return topicMastery;
-    }
-
-    public void setTopicMastery(double topicMastery) {
-        this.topicMastery = topicMastery;
-    }
 }

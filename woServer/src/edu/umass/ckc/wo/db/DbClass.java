@@ -7,9 +7,10 @@ import edu.umass.ckc.wo.exc.AdminException;
 
 import edu.umass.ckc.wo.handler.UserRegistrationHandler;
 import edu.umass.ckc.wo.smgr.User;
+import edu.umass.ckc.wo.tutconfig.TopicModelParameters;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
-import org.hibernate.classic.Session;
+import edu.umass.ckc.wo.tutormeta.frequency;
 
 
 import java.sql.*;
@@ -480,8 +481,8 @@ public class DbClass {
                 int probReuseIntervalDays = rs.getInt(12);
                 if (rs.wasNull())
                     probReuseIntervalDays=-1;
-                PedagogicalModelParameters.frequency tif =  topicIntroFreq == null ? null : PedagogicalModelParameters.convertTopicIntroFrequency(topicIntroFreq);
-                PedagogicalModelParameters.frequency ef =  exampleFreq == null ? null : PedagogicalModelParameters.convertExampleFrequency(exampleFreq);
+                frequency tif =  topicIntroFreq == null ? null : TopicModelParameters.convertTopicIntroFrequency(topicIntroFreq);
+                frequency ef =  exampleFreq == null ? null : TopicModelParameters.convertExampleFrequency(exampleFreq);
                 return new PedagogicalModelParameters(maxTimeInTopic, thresh, mastery, minProbsInTopic, minTimeInTopic, difficultyRate, externalActivityTimeThresh, maxProbsInTopic,
                         true, true,tif,ef,probReuseIntervalSessions, probReuseIntervalDays);
             }

@@ -42,6 +42,11 @@ public class LessonModel implements TutorModelInterface{
         this.descr = lessonModelDescription;
         this.smgr = smgr;
         this.pmParams=params;
+        buildModelFromDescription(lessonModelDescription);
+    }
+
+    protected void buildModelFromDescription(LessonModelDescription lessonModelDescription) {
+        //To change body of created methods use File | Settings | File Templates.
     }
 
     @Override

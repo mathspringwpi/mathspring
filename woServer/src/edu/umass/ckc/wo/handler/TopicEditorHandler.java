@@ -10,7 +10,9 @@ import edu.umass.ckc.wo.event.admin.AdminTopicControlEvent;
 import edu.umass.ckc.wo.beans.Topic;
 import edu.umass.ckc.wo.db.DbTopics;
 import edu.umass.ckc.wo.db.DbClass;
+import edu.umass.ckc.wo.tutconfig.TopicModelParameters;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
+import edu.umass.ckc.wo.tutormeta.frequency;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -90,12 +92,13 @@ public class TopicEditorHandler {
             req.setAttribute("classInfo",classInfo);
             req.setAttribute("bean", bean);
             // send to contructor but time in topic is in incorrect units
-            PedagogicalModelParameters params = new PedagogicalModelParameters(ee.getMaxTimeInTopic(), ee.getContentFailureThreshold(), ee.getTopicMastery(), ee.getMinNumProbsPerTopic(), ee.getMinTimeInTopic(), ee.getDifficultyRate(), ee.getExternalActivityTimeThreshold(), ee.getMaxNumProbsPerTopic(),
-                    true, true);
-            params.setMaxTimeInTopicMinutes(ee.getMaxTimeInTopic());  // now pass in as minutes
-            params.setMinTimeInTopicMinutes(ee.getMinTimeInTopic());  // now pass in as minutes
-            DbClass.setProblemSelectorParameters(conn,e.getClassId(), params);
-            req.setAttribute("params",params);
+            PedagogicalModelParameters params = new PedagogicalModelParameters(ee.getDifficultyRate(), ee.getExternalActivityTimeThreshold());
+            TopicModelParameters topicModelParameters = new TopicModelParameters(frequency.always,frequency.always,ee.getMaxTimeInTopic(),
+                    ee.getMinTimeInTopic(),ee.getMaxNumProbsPerTopic(),ee.getMinNumProbsPerTopic(),ee.getTopicMastery(),ee.getContentFailureThreshold());
+
+            DbClass.setProblemSelectorParameters(conn, e.getClassId(), params);
+            req.setAttribute("params", params);
+            req.setAttribute("topicModelParams",topicModelParameters);
             req.getRequestDispatcher(JSP).forward(req,resp);
         }
         else {
