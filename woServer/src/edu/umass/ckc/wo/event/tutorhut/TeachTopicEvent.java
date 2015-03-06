@@ -46,6 +46,11 @@ public class TeachTopicEvent extends ActionEvent {
     public static final String CU_ID = "cuId";  // curriculum Unit ID
     public static final String LESSON_ID = "lessonId";  // lesson ID
 
+    public static final String EXAMPLE_PRACTICE_MODE = "ExamplePractice";
+    public static final String PRACTICE_MODE = "Practice";
+    public static final String EXAMPLE_MODE = "Example";
+
+
 
 
 
@@ -80,7 +85,7 @@ public class TeachTopicEvent extends ActionEvent {
             mode = p.getString(MODE, "Practice");  // practice is default mode if not passed.
             ccss = p.getString(CCSS, null);
 
-            if (!(mode.equals("Practice") || mode.equals("ExamplePractice") || mode.equals("Example")))
+            if (!(mode.equals("Practice") || mode.equals(EXAMPLE_PRACTICE_MODE) || mode.equals(EXAMPLE_MODE)))
                 throw new AssistmentsBadInputException(String.format("Illegal mode given %s", mode));
             topic = p.getInt(TOPIC, -1); // if a topic is not provided, we set it to -1 with the idea that a problemNumber must be provided
             user = p.getString(USERP, null);

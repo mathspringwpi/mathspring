@@ -4,7 +4,6 @@ import edu.umass.ckc.wo.event.tutorhut.NextProblemEvent;
 import edu.umass.ckc.wo.html.tutor.TutorPage;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.tutor.Pedagogy;
-import edu.umass.ckc.wo.tutor.pedModel.BasePedagogicalModel;
 import edu.umass.ckc.wo.tutor.probSel.*;
 import edu.umass.ckc.wo.tutor.response.ProblemResponse;
 import edu.umass.ckc.wo.tutor.response.Response;
@@ -20,7 +19,7 @@ import edu.umass.ckc.wo.tutormeta.*;
 public class SingleTopicPM extends BasePedagogicalModel {
 
 
-    public void configure(PedagogyParams pedParams) {
+    public void configure(UserTutorParams pedParams) {
 
         setParams(
                 new PedagogicalModelParameters(pedParams.getMode(), pedParams.isShowIntro(), pedParams.getMaxTime(),

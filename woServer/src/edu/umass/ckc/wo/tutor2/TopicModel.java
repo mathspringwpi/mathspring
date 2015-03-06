@@ -13,6 +13,7 @@ import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
 import edu.umass.ckc.wo.tutconfig.LessonModelDescription;
 import edu.umass.ckc.wo.tutconfig.TopicModelDescription;
+import edu.umass.ckc.wo.tutconfig.TopicModelParameters;
 import edu.umass.ckc.wo.tutor.pedModel.EndOfTopicInfo;
 import edu.umass.ckc.wo.tutor.pedModel.ProblemGrader;
 import edu.umass.ckc.wo.tutor.pedModel.ProblemScore;
@@ -36,6 +37,7 @@ public class TopicModel extends LessonModel {
     protected TopicSelector topicSelector;
     protected ProblemGrader.difficulty nextDiff;
     protected EndOfTopicInfo reasonsForEndOfTopic;
+    private TopicModelParameters params;
 
 
 

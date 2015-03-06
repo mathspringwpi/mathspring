@@ -11,12 +11,13 @@ import ckc.servlet.servbase.UserException;
 import edu.umass.ckc.wo.handler.NavigationHandler;
 import edu.umass.ckc.wo.login.LoginResult;
 import edu.umass.ckc.wo.mrcommon.Names;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.Pedagogy;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.pedModel.PedagogicalModel;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
 import edu.umass.ckc.wo.tutormeta.LearningCompanion;
-import edu.umass.ckc.wo.tutormeta.PedagogyParams;
+import edu.umass.ckc.wo.tutormeta.UserTutorParams;
 import edu.umass.ckc.wo.tutormeta.StudentModel;
 import edu.umass.ckc.wo.util.WoProps;
 import org.apache.log4j.Logger;
@@ -243,7 +244,7 @@ public class SessionManager {
 
         Pedagogy ped = PedagogyRetriever.getPedagogy(connection, studId);
         // these are the parameters as dfined in the XML file pedagogies.xml
-        PedagogicalModelParameters defaultParams = ped.getParams();
+        PedagogicalModelParameters defaultParams = ped.getPedagogicalModelParams();
         this.pedagogyId = Integer.parseInt(ped.getId());
         // pedagogical model needs to be instantiated as last thing because its constructor takes the smgr instance (this)
         // and makes calls to get stuff so we want this as fully constructed as possible before the call to instantiate
@@ -256,12 +257,12 @@ public class SessionManager {
        // If this is a configurable pedagogy (meaning that it can be given some parameters to guide its behavior),  then
        // see if this user has a set of parameters and if so use them to configure the pedagogy.
        // these params come from settings in the WoAdmin tool for the class.
-       PedagogicalModelParameters classParams = DbClass.getPedagogicalModelParameters(connection,classId);
+        TutorModelParameters classParams = DbClass.getTutorModelParameters(connection, classId);
         // overload the defaults with stuff defined for the class.
         defaultParams.overload(classParams);
 //       if (this.pedagogicalModel instanceof ConfigurablePedagogy) {
         // these params are the ones that were passed in by Assistments and saved for the user
-        PedagogyParams userParams = DbUserPedagogyParams.getPedagogyParams(connection,studId);
+        UserTutorParams userParams = DbUserPedagogyParams.getPedagogyParams(connection,studId);
         // overload the params with anything provided for the user.
         defaultParams.overload(userParams);
         // set theparams on the ped model
@@ -848,13 +849,13 @@ public class SessionManager {
     // I think the problem is that the Guest user class has some parameters set (but not the new one showMPP) so the row is found
     // and then it builds a set of params with the default value of showMPP of true which then overloads the value set in the pedagogy.
     public PedagogicalModelParameters getPedagogicalModelParameters() throws SQLException {
-//        return this.pedagogicalModel.getParams();
-        PedagogicalModelParameters params= DbClass.getPedagogicalModelParameters(connection, this.classId);
+//        return this.pedagogicalModel.getPedagogicalModelParams();
+        TutorModelParameters params= DbClass.getTutorModelParameters(connection, this.classId);
         // If parameters are not stored for this particular class, a default set should be stored
         // in classconfig table for classId=1.   If nothing there, then use the defaults created
         // in the default PedagogicalModelParameters constructor
         if (params == null) {
-            params = DbClass.getPedagogicalModelParameters(connection, 1);
+            params = DbClass.getTutorModelParameters(connection, 1);
             if (params == null)
                 params = new PedagogicalModelParameters();
         }

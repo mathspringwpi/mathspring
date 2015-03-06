@@ -1,6 +1,6 @@
 package edu.umass.ckc.wo.tutor.probSel;
 
-import edu.umass.ckc.wo.tutormeta.PedagogyParams;
+import edu.umass.ckc.wo.tutormeta.UserTutorParams;
 import edu.umass.ckc.wo.tutormeta.frequency;
 
 /**
@@ -28,14 +28,27 @@ public class PedagogicalModelParameters {
 
 
     private int externalActivityTimeThreshold;
-    private boolean showExampleFirst;
 
     private boolean showAllExample;
 
-    private boolean singleTopicMode = false;
+
     private int problemReuseIntervalSessions;
     private int problemReuseIntervalDays;
     private boolean showMPP=true;
+
+    public PedagogicalModelParameters(int probReuseIntervalSessions, int probReuseIntervalDays, int difficultyRate, int externalActThreshold) {
+        this.problemReuseIntervalSessions = probReuseIntervalSessions;
+        this.problemReuseIntervalDays = probReuseIntervalDays;
+        this.difficultyRate=difficultyRate;
+        this.externalActivityTimeThreshold=externalActThreshold;
+    }
+
+    public PedagogicalModelParameters(int difficultyRate, int externalActivityTimeThreshold) {
+        this.difficultyRate= difficultyRate;
+        this.externalActivityTimeThreshold= externalActivityTimeThreshold;
+        this.problemReuseIntervalSessions =DEFAULT_PROBLEM_REUSE_INTERVAL_SESSIONS;
+        this.problemReuseIntervalDays =DEFAULT_PROBLEM_REUSE_INTERVAL_DAYS;
+    }
 
     // overload the params of this with those given for class.
     public PedagogicalModelParameters overload(PedagogicalModelParameters classParams) {
@@ -66,7 +79,12 @@ public class PedagogicalModelParameters {
 
     }
 
-    public PedagogicalModelParameters overload (PedagogyParams userParams) {
+    /**
+     * Overload the parameters with those that have been saved for a particular user (e.g. passed in a URL from Assistments)
+     * @param userParams
+     * @return
+     */
+    public PedagogicalModelParameters overload (UserTutorParams userParams) {
         if (userParams == null)
             return this;
         if (userParams.isShowIntro())
@@ -98,12 +116,7 @@ public class PedagogicalModelParameters {
 
 
 
-    public PedagogicalModelParameters(int difficultyRate, int externalActivityTimeThreshold) {
-        this.difficultyRate= difficultyRate;
-        this.externalActivityTimeThreshold= externalActivityTimeThreshold;
-        this.problemReuseIntervalSessions =DEFAULT_PROBLEM_REUSE_INTERVAL_SESSIONS;
-        this.problemReuseIntervalDays =DEFAULT_PROBLEM_REUSE_INTERVAL_DAYS;
-    }
+
 
     // Called with parameters read from TeacherAdmin's class config
     public PedagogicalModelParameters(long maxTimeInTopic, int contentFailureThreshold, double topicMastery, int minNumberProbs,
@@ -126,7 +139,6 @@ public class PedagogicalModelParameters {
 
         this.difficultyRate=DIFFICULTY_RATE;
         this.externalActivityTimeThreshold = EXTERNAL_ACTIVITY_TIME_TRHRESHOLD;
-        this.showExampleFirst= true;
 
         this.problemReuseIntervalSessions =DEFAULT_PROBLEM_REUSE_INTERVAL_SESSIONS;
         this.problemReuseIntervalDays =DEFAULT_PROBLEM_REUSE_INTERVAL_DAYS;
@@ -216,10 +228,6 @@ public class PedagogicalModelParameters {
     }
 
 
-
-    public boolean isSingleTopicMode() {
-        return singleTopicMode;
-    }
 
 
     public String getCcss(){

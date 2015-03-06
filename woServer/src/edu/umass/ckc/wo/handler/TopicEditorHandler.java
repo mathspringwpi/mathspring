@@ -11,6 +11,7 @@ import edu.umass.ckc.wo.beans.Topic;
 import edu.umass.ckc.wo.db.DbTopics;
 import edu.umass.ckc.wo.db.DbClass;
 import edu.umass.ckc.wo.tutconfig.TopicModelParameters;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
 import edu.umass.ckc.wo.tutormeta.frequency;
 
@@ -72,7 +73,7 @@ public class TopicEditorHandler {
             req.setAttribute("teacherId",e.getTeacherId());
             req.setAttribute("classInfo", classInfo);
             req.setAttribute("bean", bean);
-            PedagogicalModelParameters params = DbClass.getPedagogicalModelParameters(conn, e.getClassId());
+            TutorModelParameters params = DbClass.getTutorModelParameters(conn, e.getClassId());
             DbClass.setProblemSelectorParameters(conn,e.getClassId(), params);
             req.setAttribute("params",params);
             req.getRequestDispatcher(JSP).forward(req,resp);
@@ -116,12 +117,12 @@ public class TopicEditorHandler {
             req.setAttribute("teacherId",e.getTeacherId());
             req.setAttribute("classId",e.getClassId());
             req.setAttribute("classInfo",classInfo);
-            PedagogicalModelParameters params = DbClass.getPedagogicalModelParameters(conn, e.getClassId());
+            TutorModelParameters params = DbClass.getTutorModelParameters(conn, e.getClassId());
             // If parameters are not stored for this particular class, a default set should be stored
             // in classconfig table for classId=1.   If nothing there, then use the defaults created
             // in the default PedagogicalModelParameters constructor
             if (params == null) {
-                params = DbClass.getPedagogicalModelParameters(conn, 1);
+                params = DbClass.getTutorModelParameters(conn, 1);
                 if (params == null)
                     params = new PedagogicalModelParameters();
             }

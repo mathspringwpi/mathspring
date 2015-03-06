@@ -16,6 +16,7 @@ import edu.umass.ckc.wo.handler.UserRegistrationHandler;
 import edu.umass.ckc.wo.html.tutor.TutorPage;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.User;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.Pedagogy;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.pedModel.CCPedagogicalModel;
@@ -25,7 +26,7 @@ import edu.umass.ckc.wo.tutor.response.ProblemResponse;
 import edu.umass.ckc.wo.tutor.studmod.StudentProblemData;
 import edu.umass.ckc.wo.tutor.studmod.StudentProblemHistory;
 import edu.umass.ckc.wo.tutormeta.LearningCompanion;
-import edu.umass.ckc.wo.tutormeta.PedagogyParams;
+import edu.umass.ckc.wo.tutormeta.UserTutorParams;
 import edu.umass.ckc.wo.util.HTTPRequest;
 import ckc.servlet.servbase.ServletInfo;
 import net.sf.json.JSONObject;
@@ -222,7 +223,7 @@ public class AssistmentsHandler {
             pedagogy = DbClassPedagogies.getAssistmentsCommonCorePedagogy();
         // now configure the pedagogy using the inputs coming from the URL
         String mode = e.getMode();
-        String firstProbMode = mode.equals("ExamplePractice") || mode.equals("Example") ? Problem.DEMO : Problem.PRACTICE;
+        String firstProbMode = mode.equals(TeachTopicEvent.EXAMPLE_PRACTICE_MODE) || mode.equals(TeachTopicEvent.EXAMPLE_MODE) ? Problem.DEMO : Problem.PRACTICE;
         String problemNumber = e.getProblemNumber();
         String problemId = e.getProblemId();
         Problem prob = null;
@@ -334,36 +335,36 @@ public class AssistmentsHandler {
     We have to use a different PedagogicalModel (than the one assigned to the AssistmentsUsers class) to handle the request.   We switch to this pedagogical model
     here.   We give it all the same inputs that we would have given to the pedagogical model assigned to the class.
      */
-    private void switchToCCPedagogicalModel(SessionManager smgr) throws SQLException, AdminException {
-        int studId = smgr.getStudentId();
-        Pedagogy ped = PedagogyRetriever.getPedagogy(conn, studId);
-        // these are the parameters as dfined in the XML file pedagogies.xml
-        PedagogicalModelParameters defaultParams = ped.getParams();
-        int pedagogyId = Integer.parseInt(ped.getId());
-
-        smgr.setPedagogyId(pedagogyId);
-        // pedagogical model needs to be instantiated as last thing because its constructor takes the smgr instance (this)
-        // and makes calls to get stuff so we want this as fully constructed as possible before the call to instantiate
-        // so that the smgr is fully functional except for its ped model.
-        ped.setPedagogicalModelClass(CCPedagogicalModel.class.getName());
-        // build the Pedagogical model for the student.  The PedagogicalModel constructor is responsible for
-        // creating the StudentModel which also gets set in the below method
-        smgr.instantiatePedagogicalModel(ped);
-
-        // If this is a configurable pedagogy (meaning that it can be given some parameters to guide its behavior),  then
-        // see if this user has a set of parameters and if so use them to configure the pedagogy.
-        // these params come from settings in the WoAdmin tool for the class.
-        PedagogicalModelParameters classParams = DbClass.getPedagogicalModelParameters(conn, DbClass.getClassByName(conn, DbClass.ASSISTMENTS_CLASS_NAME).getClassid());
-        // overload the defaults with stuff defined for the class.
-        defaultParams.overload(classParams);
-//       if (this.pedagogicalModel instanceof ConfigurablePedagogy) {
-        // these params are the ones that were passed in by Assistments and saved for the user
-        PedagogyParams userParams = DbUserPedagogyParams.getPedagogyParams(conn, studId);
-        // overload the params with anything provided for the user.
-        defaultParams.overload(userParams);
-        // set theparams on the ped model
-        smgr.getPedagogicalModel().setParams(defaultParams);
-    }
+//    private void switchToCCPedagogicalModel(SessionManager smgr) throws SQLException, AdminException {
+//        int studId = smgr.getStudentId();
+//        Pedagogy ped = PedagogyRetriever.getPedagogy(conn, studId);
+//        // these are the parameters as dfined in the XML file pedagogies.xml
+//        PedagogicalModelParameters defaultParams = ped.getPedagogicalModelParams();
+//        int pedagogyId = Integer.parseInt(ped.getId());
+//
+//        smgr.setPedagogyId(pedagogyId);
+//        // pedagogical model needs to be instantiated as last thing because its constructor takes the smgr instance (this)
+//        // and makes calls to get stuff so we want this as fully constructed as possible before the call to instantiate
+//        // so that the smgr is fully functional except for its ped model.
+//        ped.setPedagogicalModelClass(CCPedagogicalModel.class.getName());
+//        // build the Pedagogical model for the student.  The PedagogicalModel constructor is responsible for
+//        // creating the StudentModel which also gets set in the below method
+//        smgr.instantiatePedagogicalModel(ped);
+//
+//        // If this is a configurable pedagogy (meaning that it can be given some parameters to guide its behavior),  then
+//        // see if this user has a set of parameters and if so use them to configure the pedagogy.
+//        // these params come from settings in the WoAdmin tool for the class.
+//        TutorModelParameters classParams = DbClass.getTutorModelParameters(conn, DbClass.getClassByName(conn, DbClass.ASSISTMENTS_CLASS_NAME).getClassid());
+//        // overload the defaults with stuff defined for the class.
+//        defaultParams.overload(classParams);
+////       if (this.pedagogicalModel instanceof ConfigurablePedagogy) {
+//        // these params are the ones that were passed in by Assistments and saved for the user
+//        UserTutorParams userParams = DbUserPedagogyParams.getPedagogyParams(conn, studId);
+//        // overload the params with anything provided for the user.
+//        defaultParams.overload(userParams);
+//        // set theparams on the ped model
+//        smgr.getPedagogicalModel().setPedagogicalModelParams(defaultParams);
+//    }
 
     private void processRequest(AssistmentsUser u, TeachTopicEvent e) {
         // Go ahead and generate the Tutor Page using the requirements passed in.

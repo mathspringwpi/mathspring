@@ -1,5 +1,7 @@
 package edu.umass.ckc.wo.tutconfig;
 
+import edu.umass.ckc.wo.event.tutorhut.TeachTopicEvent;
+import edu.umass.ckc.wo.tutormeta.UserTutorParams;
 import edu.umass.ckc.wo.tutormeta.frequency;
 import org.jdom.Element;
 
@@ -24,6 +26,7 @@ public class TopicModelParameters {
     private boolean showTopicIntro;
     private int contentFailureThreshold ; // the number of times it will select a problem within this topic when it can't meet
     private boolean showExampleFirst;
+    private boolean singleTopicMode;
 
     public static final int MAX_NUM_PROBS_PER_TOPIC = 8;
     public static final int MIN_NUM_PROBS_PER_TOPIC = 3;
@@ -50,6 +53,7 @@ public class TopicModelParameters {
         this.showTopicIntro = true;
         this.topicIntroFrequency = DEFAULT_TOPIC_INTRO_FREQ;
         this.topicExampleFrequency = DEFAULT_EXAMPLE_FREQ;
+        this.singleTopicMode = false;
     }
 
     public TopicModelParameters(frequency topicIntroFrequency, frequency topicExampleFrequency, long maxTimeInTopicMin,
@@ -104,6 +108,18 @@ public class TopicModelParameters {
             s = c.getValue();
             setTopicExampleFrequency(s);
         }
+        c = p.getChild("contentFailureThreshold");
+        if (c != null) {
+            s = c.getValue();
+            int contentFailureThreshold = Integer.parseInt(s);
+            setContentFailureThreshold(contentFailureThreshold);
+        }
+        c = p.getChild("showExampleFirst");
+        if (c != null) {
+            s = c.getValue();
+            boolean showExampleFirst = Boolean.parseBoolean(s);
+            setShowExampleFirst(showExampleFirst);
+        }
 
     }
 
@@ -128,6 +144,29 @@ public class TopicModelParameters {
             this.topicExampleFrequency =classParams.getTopicExampleFrequency();
         return this;
     }
+
+    public TopicModelParameters overload (UserTutorParams userParams) {
+        if (userParams == null)
+            return this;
+        // user parameters have fields (showIntro and mode) that come from an external call such as Assistments.   This are then translated into showing
+        // these things or not.
+        topicExampleFrequency = (userParams.getMode().equals(TeachTopicEvent.EXAMPLE_PRACTICE_MODE) || userParams.getMode().equals(TeachTopicEvent.EXAMPLE_MODE)) ?
+                frequency.oncePerSession : frequency.never;
+        topicIntroFrequency = userParams.isShowIntro() ? frequency.oncePerSession : frequency.never;
+        maxTimeInTopic = userParams.getMaxTime();
+        minTimeInTopic = 0;
+        maxNumberProbs = userParams.getMaxProbs();
+        topicMastery = userParams.getTopicMastery();
+        minNumberProbs = 1;
+        this.singleTopicMode = userParams.isSingleTopicMode();
+        // If we get passed no topic from Assistments, then this translates into setting the maxtime in the topic to 0
+        // so we'll show the one forced problem and out.
+        if (userParams.getTopicId() == -1)
+            this.setMaxTimeInTopic(0);
+        return this;
+    }
+
+
 
     // gets the given TopicIntro frequency from a string
     public static frequency convertTopicIntroFrequency (String s) {

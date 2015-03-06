@@ -552,7 +552,7 @@ public class Problem implements Activity {
         hints.add(h2);
         p.setSolution(hints);
         String vars ="{\"$a\": [\"40\", \"40\"],\"$\b\": [\"30\", \"30\"],\"$c\": [\"x\", \"45\"],\"$d\": [\"25\", \"x\"],\"$ans_A\": [\"65\", \"65\"],\"$ans_B\": [\"45\", \"45\"],\"$ans_C\": [\"50\", \"50\"],\"$ans_D\": [\"35\", \"35\"],\"$ans_E\": [\"45\", \"25\"]}";
-//        p.setParams(vars);
+//        p.setPedagogicalModelParams(vars);
         System.out.println("JSON for problem is " + p.buildJSON(new JSONObject()));
     }
 
