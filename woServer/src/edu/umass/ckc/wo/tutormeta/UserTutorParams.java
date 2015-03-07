@@ -7,7 +7,7 @@ package edu.umass.ckc.wo.tutormeta;
  * Time: 4:45 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PedagogyParams {
+public class UserTutorParams {
 
     private int studId;
     private boolean showIntro;
@@ -19,9 +19,11 @@ public class PedagogyParams {
     private String ccss;
     private int topicId;
     private int cuId;
+    private int lessonId;
 
 
-    public PedagogyParams(int studId, boolean showIntro, int maxTime, int maxProbs, String mode, boolean singleTopicMode, String ccss, int topicId, float topicMastery, int cuId) {
+    public UserTutorParams(int studId, boolean showIntro, int maxTime, int maxProbs, String mode, boolean singleTopicMode, String ccss,
+                           int topicId, float topicMastery, int cuId, int lessonId) {
         this.studId = studId;
         this.showIntro = showIntro;
         this.maxTime = maxTime * 60 * 1000;  // max time is given in minutes.   We convert to milliseconds here
@@ -32,6 +34,7 @@ public class PedagogyParams {
         this.topicId=topicId;
         this.topicMastery = topicMastery;
         this.cuId= cuId;
+        this.lessonId=lessonId;
     }
 
     public int getStudId() {
@@ -76,5 +79,9 @@ public class PedagogyParams {
 
     public int getCuId() {
         return cuId;
+    }
+
+    public int getLessonId() {
+        return lessonId;
     }
 }

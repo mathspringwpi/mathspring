@@ -9,5 +9,5 @@ package edu.umass.ckc.wo.tutormeta;
  * To change this template use File | Settings | File Templates.
  */
 public interface ConfigurablePedagogy {
-    public void configure (PedagogyParams params);
+    public void configure (UserTutorParams params);
 }

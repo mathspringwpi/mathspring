@@ -1,7 +1,7 @@
 package edu.umass.ckc.wo.db;
 
 import edu.umass.ckc.wo.tutor.Settings;
-import edu.umass.ckc.wo.tutormeta.PedagogyParams;
+import edu.umass.ckc.wo.tutormeta.UserTutorParams;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,11 +65,11 @@ public class DbUserPedagogyParams {
         }
     }
 
-    public static PedagogyParams getPedagogyParams(Connection conn, int studId) throws SQLException {
+    public static UserTutorParams getPedagogyParams(Connection conn, int studId) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            String q = "select showIntro,maxTime,maxProbs,mode,singleTopicMode, ccss,topicId,mastery,cuId from userpedagogyparameters where studid=?";
+            String q = "select showIntro,maxTime,maxProbs,mode,singleTopicMode, ccss,topicId,mastery,cuId,lessonId from userpedagogyparameters where studid=?";
             ps = conn.prepareStatement(q);
             ps.setInt(1,studId);
             rs = ps.executeQuery();
@@ -83,9 +83,10 @@ public class DbUserPedagogyParams {
                 int topicId = rs.getInt(7);
                 float topicMastery = rs.getFloat(8);
                 int cuId = rs.getInt(9);
+                int lessonId = rs.getInt(10);
 
 
-                return new PedagogyParams(studId,showIntro,maxTime,maxProbs,mode,singTopic, ccss, topicId, topicMastery, cuId);
+                return new UserTutorParams(studId,showIntro,maxTime,maxProbs,mode,singTopic, ccss, topicId, topicMastery, cuId, lessonId);
             }
             else return null;
 

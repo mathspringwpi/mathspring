@@ -70,7 +70,7 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
         try {
             pedagogicalMoveListeners = new ArrayList<PedagogicalMoveListener>();
             // Use the params from the pedagogy and then overwrite any values with things that are set up for the class
-            params = setParams(smgr.getPedagogicalModelParameters(),pedagogy.getParams());
+            params = setParams(smgr.getPedagogicalModelParameters(),pedagogy.getPedagogicalModelParams());
             // TODO figure out how to make this class use the lessonModel rather than the topicSelector which now lives inside
             // the lessonModel if the its a TopicModel.
             topicSelector = new TopicSelectorImpl(smgr,params);

@@ -1,6 +1,7 @@
 package edu.umass.ckc.wo.tutor;
 
 import edu.umass.ckc.wo.tutconfig.LessonModelDescription;
+import edu.umass.ckc.wo.tutconfig.TopicModelParameters;
 import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorSpec;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
 
@@ -25,7 +26,8 @@ public class Pedagogy implements Comparable {
     private String comment;
     private String packg;
     private boolean isDefault=false;
-    private PedagogicalModelParameters params;
+    private PedagogicalModelParameters pedagogicalModelParameters;
+    private TopicModelParameters topicModelParameters;
     // the main nextProblem intervention selector - the coordinator if subs provided
     private InterventionSelectorSpec nextProblemInterventionSelector;
     // sub nextProblem intervention selectors
@@ -206,12 +208,20 @@ public class Pedagogy implements Comparable {
 
 
 
-    public PedagogicalModelParameters getParams() {
-        return params;
+    public PedagogicalModelParameters getPedagogicalModelParams() {
+        return pedagogicalModelParameters;
     }
 
-    public void setParams(PedagogicalModelParameters params) {
-        this.params = params;
+    public void setPedagogicalModelParams(PedagogicalModelParameters params) {
+        this.pedagogicalModelParameters = params;
+    }
+
+    public TopicModelParameters getTopicModelParameters() {
+        return topicModelParameters;
+    }
+
+    public void setTopicModelParameters(TopicModelParameters topicModelParameters) {
+        this.topicModelParameters = topicModelParameters;
     }
 
     public void setDefault(boolean aDefault) {

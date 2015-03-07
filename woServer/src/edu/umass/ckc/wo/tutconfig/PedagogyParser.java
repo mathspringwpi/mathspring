@@ -6,7 +6,6 @@ import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorSpec;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
 import edu.umass.ckc.wo.xml.JDOMUtils;
 import org.jdom.*;
-import org.jdom.input.SAXBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -137,7 +136,7 @@ public class PedagogyParser {
         // if user provided some, overwrite the individual settings
         if (e != null)
             readControlParams(params, e);
-        p.setParams(params);
+        p.setPedagogicalModelParams(params);
         e = pedElt.getChild("lessonModel");
         if (e != null) {
             String lessonName = e.getText();
@@ -168,28 +167,8 @@ public class PedagogyParser {
         Element c;
         String s;
 
-        c = p.getChild("contentFailureThreshold");
-        if (c != null) {
-            s = c.getValue();
-            int contentFailureThreshold = Integer.parseInt(s);
-            params.setContentFailureThreshold(contentFailureThreshold);
-        }
 
 
-
-        c = p.getChild("minNumberProbs");
-        if (c != null) {
-            s = c.getValue();
-            int minNumberProbs = Integer.parseInt(s);
-            params.setMinNumberProbs(minNumberProbs);
-        }
-
-        c = p.getChild("maxNumberProbs");
-        if (c != null) {
-            s = c.getValue();
-            int maxNumberProbs = Integer.parseInt(s);
-            params.setMaxNumberProbs(maxNumberProbs);
-        }
 
 
 
@@ -207,14 +186,6 @@ public class PedagogyParser {
             params.setExternalActivityTimeThreshold(externalActivityTimeThresholdMins);
         }
 
-
-
-        c = p.getChild("showExampleFirst");
-        if (c != null) {
-            s = c.getValue();
-            boolean showExampleFirst = Boolean.parseBoolean(s);
-            params.setShowExampleFirst(showExampleFirst);
-        }
 
         c = p.getChild("problemReuseIntervalSessions");
         if (c != null) {

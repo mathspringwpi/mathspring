@@ -8,6 +8,7 @@ import edu.umass.ckc.wo.exc.AdminException;
 import edu.umass.ckc.wo.handler.UserRegistrationHandler;
 import edu.umass.ckc.wo.smgr.User;
 import edu.umass.ckc.wo.tutconfig.TopicModelParameters;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
 import edu.umass.ckc.wo.tutormeta.frequency;
@@ -445,7 +446,7 @@ public class DbClass {
         }
     }
 
-    public static PedagogicalModelParameters getPedagogicalModelParameters(Connection conn, int classId) throws SQLException {
+    public static TutorModelParameters getTutorModelParameters(Connection conn, int classId) throws SQLException {
         ResultSet rs = null;
         PreparedStatement stmt = null;
         try {
@@ -455,13 +456,12 @@ public class DbClass {
             stmt = conn.prepareStatement(q);
             stmt.setInt(1, classId);
             rs = stmt.executeQuery();
-            PedagogicalModelParameters params;
             if (rs.next()) {
                 int maxProbsInTopic = rs.getInt(1);
                 // If the class has one null param, treat them all as null and return defaults
                 // since they should all get set to real values or all be null
                 if (rs.wasNull())
-                    return new PedagogicalModelParameters();
+                    return new TutorModelParameters();
                 long maxTimeInTopic = rs.getLong(2);
                 int thresh = rs.getInt(3);
                 double mastery = rs.getDouble(4);
@@ -483,8 +483,9 @@ public class DbClass {
                     probReuseIntervalDays=-1;
                 frequency tif =  topicIntroFreq == null ? null : TopicModelParameters.convertTopicIntroFrequency(topicIntroFreq);
                 frequency ef =  exampleFreq == null ? null : TopicModelParameters.convertExampleFrequency(exampleFreq);
-                return new PedagogicalModelParameters(maxTimeInTopic, thresh, mastery, minProbsInTopic, minTimeInTopic, difficultyRate, externalActivityTimeThresh, maxProbsInTopic,
-                        true, true,tif,ef,probReuseIntervalSessions, probReuseIntervalDays);
+                TopicModelParameters tmParams = new TopicModelParameters(tif,ef,maxTimeInTopic,minTimeInTopic,maxProbsInTopic,minProbsInTopic,mastery,thresh);
+                PedagogicalModelParameters pmParams = new PedagogicalModelParameters(probReuseIntervalSessions,probReuseIntervalDays,difficultyRate, externalActivityTimeThresh);
+                return new TutorModelParameters(pmParams,tmParams);
             }
             return null;
         } finally {
@@ -495,20 +496,21 @@ public class DbClass {
         }
     }
 
-    public static void setProblemSelectorParameters(Connection conn, int classId, PedagogicalModelParameters params) throws SQLException {
+    public static void setProblemSelectorParameters(Connection conn, int classId, TutorModelParameters tutParams) throws SQLException {
         PreparedStatement stmt = null;
+
         try {
             String q = "update classconfig set maxNumberProbsToShowPerTopic=?, maxTimeInTopic=?, contentFailureThreshold=?, topicMastery=?," +
                     "minNumberProbsToShowPerTopic=?, minTimeInTopic=?, difficultyRate=?, externalActivityTimeThreshold=? where classid=?";
             stmt = conn.prepareStatement(q);
-            stmt.setInt(1, params.getMaxNumberProbs());
-            stmt.setLong(2, params.getMaxTimeInTopic());
-            stmt.setInt(3, params.getContentFailureThreshold());
-            stmt.setDouble(4, params.getTopicMastery());
-            stmt.setInt(5, params.getMinNumberProbs());
-            stmt.setLong(6, params.getMinTimeInTopic());
-            stmt.setDouble(7, params.getDifficultyRate());
-            stmt.setInt(8, params.getExternalActivityTimeThreshold());
+            stmt.setInt(1, tutParams.getTopicModelParameters().getMaxNumberProbs());
+            stmt.setLong(2, tutParams.getTopicModelParameters().getMaxTimeInTopic());
+            stmt.setInt(3, tutParams.getTopicModelParameters().getContentFailureThreshold());
+            stmt.setDouble(4, tutParams.getTopicModelParameters().getTopicMastery());
+            stmt.setInt(5, tutParams.getTopicModelParameters().getMinNumberProbs());
+            stmt.setLong(6, tutParams.getTopicModelParameters().getMinTimeInTopic());
+            stmt.setDouble(7, tutParams.getPedagogicalModelParameters().getDifficultyRate());
+            stmt.setInt(8, tutParams.getPedagogicalModelParameters().getExternalActivityTimeThreshold());
             stmt.setInt(9, classId);
             stmt.executeUpdate();
         } finally {
