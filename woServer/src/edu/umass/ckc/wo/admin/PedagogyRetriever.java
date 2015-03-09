@@ -2,7 +2,7 @@ package edu.umass.ckc.wo.admin;
 
 import edu.umass.ckc.wo.db.DbUser;
 import edu.umass.ckc.wo.exc.AdminException;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.tutor.Settings;
 
 import java.sql.Connection;
@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class PedagogyRetriever {
 
-    public static List<Pedagogy> getDefaultPedagogies () {
-        List<Pedagogy> defaultPeds = new ArrayList<Pedagogy>();
-        for (Pedagogy p : Settings.pedagogyGroups.values()) {
+    public static List<TutoringStrategy> getDefaultPedagogies () {
+        List<TutoringStrategy> defaultPeds = new ArrayList<TutoringStrategy>();
+        for (TutoringStrategy p : Settings.pedagogyGroups.values()) {
             if (p.isDefault())
                 defaultPeds.add(p);
         }
@@ -28,9 +28,9 @@ public class PedagogyRetriever {
     }
 
     /**
-     * return the Pedagogy that applies to a given student.
+     * return the TutoringStrategy that applies to a given student.
      *
-     * Note a student gets a pedagogy assigned to him when he registers in a class.  See UserRegistrationHandler.
+     * Note a student gets a TutoringStrategy assigned to him when he registers in a class.  See UserRegistrationHandler.
      * This method is called after registration so every student should have a pedagogy id.
      * The only sitution where they won't is for a student who has used the system prior to the
      * the institution of pedagogies (probably a developer testing the system).
@@ -39,7 +39,7 @@ public class PedagogyRetriever {
      * @return
      * @throws SQLException
      */
-    public static Pedagogy getPedagogy (Connection conn, int studId) throws SQLException, AdminException {
+    public static TutoringStrategy getTutoringStrategy(Connection conn, int studId) throws SQLException, AdminException {
         int pedagogyId = DbUser.getStudentPedagogy(conn,studId);
         // Assistments users are typically using a given pedagogy for the Assistments class.  Occasionally some students come into MS with params like lessonId which means using a
         // pedagogy designed for Common Core content.   These users have an override pedagogy which deals with these requests.
@@ -49,13 +49,13 @@ public class PedagogyRetriever {
         // not have a pedagogy assigned.   We will automatically set their pedagogy id to be the
         // first default.
         if (pedagogyId == -1)  {
-            List<Pedagogy> peds = getDefaultPedagogies();
+            List<TutoringStrategy> peds = getDefaultPedagogies();
             return peds.get(0);
         }
         else  {
             // We use the students group number to find the Pedagogy.  Then we can build a StudentModel object
             // for use in this session.
-            Pedagogy p = Settings.pedagogyGroups.get(Integer.toString(pedagogyId));
+            TutoringStrategy p = Settings.pedagogyGroups.get(Integer.toString(pedagogyId));
             if (p != null)
                 return p;
                 // we have a student with pedagogy id that is not mapped to a pedagogy.   This could be

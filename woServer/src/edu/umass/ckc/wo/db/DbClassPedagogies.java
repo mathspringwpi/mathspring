@@ -2,7 +2,7 @@ package edu.umass.ckc.wo.db;
 
 import edu.umass.ckc.wo.beans.TutoringStrategyBean;
 import edu.umass.ckc.wo.tutor.Settings;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.exc.DeveloperException;
 import edu.umass.ckc.wo.handler.ClassAdminHelper;
 import edu.umass.ckc.wo.util.Lists;
@@ -46,15 +46,15 @@ public class DbClassPedagogies {
         }
     }
 
-    public static List<Pedagogy> getPedagogiesFromIds (List<String> pedagogyIds) throws DeveloperException {
-        List<Pedagogy> pedagogyList = new ArrayList<Pedagogy>();
-        List<Pedagogy> defaultpeds = ClassAdminHelper.getDefaultPedagogies() ;
+    public static List<TutoringStrategy> getPedagogiesFromIds (List<String> pedagogyIds) throws DeveloperException {
+        List<TutoringStrategy> tutoringStrategyList = new ArrayList<TutoringStrategy>();
+        List<TutoringStrategy> defaultpeds = ClassAdminHelper.getDefaultPedagogies() ;
 
         for (int i = 0; i < pedagogyIds.size(); i++) {
             String pid = (String) pedagogyIds.get(i);
-            Pedagogy ped=null;
+            TutoringStrategy ped=null;
             if (pid.equalsIgnoreCase("0"))      {
-                pedagogyList = defaultpeds ;
+                tutoringStrategyList = defaultpeds ;
                 break ;
             }
             else ped = Settings.pedagogyGroups.get(pid);
@@ -62,9 +62,9 @@ public class DbClassPedagogies {
                 throw new DeveloperException("Failed to find pedagogy for ID " + pid + ".  " +
                         "You may need mark one pedagogy as the default.");
             }
-            pedagogyList.add(ped);
+            tutoringStrategyList.add(ped);
         }
-        return pedagogyList;
+        return tutoringStrategyList;
     }
 
     public static TutoringStrategyBean[] getClassPedagogyBeans(Connection conn, int classId) throws SQLException {
@@ -80,7 +80,7 @@ public class DbClassPedagogies {
 
 
 
-    public static List<Pedagogy> getClassPedagogies (Connection conn, int classId) throws SQLException, DeveloperException {
+    public static List<TutoringStrategy> getClassPedagogies (Connection conn, int classId) throws SQLException, DeveloperException {
 
         List<String> pedagogyIds= getClassPedagogyIds(conn,classId);
         return getPedagogiesFromIds(pedagogyIds);
@@ -116,7 +116,7 @@ public class DbClassPedagogies {
      * @return
      */
     public static TutoringStrategyBean[] getAllPedagogies () {
-        Pedagogy[] peds = (Pedagogy[]) Settings.pedagogyGroups.values().toArray(new Pedagogy[Settings.pedagogyGroups.values().size()]);
+        TutoringStrategy[] peds = (TutoringStrategy[]) Settings.pedagogyGroups.values().toArray(new TutoringStrategy[Settings.pedagogyGroups.values().size()]);
         Arrays.sort(peds);
         TutoringStrategyBean[] beans = new TutoringStrategyBean[peds.length];
         for (int i=0;i<peds.length;i++) {
@@ -154,10 +154,10 @@ public class DbClassPedagogies {
         }
     }
 
-    public static Pedagogy getAssistmentsCommonCorePedagogy() throws DeveloperException {
+    public static TutoringStrategy getAssistmentsCommonCorePedagogy() throws DeveloperException {
         List<String> l = new ArrayList<String>();
         l.add("17");  // the ID of the pedagogy to be used for Assistments CC work for overriding the pedagogy normally assigned to that class.
-        List<Pedagogy> lp= getPedagogiesFromIds(l);
+        List<TutoringStrategy> lp= getPedagogiesFromIds(l);
         return lp.get(0);
     }
 }

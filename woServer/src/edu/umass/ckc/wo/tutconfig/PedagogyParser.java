@@ -1,6 +1,6 @@
 package edu.umass.ckc.wo.tutconfig;
 
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorParam;
 import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorSpec;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
@@ -22,7 +22,7 @@ import java.util.List;
  * Time: 4:22:53 PM    kk
  */
 public class PedagogyParser {
-    private List<Pedagogy> pedagogies;
+    private List<TutoringStrategy> pedagogies;
 
     public static final String DEFAULT_PROBLEM_SELECTOR = "BaseTopicProblemSelector";
     public static final String DEFAULT_HINT_SELECTOR = "PercentageHintSelector";
@@ -43,14 +43,14 @@ public class PedagogyParser {
      *
      * @return  a List of Pedagogy objects created from the pedagogies.xml file
      */
-    public List<Pedagogy> getPedagogies() {
+    public List<TutoringStrategy> getPedagogies() {
         return pedagogies;
     }
 
 
-    public List<Pedagogy> readPedagogies (Document xmlDoc) throws NoSuchMethodException, DataConversionException, IllegalAccessException, InstantiationException, InvocationTargetException, ClassNotFoundException {
+    public List<TutoringStrategy> readPedagogies (Document xmlDoc) throws NoSuchMethodException, DataConversionException, IllegalAccessException, InstantiationException, InvocationTargetException, ClassNotFoundException {
         Element root = xmlDoc.getRootElement();
-        List<Pedagogy> result= new ArrayList<Pedagogy>();
+        List<TutoringStrategy> result= new ArrayList<TutoringStrategy>();
         List children = root.getChildren("pedagogy");
         for (int i = 0; i < children.size(); i++) {
             Element element = (Element) children.get(i);
@@ -61,100 +61,100 @@ public class PedagogyParser {
 
 
 
-    private Pedagogy readPed(Element pedElt) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DataConversionException {
+    private TutoringStrategy readPed(Element pedElt) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DataConversionException {
         Element e;
-        Pedagogy p = new Pedagogy();
+        TutoringStrategy tutoringStrategy = new TutoringStrategy();
         boolean isDefault=false;
         Attribute defaultAttr = pedElt.getAttribute("default");
         if (defaultAttr != null)
-            p.setDefault(defaultAttr.getBooleanValue());
+            tutoringStrategy.setDefault(defaultAttr.getBooleanValue());
         e = pedElt.getChild("pedagogicalModelClass");
         // by default we build a BasePedagogicalModel unless a class is provided.
         String pedModClass = DEFAULT_PEDAGOGICAL_MODEL;
         if (e != null)
             pedModClass = e.getValue();
-        p.setPedagogicalModelClass(pedModClass);
+        tutoringStrategy.setPedagogicalModelClass(pedModClass);
 
         e = pedElt.getChild("id");
         String id = e.getValue();
-        p.setId(id);
+        tutoringStrategy.setId(id);
 
         e = pedElt.getChild("name");
         String name = e.getValue();
-        p.setName(name);
+        tutoringStrategy.setName(name);
 
         e = pedElt.getChild("comment");
         if (e != null)  {
             String comment = e.getValue();
-            p.setComment(comment);
+            tutoringStrategy.setComment(comment);
         }
 
         e = pedElt.getChild("studentModelClass");
         if (e != null) {
             String smClass = e.getValue();
-            p.setStudentModelClass(smClass);
+            tutoringStrategy.setStudentModelClass(smClass);
         }
-        else p.setStudentModelClass(DEFAULT_STUDENT_MODEL);
+        else tutoringStrategy.setStudentModelClass(DEFAULT_STUDENT_MODEL);
 
         e = pedElt.getChild("problemSelectorClass");
         if (e != null) {
             String psClass = e.getValue();
-            p.setProblemSelectorClass(psClass);
+            tutoringStrategy.setProblemSelectorClass(psClass);
         }
-        else p.setProblemSelectorClass(DEFAULT_PROBLEM_SELECTOR);
+        else tutoringStrategy.setProblemSelectorClass(DEFAULT_PROBLEM_SELECTOR);
 
         e = pedElt.getChild("reviewModeProblemSelectorClass");
         if (e != null) {
             String psClass = e.getValue();
-            p.setReviewModeProblemSelectorClass(psClass);
+            tutoringStrategy.setReviewModeProblemSelectorClass(psClass);
         }
-        else p.setReviewModeProblemSelectorClass(DEFAULT_REVIEW_MODE_PROBLEM_SELECTOR);
+        else tutoringStrategy.setReviewModeProblemSelectorClass(DEFAULT_REVIEW_MODE_PROBLEM_SELECTOR);
 
         e = pedElt.getChild("challengeModeProblemSelectorClass");
         if (e != null) {
             String psClass = e.getValue();
-            p.setChallengeModeProblemSelectorClass(psClass);
+            tutoringStrategy.setChallengeModeProblemSelectorClass(psClass);
         }
-        else p.setChallengeModeProblemSelectorClass(DEFAULT_CHALLENGE_MODE_PROBLEM_SELECTOR);
+        else tutoringStrategy.setChallengeModeProblemSelectorClass(DEFAULT_CHALLENGE_MODE_PROBLEM_SELECTOR);
 
         e = pedElt.getChild("hintSelectorClass");
         if (e != null) {
             String hClass = e.getValue();
-            p.setHintSelectorClass(hClass);
+            tutoringStrategy.setHintSelectorClass(hClass);
         }
-        else p.setHintSelectorClass(DEFAULT_HINT_SELECTOR);
+        else tutoringStrategy.setHintSelectorClass(DEFAULT_HINT_SELECTOR);
 
         e = pedElt.getChild("nextProblemInterventionSelector");
         if (e != null)
-            readNextProblemInterventionSelectors(p,e);
+            readNextProblemInterventionSelectors(tutoringStrategy,e);
         e = pedElt.getChild("attemptInterventionSelector");
         if (e != null)
-            readAttemptInterventionSelectors(p,e);
+            readAttemptInterventionSelectors(tutoringStrategy,e);
         e = pedElt.getChild("controlParameters");
         // get the default params
         PedagogicalModelParameters params = new PedagogicalModelParameters();
         // if user provided some, overwrite the individual settings
         if (e != null)
             readControlParams(params, e);
-        p.setPedagogicalModelParams(params);
+        tutoringStrategy.setPedagogicalModelParams(params);
         e = pedElt.getChild("lessonModel");
         if (e != null) {
             String lessonName = e.getText();
             LessonModelDescription lmDescr = LessonModels.getLessonDescription(lessonName) ;
-            p.setLessonModelDescription(lmDescr);
+            tutoringStrategy.setLessonModelDescription(lmDescr);
         }
 
         e = pedElt.getChild("package");
         String packg = null ;
         if ( e != null )
             packg = e.getValue();
-        p.setPackg(packg);
+        tutoringStrategy.setPackg(packg);
 
         e = pedElt.getChild("learningCompanionClass");
         if ( e != null )
-            p.setLearningCompanionClass(e.getValue());
+            tutoringStrategy.setLearningCompanionClass(e.getValue());
 
-        return p;
+        return tutoringStrategy;
 
     }
 
@@ -206,7 +206,7 @@ public class PedagogyParser {
 
     }
 
-    private void readAttemptInterventionSelectors(Pedagogy p, Element e) {
+    private void readAttemptInterventionSelectors(TutoringStrategy p, Element e) {
         InterventionSelectorSpec spec = parseSelector(e);
         p.setAttemptInterventionSelector(spec);
         List<Element> subSelectors = e.getChildren("attemptInterventionSelector");
@@ -218,7 +218,7 @@ public class PedagogyParser {
 
     }
 
-    private void readNextProblemInterventionSelectors(Pedagogy p, Element e) {
+    private void readNextProblemInterventionSelectors(TutoringStrategy p, Element e) {
         InterventionSelectorSpec spec = parseSelector(e);
         p.setNextProblemInterventionSelector(spec);
         List<Element> subSelectors = e.getChildren("nextProblemInterventionSelector");

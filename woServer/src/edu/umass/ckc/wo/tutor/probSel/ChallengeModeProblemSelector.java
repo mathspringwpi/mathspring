@@ -5,6 +5,7 @@ import edu.umass.ckc.wo.content.Problem;
 import edu.umass.ckc.wo.event.tutorhut.NextProblemEvent;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.pedModel.ProblemGrader;
 import edu.umass.ckc.wo.tutormeta.TopicSelector;
 import org.apache.log4j.Logger;
@@ -31,7 +32,7 @@ public class ChallengeModeProblemSelector extends BaseProblemSelector {
 
 
 
-    public ChallengeModeProblemSelector(SessionManager smgr, TopicSelector topicSelector, PedagogicalModelParameters params) {
+    public ChallengeModeProblemSelector(SessionManager smgr, TopicSelector topicSelector, TutorModelParameters params) {
         super(smgr,topicSelector,params);
     }
 
@@ -41,7 +42,7 @@ public class ChallengeModeProblemSelector extends BaseProblemSelector {
     }
 
     @Override
-    public void setParameters(PedagogicalModelParameters params) {
+    public void setParameters(TutorModelParameters params) {
         this.parameters = params;
     }
 

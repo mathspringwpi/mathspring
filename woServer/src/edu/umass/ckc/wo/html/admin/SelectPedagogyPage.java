@@ -2,18 +2,18 @@ package edu.umass.ckc.wo.html.admin;
 
 import edu.umass.ckc.wo.event.admin.AdminActions;
 import ckc.servlet.servbase.View;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 
 public class SelectPedagogyPage implements View {
 
     private String msg = "";
-    private Pedagogy[] pedagogies;
+    private TutoringStrategy[] pedagogies;
 
 
 
 
 
-    public SelectPedagogyPage(String msg, Pedagogy[] pedagogies) {
+    public SelectPedagogyPage(String msg, TutoringStrategy[] pedagogies) {
 
         this.msg = msg;
         this.pedagogies = pedagogies;
@@ -75,9 +75,9 @@ public class SelectPedagogyPage implements View {
         StringBuffer sb = new StringBuffer("<tr><td width=\"40\"><input type=\"checkbox\" " +
                 "name=\"0\"/><td width=\"305\"><font color=\"#FFFFFF\" " +
                 "face=\"Arial, Helvetica, sans-serif\">Default</font></td></tr>\n");
-        for (Pedagogy pedagogy : this.pedagogies) {
-            String id = pedagogy.getId();
-            String name = pedagogy.getName();
+        for (TutoringStrategy tutoringStrategy : this.pedagogies) {
+            String id = tutoringStrategy.getId();
+            String name = tutoringStrategy.getName();
             sb.append("<tr><td width=\"40\"><input type=\"checkbox\" name=\"" + id + "\" /></td>");
             sb.append("<td width=\"305\"><font color=\"#FFFFFF\" face=\"Arial, Helvetica, sans-serif\">" + name + "</font></td></tr>\n");
         }

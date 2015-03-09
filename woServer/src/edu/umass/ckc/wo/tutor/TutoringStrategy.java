@@ -1,7 +1,9 @@
 package edu.umass.ckc.wo.tutor;
 
 import edu.umass.ckc.wo.tutconfig.LessonModelDescription;
+import edu.umass.ckc.wo.tutconfig.LessonModelParameters;
 import edu.umass.ckc.wo.tutconfig.TopicModelParameters;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorSpec;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
 
@@ -13,7 +15,7 @@ import java.util.List;
  * Date: Dec 18, 2007
  * Time: 6:35:10 PM
  */
-public class Pedagogy implements Comparable {
+public class TutoringStrategy implements Comparable {
 
     private static final String defaultClasspath = "edu.umass.ckc.wo.tutor";
     private String problemSelectorClass;
@@ -27,7 +29,7 @@ public class Pedagogy implements Comparable {
     private String packg;
     private boolean isDefault=false;
     private PedagogicalModelParameters pedagogicalModelParameters;
-    private TopicModelParameters topicModelParameters;
+    private LessonModelParameters lessonModelParameters;
     // the main nextProblem intervention selector - the coordinator if subs provided
     private InterventionSelectorSpec nextProblemInterventionSelector;
     // sub nextProblem intervention selectors
@@ -39,14 +41,15 @@ public class Pedagogy implements Comparable {
     private String reviewModeProblemSelectorClass;
     private String challengeModeProblemSelectorClass;
     private LessonModelDescription lessonModelDescription;
+    private TutorModelParameters tutorModelParameters;
 
 
-    public Pedagogy() {
+    public TutoringStrategy() {
     }
 
-    public Pedagogy(String problemSelector, String hintSelector,
-                    String studentModel, String learningCompanion, String pedModelClassname, String id,
-                    String name, String comment, String defaultClasspath, boolean isDefault) {
+    public TutoringStrategy(String problemSelector, String hintSelector,
+                            String studentModel, String learningCompanion, String pedModelClassname, String id,
+                            String name, String comment, String defaultClasspath, boolean isDefault) {
         this.problemSelectorClass = getFullyQualifiedClassname(defaultClasspath+".probSel",problemSelector);
         this.hintSelectorClass = getFullyQualifiedClassname(defaultClasspath+".hintSel",hintSelector);
         this.studentModelClass = getFullyQualifiedClassname(defaultClasspath,studentModel);
@@ -59,7 +62,7 @@ public class Pedagogy implements Comparable {
 
     }
 
-    public Pedagogy(String pedModClass, String id, String name, String comment, String defaultClasspath, boolean isDefault, String packg) {
+    public TutoringStrategy(String pedModClass, String id, String name, String comment, String defaultClasspath, boolean isDefault, String packg) {
         this.id = id;
         this.name = name;
         this.comment = comment;
@@ -216,12 +219,20 @@ public class Pedagogy implements Comparable {
         this.pedagogicalModelParameters = params;
     }
 
-    public TopicModelParameters getTopicModelParameters() {
-        return topicModelParameters;
+    public LessonModelParameters getLessonModelParameters() {
+        return lessonModelParameters;
     }
 
-    public void setTopicModelParameters(TopicModelParameters topicModelParameters) {
-        this.topicModelParameters = topicModelParameters;
+    public void setTutorModelParameters (TutorModelParameters params) {
+        this.tutorModelParameters =  params;
+    }
+
+    public TutorModelParameters getTutorModelParameters() {
+        return new TutorModelParameters(getPedagogicalModelParams(), getLessonModelParameters());
+    }
+
+    public void setLessonModelParameters(TopicModelParameters lessonModelParameters) {
+        this.lessonModelParameters = lessonModelParameters;
     }
 
     public void setDefault(boolean aDefault) {
@@ -233,7 +244,7 @@ public class Pedagogy implements Comparable {
     }
 
     public int compareTo(Object o) {
-        Pedagogy p2 = (Pedagogy) o;
+        TutoringStrategy p2 = (TutoringStrategy) o;
         if (Integer.parseInt(this.getId()) < Integer.parseInt(p2.getId()))
             return -1;
         else if  (Integer.parseInt(this.getId()) > Integer.parseInt(p2.getId()))
@@ -264,4 +275,6 @@ public class Pedagogy implements Comparable {
     public LessonModelDescription getLessonModelDescription() {
         return lessonModelDescription;
     }
+
+
 }

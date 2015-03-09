@@ -1,5 +1,6 @@
 package edu.umass.ckc.wo.tutor.probSel;
 
+import edu.umass.ckc.wo.event.tutorhut.TeachTopicEvent;
 import edu.umass.ckc.wo.tutormeta.UserTutorParams;
 import edu.umass.ckc.wo.tutormeta.frequency;
 
@@ -22,19 +23,25 @@ public class PedagogicalModelParameters {
 
     private String ccss;
     private int difficultyRate ; // this is the divisor that the problem selector uses to find increase/decrease its index into the
-
-
-
-
-
     private int externalActivityTimeThreshold;
-
     private boolean showAllExample;
-
-
     private int problemReuseIntervalSessions;
     private int problemReuseIntervalDays;
     private boolean showMPP=true;
+
+    public PedagogicalModelParameters() {
+        this.difficultyRate=DIFFICULTY_RATE;
+        this.externalActivityTimeThreshold = EXTERNAL_ACTIVITY_TIME_TRHRESHOLD;
+        this.problemReuseIntervalSessions =DEFAULT_PROBLEM_REUSE_INTERVAL_SESSIONS;
+        this.problemReuseIntervalDays =DEFAULT_PROBLEM_REUSE_INTERVAL_DAYS;
+        this.showMPP = DEFAULT_SHOW_MPP;
+    }
+
+    public PedagogicalModelParameters (String ccss) {
+        this();
+        this.ccss = ccss;
+    }
+
 
     public PedagogicalModelParameters(int probReuseIntervalSessions, int probReuseIntervalDays, int difficultyRate, int externalActThreshold) {
         this.problemReuseIntervalSessions = probReuseIntervalSessions;
@@ -53,26 +60,10 @@ public class PedagogicalModelParameters {
     // overload the params of this with those given for class.
     public PedagogicalModelParameters overload(PedagogicalModelParameters classParams) {
         if (classParams == null) return this;
-        if (classParams.getDifficultyRate() > 0)
-            this.difficultyRate =classParams.getDifficultyRate();
-        if (classParams.getMaxNumberProbs() > 0)
-            this.maxNumberProbs =classParams.getMaxNumberProbs();
-        if (classParams.getMinNumberProbs() > 0)
-            this.minNumberProbs =classParams.getMinNumberProbs();
-        if (classParams.getMaxTimeInTopic() > 0)
-            this.maxTimeInTopic =classParams.getMaxTimeInTopic();
-        if (classParams.getMinTimeInTopic() > 0)
-            this.minTimeInTopic =classParams.getMinTimeInTopic();
-        if (classParams.getContentFailureThreshold() > 0)
-            this.contentFailureThreshold =classParams.getContentFailureThreshold();
-        if (classParams.getTopicMastery() > 0)
-            this.topicMastery =classParams.getTopicMastery();
+
         if (classParams.getExternalActivityTimeThreshold() > 0)
             this.externalActivityTimeThreshold =classParams.getExternalActivityTimeThreshold();
-        if (classParams.getTopicIntroFrequency() != null)
-            this.topicIntroFrequency =classParams.getTopicIntroFrequency();
-        if (classParams.getTopicExampleFrequency() != null)
-            this.topicExampleFrequency =classParams.getTopicExampleFrequency();
+
         if (classParams.getProblemReuseIntervalSessions() > 0)
             this.problemReuseIntervalSessions =classParams.getProblemReuseIntervalSessions();
         return this;
@@ -85,30 +76,8 @@ public class PedagogicalModelParameters {
      * @return
      */
     public PedagogicalModelParameters overload (UserTutorParams userParams) {
-        if (userParams == null)
-            return this;
-        if (userParams.isShowIntro())
-            this.topicIntroFrequency=frequency.oncePerSession;
-        if (userParams.getMode().equalsIgnoreCase("Example"))  {
-            topicExampleFrequency = frequency.always;
-        }
-        else if (userParams.getMode().equalsIgnoreCase("Practice")) {
-            topicExampleFrequency = frequency.never;
-        }
-        else {
-            topicExampleFrequency = frequency.oncePerSession;
-        }
-        topicIntroFrequency = userParams.isShowIntro() ? frequency.oncePerSession : frequency.never;
-        maxTimeInTopic = userParams.getMaxTime();
-        minTimeInTopic = 0;
-        maxNumberProbs = userParams.getMaxProbs();
-        topicMastery = userParams.getTopicMastery();
-        minNumberProbs = 1;
-        this.singleTopicMode = userParams.isSingleTopicMode();
-        // If we get passed no topic from Assistments, then this translates into setting the maxtime in the topic to 0
-        // so we'll show the one forced problem and out.
-        if (userParams.getTopicId() == -1)
-            this.setMaxTimeInTopic(0);
+
+
         return this;
     }
 
@@ -118,79 +87,20 @@ public class PedagogicalModelParameters {
 
 
 
-    // Called with parameters read from TeacherAdmin's class config
-    public PedagogicalModelParameters(long maxTimeInTopic, int contentFailureThreshold, double topicMastery, int minNumberProbs,
-                                      long minTimeInTopic, int difficultyRate, int externalActivityTimeThreshold, int maxNumberProbs,
-                                      boolean showTopicIntro, boolean showExampleProblemFirst, frequency topicIntroFreq, frequency exampleFreq,
-                                      int probReuseIntervalSessions, int probReuseIntervalDays) {
-        this.maxNumberProbs = maxNumberProbs;
-        this.contentFailureThreshold = contentFailureThreshold;
-        this.topicMastery = topicMastery;
-        this.minNumberProbs= minNumberProbs;
-        this.difficultyRate= difficultyRate;
-        this.externalActivityTimeThreshold= externalActivityTimeThreshold;
-        this.showExampleFirst= showExampleProblemFirst;
-        this.problemReuseIntervalSessions = probReuseIntervalSessions;
-        this.problemReuseIntervalDays = probReuseIntervalDays;
-    }
-
-    public PedagogicalModelParameters() {
 
 
-        this.difficultyRate=DIFFICULTY_RATE;
-        this.externalActivityTimeThreshold = EXTERNAL_ACTIVITY_TIME_TRHRESHOLD;
-
-        this.problemReuseIntervalSessions =DEFAULT_PROBLEM_REUSE_INTERVAL_SESSIONS;
-        this.problemReuseIntervalDays =DEFAULT_PROBLEM_REUSE_INTERVAL_DAYS;
-        this.showMPP = DEFAULT_SHOW_MPP;
-    }
 
 
-    public PedagogicalModelParameters(String mode, boolean showIntro, long maxtime, int maxprobs, boolean singleTopicMode) {
-        this();
-        if (mode.equalsIgnoreCase("Example"))  {
-            showAllExample = true;
-            showExampleFirst = true;
-        }
-        else if (mode.equalsIgnoreCase("Practice")) {
-            showExampleFirst = false;
-            showAllExample = false;
-        }
-        else {
-            showExampleFirst = true;
-            showAllExample = false;
-        }
-        showTopicIntro = showIntro;
-        maxTimeInTopic = maxtime;
-        minTimeInTopic = 0;
-        maxNumberProbs = maxprobs;
-        minNumberProbs = 1;
-        this.singleTopicMode = singleTopicMode;
-    }
 
 
     // Assistments calls pass in a set of configuration params that seek to control a user's session.   These params override the ones
     // that are defined for the Assistments class that the user is in.
-    public PedagogicalModelParameters(String mode, boolean showIntro, long maxtime, int maxprobs, boolean singleTopicMode, String ccss) {
+    public PedagogicalModelParameters(String mode,  String ccss) {
         this();
-        if (mode.equalsIgnoreCase("Example"))  {
+        if (mode.equalsIgnoreCase(TeachTopicEvent.EXAMPLE_MODE))  {
             showAllExample = true;
-            showExampleFirst = true;
         }
-        else if (mode.equalsIgnoreCase("Practice")) {
-            showExampleFirst = false;
-            showAllExample = false;
-        }
-        else {
-            showExampleFirst = true;
-            showAllExample = false;
-        }
-        showTopicIntro = showIntro;
-        maxTimeInTopic = maxtime;
-        minTimeInTopic = 0;
-        maxNumberProbs = maxprobs;
-        minNumberProbs = 1;
-        this.singleTopicMode = singleTopicMode;
+        else showAllExample = false;
         this.ccss = ccss;
     }
 

@@ -4,9 +4,13 @@ import ckc.servlet.servbase.ServletInfo;
 import edu.umass.ckc.wo.event.internal.InternalTutorEvent;
 import edu.umass.ckc.wo.event.LoginEvent;
 import edu.umass.ckc.wo.event.SessionEvent;
+import edu.umass.ckc.wo.login.LoginResult;
 import edu.umass.ckc.wo.smgr.SessionManager;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.pedModel.PedagogicalModel;
 import edu.umass.ckc.wo.tutor.response.Response;
+
+import java.sql.SQLException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,9 +20,10 @@ import edu.umass.ckc.wo.tutor.response.Response;
  * To change this template use File | Settings | File Templates.
  */
 public class TutorModel implements TutorModelInterface {
-    private PedagogicalModel pedModel;
     private LearningCompanionModel lcModel;
     private SessionModel sessModel;
+    private TutorModelParameters params;
+    private PedagogicalModel pedagogicalModel;
 
     /**
      * Given the specification of a tutor from definition files (pedagogy, learning companion, lesson, session) build the appropriate
@@ -27,6 +32,8 @@ public class TutorModel implements TutorModelInterface {
     public void buildTutorModel () {
 
     }
+
+
 
     @Override
     public Response processInternalTutorEvent(InternalTutorEvent e, ServletInfo servletInfo, SessionManager smgr) {
@@ -39,7 +46,7 @@ public class TutorModel implements TutorModelInterface {
         // a response, we then pass this to the LearningCompanionModel to augment the response with a learning companion behavior
         Response r;
         if (e instanceof SessionEvent)
-            r = pedModel.processUserEvent(e, servletInfo, smgr);
+            r = this.pedagogicalModel.processUserEvent(e, servletInfo, smgr);
 
         // TODO
         // if the user event was converted to an internalTutorEvent which method on the lcModel do I call?
@@ -51,6 +58,34 @@ public class TutorModel implements TutorModelInterface {
     public Response processLoginEvent (LoginEvent e) {
         return sessModel.processLoginEvent(e);
     }
+
+
+    public PedagogicalModel getPedagogicalModel() {
+        return this.pedagogicalModel;
+    }
+
+    public void setPedagogicalModel(PedagogicalModel pedagogicalModel) {
+        this.pedagogicalModel = pedagogicalModel;
+    }
+
+    public TutorModelParameters getParams() {
+        return params;
+    }
+
+    public void setParams(TutorModelParameters params) {
+        this.params = params;
+    }
+
+    public LearningCompanionModel getLearningCompanionModel () {
+        return this.lcModel;
+    }
+
+    public void newSession (int sessId) throws SQLException {
+        this.pedagogicalModel.newSession(sessId);
+    }
+
+
+
 
 
 }

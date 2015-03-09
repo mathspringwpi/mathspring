@@ -12,10 +12,11 @@ import edu.umass.ckc.wo.handler.NavigationHandler;
 import edu.umass.ckc.wo.login.LoginResult;
 import edu.umass.ckc.wo.mrcommon.Names;
 import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.pedModel.PedagogicalModel;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
+import edu.umass.ckc.wo.tutor2.TutorModel;
 import edu.umass.ckc.wo.tutormeta.LearningCompanion;
 import edu.umass.ckc.wo.tutormeta.UserTutorParams;
 import edu.umass.ckc.wo.tutormeta.StudentModel;
@@ -62,9 +63,10 @@ public class SessionManager {
     //    private StudentProfile profile; // contains satv,satm, gender, and group
     private Random ran = new Random();
     private StudentModel studentModel = null;
-    private PedagogicalModel pedagogicalModel = null;
+//    private PedagogicalModel pedagogicalModel = null;
+    private TutorModel tutorModel= null;
     private String loginResponse = null;
-    private LearningCompanion learningCompanion=null;
+
     private LoginResult loginResult;
     private long timeInSession;
     private String hostPath; // The piece of the request URL that gives http://chinacat.../
@@ -119,7 +121,8 @@ public class SessionManager {
                 buildSession(connection,this.sessionId );
                 studState.getSessionState().initializeState();
                 DbSession.setClientType(connection, this.sessionId, flashClient);
-                lc = this.pedagogicalModel.getLearningCompanion();
+//                lc = this.pedagogicalModel.getLearningCompanion();
+                lc = this.tutorModel.getPedagogicalModel().getLearningCompanion();
                 return getLoginView(LOGIN_USER_PASS,NavigationHandler.TRUE,null,sessionId,studId,lc);
 
             }
@@ -213,10 +216,6 @@ public class SessionManager {
 
     }
 
-    public LearningCompanion getLearningCompanion () {
-        return learningCompanion;
-    }
-
     public String getLoginResponse() {
         return loginResponse;
     }
@@ -242,36 +241,37 @@ public class SessionManager {
 
         setStudentState(woProps);   // pull out student state props from all properties
 
-        Pedagogy ped = PedagogyRetriever.getPedagogy(connection, studId);
+        TutoringStrategy strategy = PedagogyRetriever.getTutoringStrategy(connection, studId);
         // these are the parameters as dfined in the XML file pedagogies.xml
-        PedagogicalModelParameters defaultParams = ped.getPedagogicalModelParams();
-        this.pedagogyId = Integer.parseInt(ped.getId());
+        TutorModelParameters defaultTutorModelParameters= strategy.getTutorModelParameters();
+        this.pedagogyId = Integer.parseInt(strategy.getId());
         // pedagogical model needs to be instantiated as last thing because its constructor takes the smgr instance (this)
         // and makes calls to get stuff so we want this as fully constructed as possible before the call to instantiate
         // so that the smgr is fully functional except for its ped model.
 
        // build the Pedagogical model for the student.  The PedagogicalModel constructor is responsible for
        // creating the StudentModel which also gets set in the below method
-       instantiatePedagogicalModel(ped);
+       instantiatePedagogicalModel(strategy);
 
        // If this is a configurable pedagogy (meaning that it can be given some parameters to guide its behavior),  then
        // see if this user has a set of parameters and if so use them to configure the pedagogy.
        // these params come from settings in the WoAdmin tool for the class.
         TutorModelParameters classParams = DbClass.getTutorModelParameters(connection, classId);
         // overload the defaults with stuff defined for the class.
-        defaultParams.overload(classParams);
+//        defaultParams.overload(classParams);
+        defaultTutorModelParameters.overload(classParams);
 //       if (this.pedagogicalModel instanceof ConfigurablePedagogy) {
         // these params are the ones that were passed in by Assistments and saved for the user
         UserTutorParams userParams = DbUserPedagogyParams.getPedagogyParams(connection,studId);
         // overload the params with anything provided for the user.
-        defaultParams.overload(userParams);
+
+        defaultTutorModelParameters.overload(userParams);
         // set theparams on the ped model
-        pedagogicalModel.setParams(defaultParams);
+        this.tutorModel.setParams(defaultTutorModelParameters);
 
 //            if (userParams != null)
 //                ((ConfigurablePedagogy) pedagogicalModel).configure(userParams);
 //       }
-       this.learningCompanion = this.pedagogicalModel.getLearningCompanion();
     }
 
 
@@ -422,13 +422,13 @@ public class SessionManager {
         else return "";
     }
 
-    private Pedagogy getPedagogy(int studentId) {
+    private TutoringStrategy getPedagogy(int studentId) {
 
-        Pedagogy ped = null;
+        TutoringStrategy ped = null;
 
         if (studentId > -1) {
             try {
-                ped = PedagogyRetriever.getPedagogy(connection, studentId);
+                ped = PedagogyRetriever.getTutoringStrategy(connection, studentId);
                 this.pedagogyId = Integer.parseInt(ped.getId());
             } catch (Exception e) {
                 System.out.println(e);
@@ -469,7 +469,7 @@ public class SessionManager {
                      return new LoginResult(-1, "This user is invalid because it is not in a class.   You need to re-register and select a class", LoginResult.ERROR);
                 }
                 int oldSessId = DbSession.findActiveSession(getConnection(), studId);
-                Pedagogy ped;
+                TutoringStrategy ped;
                 if (oldSessId != -1)  {
                     String msg = String.format("The user name <b>%s</b> whose name is <b>%s %s</b> is already logged into the system.  If you are not this person, please check with your teacher or double check that you are using the correct user name",user.getUname(),user.getFname(),user.getLname());
                     if (!logoutExistingSession)
@@ -486,7 +486,7 @@ public class SessionManager {
                         setStudentState(woProps);   // pull out student state props from all properties
                         studState.getSessionState().initializeState();
                         instantiatePedagogicalModel(ped);
-                        pedagogicalModel.newSession(sessionId); // tells the pedagogical that its a new session so it can initialize.
+                        tutorModel.newSession(sessionId); // tells the pedagogical that its a new session so it can initialize.
                         return new LoginResult(sessionId, null,LoginResult.NEW_SESSION);
                     }
                 }
@@ -601,19 +601,20 @@ public class SessionManager {
      * construct the actual object.   PedagogicalModel constructors are also responsible for creating
      * a StudentModel.
      */
-    public void instantiatePedagogicalModel(Pedagogy p) {
+    public void instantiatePedagogicalModel(TutoringStrategy tutoringStrategy) {
         try {
-            Class c = Class.forName(p.getPedagogicalModelClass());
-            Constructor constr = c.getConstructor(SessionManager.class, Pedagogy.class);
+            Class c = Class.forName(tutoringStrategy.getPedagogicalModelClass());
+            Constructor constr = c.getConstructor(SessionManager.class, TutoringStrategy.class);
             logger.debug("Instantiating a pedagogical model of type: " + c.getName());
-            this.pedagogicalModel = (PedagogicalModel) constr.newInstance(this, p);
-            studentModel = this.pedagogicalModel.getStudentModel();
+            this.tutorModel = new TutorModel();
+            tutorModel.setPedagogicalModel((PedagogicalModel) constr.newInstance(this, tutoringStrategy));
+            studentModel = tutorModel.getPedagogicalModel().getStudentModel();
             if (studentModel == null) {
-                throw new DeveloperException("A StudentModel object was not created by the constructor of " + p.getPedagogicalModelClass());
+                throw new DeveloperException("A StudentModel object was not created by the constructor of " + tutoringStrategy.getPedagogicalModelClass());
             }
             studentModel.init(woProps, studId, classId);
         } catch (Exception e) {
-            logger.fatal(this.pedagogicalModel, e);
+            logger.fatal(this.tutorModel, e);
         }
     }
 
@@ -837,7 +838,11 @@ public class SessionManager {
     }
 
     public PedagogicalModel getPedagogicalModel() {
-        return pedagogicalModel;
+        return tutorModel.getPedagogicalModel();
+    }
+
+    public LearningCompanion getLearningCompanion () {
+        return tutorModel.getLearningCompanionModel().getLearningCompanion();
     }
 
     public void clearUserProperties() {
@@ -848,7 +853,7 @@ public class SessionManager {
      // I tried making this just return the sessions pedagogical model params rather than going to classes, etc but it fails.
     // I think the problem is that the Guest user class has some parameters set (but not the new one showMPP) so the row is found
     // and then it builds a set of params with the default value of showMPP of true which then overloads the value set in the pedagogy.
-    public PedagogicalModelParameters getPedagogicalModelParameters() throws SQLException {
+    public TutorModelParameters getPedagogicalModelParameters() throws SQLException {
 //        return this.pedagogicalModel.getPedagogicalModelParams();
         TutorModelParameters params= DbClass.getTutorModelParameters(connection, this.classId);
         // If parameters are not stored for this particular class, a default set should be stored
@@ -857,7 +862,7 @@ public class SessionManager {
         if (params == null) {
             params = DbClass.getTutorModelParameters(connection, 1);
             if (params == null)
-                params = new PedagogicalModelParameters();
+                params = new TutorModelParameters();
         }
         return params;
     }

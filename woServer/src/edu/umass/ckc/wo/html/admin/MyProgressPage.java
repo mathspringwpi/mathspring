@@ -26,15 +26,7 @@ public class MyProgressPage implements View  {
     TopicSelector topicSelector;
 
 
-  public MyProgressPage (SessionManager smgr_) throws Exception  {
-      smgr = smgr_ ;
-      sessionId = smgr.getSessionNum() ;
-      studId =  smgr.getStudentId() ;
-      topicMasteries = smgr.getStudentModel().getTopicMasteries() ;
-      client = smgr.getClient() ;
-      masteryThreshold = (smgr.getClassMasteryThreshold()) ;
-      topicSelector = new TopicSelectorImpl(smgr,smgr.getPedagogicalModelParameters());
-  }
+
 
   public String getHeaderView() {
       return "<!DOCTYPE html>\n" +

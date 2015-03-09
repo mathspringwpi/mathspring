@@ -496,21 +496,22 @@ public class DbClass {
         }
     }
 
-    public static void setProblemSelectorParameters(Connection conn, int classId, TutorModelParameters tutParams) throws SQLException {
+    public static void setProblemSelectorParameters(Connection conn, int classId, TopicModelParameters topicModelParameters, PedagogicalModelParameters pedModParams) throws SQLException {
         PreparedStatement stmt = null;
 
         try {
+            // TODO this is assuming that we are working with a TopicModel and never a LessonModel which would need different values for a problems selector
             String q = "update classconfig set maxNumberProbsToShowPerTopic=?, maxTimeInTopic=?, contentFailureThreshold=?, topicMastery=?," +
                     "minNumberProbsToShowPerTopic=?, minTimeInTopic=?, difficultyRate=?, externalActivityTimeThreshold=? where classid=?";
             stmt = conn.prepareStatement(q);
-            stmt.setInt(1, tutParams.getTopicModelParameters().getMaxNumberProbs());
-            stmt.setLong(2, tutParams.getTopicModelParameters().getMaxTimeInTopic());
-            stmt.setInt(3, tutParams.getTopicModelParameters().getContentFailureThreshold());
-            stmt.setDouble(4, tutParams.getTopicModelParameters().getTopicMastery());
-            stmt.setInt(5, tutParams.getTopicModelParameters().getMinNumberProbs());
-            stmt.setLong(6, tutParams.getTopicModelParameters().getMinTimeInTopic());
-            stmt.setDouble(7, tutParams.getPedagogicalModelParameters().getDifficultyRate());
-            stmt.setInt(8, tutParams.getPedagogicalModelParameters().getExternalActivityTimeThreshold());
+            stmt.setInt(1, topicModelParameters.getMaxNumberProbs());
+            stmt.setLong(2, topicModelParameters.getMaxTimeInTopic());
+            stmt.setInt(3, topicModelParameters.getContentFailureThreshold());
+            stmt.setDouble(4, topicModelParameters.getTopicMastery());
+            stmt.setInt(5, topicModelParameters.getMinNumberProbs());
+            stmt.setLong(6, topicModelParameters.getMinTimeInTopic());
+            stmt.setDouble(7, pedModParams.getDifficultyRate());
+            stmt.setInt(8, pedModParams.getExternalActivityTimeThreshold());
             stmt.setInt(9, classId);
             stmt.executeUpdate();
         } finally {

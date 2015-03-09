@@ -6,7 +6,7 @@ import edu.umass.ckc.wo.db.DbPrePost;
 import edu.umass.ckc.wo.db.DbClassPedagogies;
 import edu.umass.ckc.wo.beans.ClassInfo;
 import edu.umass.ckc.wo.beans.PretestPool;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.exc.DeveloperException;
 
@@ -37,7 +37,7 @@ public class ClassAdminHelper {
         DbClass.setGivePretest(conn,classId, givePretest);
         ClassInfo info = DbClass.getClass(conn,classId);
         PretestPool pool = DbPrePost.getPretestPool(conn,classId);
-        List<Pedagogy> peds = DbClassPedagogies.getClassPedagogies(conn, classId);
+        List<TutoringStrategy> peds = DbClassPedagogies.getClassPedagogies(conn, classId);
         req.setAttribute("pedagogies",peds);
         req.setAttribute("pool",pool);
         req.setAttribute("classInfo",info);
@@ -52,9 +52,9 @@ public class ClassAdminHelper {
         return false;
     }
 
-    public static List<Pedagogy> getDefaultPedagogies () {
-        List<Pedagogy> peds = new ArrayList<Pedagogy>();
-        for (Pedagogy p : Settings.pedagogyGroups.values()) {
+    public static List<TutoringStrategy> getDefaultPedagogies () {
+        List<TutoringStrategy> peds = new ArrayList<TutoringStrategy>();
+        for (TutoringStrategy p : Settings.pedagogyGroups.values()) {
             if (p.isDefault())
                 peds.add(p);
         }
@@ -81,7 +81,7 @@ public class ClassAdminHelper {
                                                                HttpServletRequest req,
                                                                HttpServletResponse resp,
                                                                String submissionEventName, int teacherId, Connection conn) throws IOException, ServletException, SQLException {
-        List<Pedagogy> selectedPedagogies = new ArrayList<Pedagogy>();
+        List<TutoringStrategy> selectedPedagogies = new ArrayList<TutoringStrategy>();
         // check to see if user selected Default pedagogy + some others - an error
         if (pedagogyIds.size() > 1 && defaultSelected(pedagogyIds)) {
             // the URL to which the form is submitted is a parameter since this JSP is used to alter and create
@@ -140,10 +140,10 @@ public class ClassAdminHelper {
     }
 
     public static void saveSelectedPedagogies (Connection conn, int classId, List<String> pedagogyIds) throws SQLException, DeveloperException {
-         List<Pedagogy> selectedPedagogies = DbClassPedagogies.getPedagogiesFromIds(pedagogyIds);
+         List<TutoringStrategy> selectedPedagogies = DbClassPedagogies.getPedagogiesFromIds(pedagogyIds);
         // eliminate any old pedagogy settings
             DbClassPedagogies.removeClassPedagogies(conn, classId);
-            for (Pedagogy ped: selectedPedagogies)
+            for (TutoringStrategy ped: selectedPedagogies)
                 DbClassPedagogies.setClassPedagogy(conn, classId, ped.getId());
     }
 

@@ -5,6 +5,7 @@ import edu.umass.ckc.wo.content.Problem;
 import edu.umass.ckc.wo.event.tutorhut.NextProblemEvent;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.pedModel.ProblemGrader;
 import edu.umass.ckc.wo.tutor.pedModel.TopicSelectorImpl;
 import edu.umass.ckc.wo.tutormeta.ProblemSelector;
@@ -25,11 +26,11 @@ public class ReviewModeProblemSelector  implements ProblemSelector {
     public static final String END_PAGE = "reviewDone.html";
     private static Logger logger = Logger.getLogger(ReviewModeProblemSelector.class);
 
-    PedagogicalModelParameters parameters;
+    TutorModelParameters parameters;
     TopicSelector topicSelector;
     private SessionManager smgr;
 
-    public ReviewModeProblemSelector(SessionManager smgr, TopicSelectorImpl topicSelector, PedagogicalModelParameters params) {
+    public ReviewModeProblemSelector(SessionManager smgr, TopicSelectorImpl topicSelector, TutorModelParameters params) {
         this.smgr = smgr;
         this.topicSelector = topicSelector;
         this.parameters=params;
@@ -42,7 +43,7 @@ public class ReviewModeProblemSelector  implements ProblemSelector {
     }
 
     @Override
-    public void setParameters(PedagogicalModelParameters params) {
+    public void setParameters(TutorModelParameters params) {
         this.parameters = params;
     }
 

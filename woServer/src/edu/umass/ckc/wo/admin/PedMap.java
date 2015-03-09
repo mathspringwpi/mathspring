@@ -1,7 +1,7 @@
 package edu.umass.ckc.wo.admin;
 
 import edu.umass.ckc.wo.tutconfig.PedagogyParser;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import org.apache.log4j.Logger;
 import org.jdom.DataConversionException;
 
@@ -20,7 +20,7 @@ import java.util.Hashtable;
  * Date: Dec 20, 2007
  * Time: 10:27:19 AM
  */
-public class PedMap extends Hashtable<String, Pedagogy> {
+public class PedMap extends Hashtable<String, TutoringStrategy> {
 
     private static final Logger logger = Logger.getLogger(PedMap.class);
 
@@ -30,14 +30,14 @@ public class PedMap extends Hashtable<String, Pedagogy> {
     }
 
     private void buildMap(PedagogyParser config) {
-        for (Pedagogy p: config.getPedagogies())  {
+        for (TutoringStrategy p: config.getPedagogies())  {
             this.put(p.getId(),p);
             logger.debug(p);
         }
     }
 
-    public Pedagogy getDefaultPedagogy () {
-        for (Pedagogy p: this.values()) {
+    public TutoringStrategy getDefaultPedagogy () {
+        for (TutoringStrategy p: this.values()) {
             if (p.isDefault())
                 return p;
         }

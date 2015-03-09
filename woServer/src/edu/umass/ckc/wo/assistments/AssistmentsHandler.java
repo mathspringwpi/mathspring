@@ -1,7 +1,6 @@
 package edu.umass.ckc.wo.assistments;
 
 import ckc.servlet.servbase.BaseServlet;
-import edu.umass.ckc.wo.admin.PedagogyRetriever;
 import edu.umass.ckc.wo.beans.ClassInfo;
 import edu.umass.ckc.wo.beans.Topic;
 import edu.umass.ckc.wo.cache.ProblemMgr;
@@ -9,24 +8,20 @@ import edu.umass.ckc.wo.content.*;
 import edu.umass.ckc.wo.db.*;
 import edu.umass.ckc.wo.event.NavigationEvent;
 import edu.umass.ckc.wo.event.tutorhut.*;
-import edu.umass.ckc.wo.exc.AdminException;
 import edu.umass.ckc.wo.exc.AssistmentsBadInputException;
 import edu.umass.ckc.wo.handler.NavigationHandler;
 import edu.umass.ckc.wo.handler.UserRegistrationHandler;
 import edu.umass.ckc.wo.html.tutor.TutorPage;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.User;
-import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.pedModel.CCPedagogicalModel;
 import edu.umass.ckc.wo.tutor.pedModel.PedagogicalModel;
-import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
 import edu.umass.ckc.wo.tutor.response.ProblemResponse;
 import edu.umass.ckc.wo.tutor.studmod.StudentProblemData;
 import edu.umass.ckc.wo.tutor.studmod.StudentProblemHistory;
 import edu.umass.ckc.wo.tutormeta.LearningCompanion;
-import edu.umass.ckc.wo.tutormeta.UserTutorParams;
 import edu.umass.ckc.wo.util.HTTPRequest;
 import ckc.servlet.servbase.ServletInfo;
 import net.sf.json.JSONObject;
@@ -212,15 +207,15 @@ public class AssistmentsHandler {
         // what the behavior should be for a returning student.
 
         int clId = DbUser.getStudentClass(conn, studId);
-        List<Pedagogy> peds = DbClassPedagogies.getClassPedagogies(conn, clId);
+        List<TutoringStrategy> peds = DbClassPedagogies.getClassPedagogies(conn, clId);
         // check to make sure this class has one pedagogy because Assistments is going to configure it so it needs to be
         // a configurable Pedagogy
         if (peds.size() > 1) {
             logger.error("Assistments user is in a class with more than one pedagogy.  Only one pedagogy should be assigned to a class");
         }
-        Pedagogy pedagogy = peds.get(0);
+        TutoringStrategy tutoringStrategy = peds.get(0);
         if (e.getLessonId() != -1)
-            pedagogy = DbClassPedagogies.getAssistmentsCommonCorePedagogy();
+            tutoringStrategy = DbClassPedagogies.getAssistmentsCommonCorePedagogy();
         // now configure the pedagogy using the inputs coming from the URL
         String mode = e.getMode();
         String firstProbMode = mode.equals(TeachTopicEvent.EXAMPLE_PRACTICE_MODE) || mode.equals(TeachTopicEvent.EXAMPLE_MODE) ? Problem.DEMO : Problem.PRACTICE;
@@ -258,7 +253,7 @@ public class AssistmentsHandler {
         if (maxprobs <= 0)
             throw new AssistmentsBadInputException("maxProblems must be greater than 0");
         DbUserPedagogyParams.clearUserPedagogyParams(conn, studId);  // get rid of parameters from previous calls from Ass
-        DbUserPedagogyParams.saveUserPedagogyParams(conn, studId, mode, showIntro, maxtime, maxprobs, true, ccss, topicId, mastery, cuId, lessonId, Integer.parseInt(pedagogy.getId())); // save the params for this mini-session
+        DbUserPedagogyParams.saveUserPedagogyParams(conn, studId, mode, showIntro, maxtime, maxprobs, true, ccss, topicId, mastery, cuId, lessonId, Integer.parseInt(tutoringStrategy.getId())); // save the params for this mini-session
         SessionManager smgr = new SessionManager(conn).assistmentsLoginSession(studId);
         // if a lessonId was given then we need to set the Lesson of the CCPedagogicalModel
         setLesson(clId, lessonId, smgr);
@@ -337,7 +332,7 @@ public class AssistmentsHandler {
      */
 //    private void switchToCCPedagogicalModel(SessionManager smgr) throws SQLException, AdminException {
 //        int studId = smgr.getStudentId();
-//        Pedagogy ped = PedagogyRetriever.getPedagogy(conn, studId);
+//        Pedagogy ped = PedagogyRetriever.getTutoringStrategy(conn, studId);
 //        // these are the parameters as dfined in the XML file pedagogies.xml
 //        PedagogicalModelParameters defaultParams = ped.getPedagogicalModelParams();
 //        int pedagogyId = Integer.parseInt(ped.getId());

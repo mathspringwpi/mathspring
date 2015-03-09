@@ -12,7 +12,7 @@ import org.jdom.Element;
  * Time: 10:33 AM
  * To change this template use File | Settings | File Templates.
  */
-public class TopicModelParameters {
+public class TopicModelParameters  extends LessonModelParameters {
 
     private TopicModelDescription descr;
 
@@ -292,4 +292,7 @@ public class TopicModelParameters {
         this.showExampleFirst = showExampleFirst;
     }
 
+    public boolean isSingleTopicMode() {
+        return singleTopicMode;
+    }
 }

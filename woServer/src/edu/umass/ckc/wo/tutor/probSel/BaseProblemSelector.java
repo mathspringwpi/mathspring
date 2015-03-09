@@ -6,6 +6,8 @@ import edu.umass.ckc.wo.event.tutorhut.NextProblemEvent;
 import edu.umass.ckc.wo.exc.DeveloperException;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
+import edu.umass.ckc.wo.tutconfig.LessonModelParameters;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.pedModel.ProblemGrader;
 import edu.umass.ckc.wo.tutormeta.ProblemSelector;
 import edu.umass.ckc.wo.tutormeta.TopicSelector;
@@ -21,14 +23,16 @@ import java.util.List;
  */
 public class BaseProblemSelector implements ProblemSelector {
 
-    protected PedagogicalModelParameters parameters;
+    protected TutorModelParameters parameters;
     protected TopicSelector topicSelector;
     protected SessionManager smgr;
+    protected int difficultyRate;
 
-    public BaseProblemSelector(SessionManager smgr, TopicSelector topicSelector, PedagogicalModelParameters params) {
+    public BaseProblemSelector(SessionManager smgr, TopicSelector topicSelector, TutorModelParameters params) {
         this.smgr = smgr;
         this.topicSelector = topicSelector;
         this.parameters=params;
+        this.difficultyRate = params.getPedagogicalModelParameters().getDifficultyRate();
     }
 
 
@@ -49,17 +53,17 @@ public class BaseProblemSelector implements ProblemSelector {
         int nextIx=-1;
         // lastIx is -1 when the topic is new.
         if (lastIx == -1)
-            nextIx = (topicProbIds.size()-1) / parameters.getDifficultyRate();
+            nextIx = (topicProbIds.size()-1) / this.difficultyRate;
 
         if (nextIx == -1 && nextProblemDesiredDifficulty == ProblemGrader.difficulty.EASIER) {
             if (lastIx <= 0)
                 throw new DeveloperException("Last problem index=0 and want easier problem.   Content failure NOT PREDICTED by TopicSelector");
-            nextIx = lastIx / parameters.getDifficultyRate();
+            nextIx = lastIx / this.difficultyRate;
         }
         else if (nextIx == -1 && nextProblemDesiredDifficulty == ProblemGrader.difficulty.HARDER) {
             if (lastIx >= topicProbIds.size())
                 throw new DeveloperException("Last problem >= number of problems in topic.   Content failure NOT PREDICTED by TopicSelector");
-            nextIx = lastIx + ((topicProbIds.size()-1 - lastIx) / parameters.getDifficultyRate());
+            nextIx = lastIx + ((topicProbIds.size()-1 - lastIx) / this.difficultyRate);
 
         }
         else if (nextIx == -1 && nextProblemDesiredDifficulty == ProblemGrader.difficulty.SAME) {
@@ -81,7 +85,7 @@ public class BaseProblemSelector implements ProblemSelector {
     }
 
     @Override
-    public void setParameters(PedagogicalModelParameters params) {
+    public void setParameters(TutorModelParameters params) {
         this.parameters = params;
     }
 }

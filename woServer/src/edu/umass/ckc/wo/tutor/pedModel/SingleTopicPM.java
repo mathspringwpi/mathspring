@@ -1,9 +1,12 @@
 package edu.umass.ckc.wo.tutor.pedModel;
 
 import edu.umass.ckc.wo.event.tutorhut.NextProblemEvent;
+import edu.umass.ckc.wo.event.tutorhut.TeachTopicEvent;
 import edu.umass.ckc.wo.html.tutor.TutorPage;
 import edu.umass.ckc.wo.smgr.SessionManager;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutconfig.TopicModelParameters;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.tutor.probSel.*;
 import edu.umass.ckc.wo.tutor.response.ProblemResponse;
 import edu.umass.ckc.wo.tutor.response.Response;
@@ -19,20 +22,28 @@ import edu.umass.ckc.wo.tutormeta.*;
 public class SingleTopicPM extends BasePedagogicalModel {
 
 
-    public void configure(UserTutorParams pedParams) {
-
-        setParams(
-                new PedagogicalModelParameters(pedParams.getMode(), pedParams.isShowIntro(), pedParams.getMaxTime(),
-                        pedParams.getMaxProbs(), pedParams.isSingleTopicMode(), pedParams.getCcss()));
-        ProblemSelector psel = getProblemSelector();   // searches down into the wrapped PMs to find the prob selector
-        psel.setParameters(params);
+    public void configure(UserTutorParams userParams) {
+        String mode = userParams.getMode();
+        frequency exFreq=frequency.never;
+        if (mode.equals(TeachTopicEvent.EXAMPLE_PRACTICE_MODE) || mode.equals(TeachTopicEvent.EXAMPLE_MODE))
+            exFreq= frequency.oncePerSession;
+        frequency topicIntroFreq = frequency.never;
+        if (userParams.isShowIntro())
+            topicIntroFreq = frequency.oncePerSession;
+        TopicModelParameters topicModelParameters = new TopicModelParameters(exFreq,topicIntroFreq,userParams.getMaxTime(),TopicModelParameters.MIN_NUM_PROBS_PER_TOPIC,
+                userParams.getMaxProbs(),TopicModelParameters.MIN_NUM_PROBS_PER_TOPIC,userParams.getTopicMastery(),TopicModelParameters.CONTENT_FAILURE_THRESHOLD);
+        PedagogicalModelParameters pmParams = new PedagogicalModelParameters(userParams.getCcss());
+        TutorModelParameters tutParams = new TutorModelParameters(pmParams,topicModelParameters);
+        setParams(new TutorModelParameters(pmParams,topicModelParameters));
+        ProblemSelector psel = getProblemSelector();
+        psel.setParameters(tutParams);
     }
 
 
     public SingleTopicPM() {
     }
 
-    public SingleTopicPM(SessionManager smgr, Pedagogy p) throws Exception {
+    public SingleTopicPM(SessionManager smgr, TutoringStrategy p) throws Exception {
         super(smgr,p);
 //        this.smgr = smgr;
 //        this.studentModel = new BaseStudentModel(smgr.getConnection());

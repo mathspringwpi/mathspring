@@ -12,6 +12,7 @@ import edu.umass.ckc.wo.interventions.SelectHintSpecs;
 import edu.umass.ckc.wo.log.TutorLogger;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.intervSel2.AttemptInterventionSelector;
 import edu.umass.ckc.wo.tutor.intervSel2.MyProgressPageIS;
 import edu.umass.ckc.wo.tutor.intervSel2.NextProblemInterventionSelector;
@@ -44,7 +45,7 @@ public abstract class PedagogicalModel { // extends PedagogicalModelOld {
     public static final String CHALLENGE_MODE = "challenge";
     public static final String REVIEW_MODE = "review";
 
-    protected PedagogicalModelParameters params;
+    protected TutorModelParameters params;
     protected StudentModel studentModel;
     protected ProblemSelector problemSelector ;// problem selection is a pluggable strategy
     protected HintSelector hintSelector;  // hint selection is a pluggable strategy
@@ -63,11 +64,11 @@ public abstract class PedagogicalModel { // extends PedagogicalModelOld {
         return defaultParams;
     }
 
-    public PedagogicalModelParameters getParams () {
+    public TutorModelParameters getParams () {
         return this.params;
     }
 
-    public void setParams(PedagogicalModelParameters params) {
+    public void setParams(TutorModelParameters params) {
         this.params = params;
     }
 
@@ -490,6 +491,6 @@ public abstract class PedagogicalModel { // extends PedagogicalModelOld {
                     return false;
             }
         }
-        return this.getParams().isShowMPP();
+        return this.getParams().getPedagogicalModelParameters().isShowMPP();
     }
 }

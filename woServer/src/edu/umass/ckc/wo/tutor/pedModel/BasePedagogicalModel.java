@@ -19,7 +19,7 @@ import edu.umass.ckc.wo.interventions.SelectProblemSpecs;
 import edu.umass.ckc.wo.log.TutorLogger;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.intervSel2.InterventionSelectorSpec;
 import edu.umass.ckc.wo.tutor.intervSel2.AttemptInterventionSelector;
@@ -65,29 +65,33 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
 
 
 
-    public BasePedagogicalModel (SessionManager smgr, Pedagogy pedagogy) {
+    public BasePedagogicalModel (SessionManager smgr, TutoringStrategy tutoringStrategy) {
         this(smgr);
         try {
             pedagogicalMoveListeners = new ArrayList<PedagogicalMoveListener>();
-            // Use the params from the pedagogy and then overwrite any values with things that are set up for the class
-            params = setParams(smgr.getPedagogicalModelParameters(),pedagogy.getPedagogicalModelParams());
+
+            // Use the params from the tutoringStrategy and then overwrite any values with things that are set up for the class
+            params = setParams(smgr.getPedagogicalModelParameters(), tutoringStrategy.getPedagogicalModelParams());
             // TODO figure out how to make this class use the lessonModel rather than the topicSelector which now lives inside
             // the lessonModel if the its a TopicModel.
             topicSelector = new TopicSelectorImpl(smgr,params);
             // Will get back either a TopicModel or a LessonModel
-            lessonModel = LessonModel.buildLessonModel(smgr,params,pedagogy.getLessonModelDescription());
-            setStudentModel((StudentModel) Class.forName(pedagogy.getStudentModelClass()).getConstructor(SessionManager.class).newInstance(smgr));
+            lessonModel = LessonModel.buildLessonModel(smgr,params, tutoringStrategy.getLessonModelDescription());
+            setStudentModel((StudentModel) Class.forName(tutoringStrategy.getStudentModelClass()).getConstructor(SessionManager.class).newInstance(smgr));
             smgr.setStudentModel(getStudentModel());
-            setProblemSelector((ProblemSelector) Class.forName(pedagogy.getProblemSelectorClass()).getConstructor(SessionManager.class, TopicSelector.class, PedagogicalModelParameters.class).newInstance(smgr, topicSelector, params));
-            setReviewModeProblemSelector((ReviewModeProblemSelector) Class.forName(pedagogy.getReviewModeProblemSelectorClass()).getConstructor(SessionManager.class, TopicSelectorImpl.class, PedagogicalModelParameters.class).newInstance(smgr, topicSelector, params));
-            setChallengeModeProblemSelector((ChallengeModeProblemSelector) Class.forName(pedagogy.getChallengeModeProblemSelectorClass()).getConstructor(SessionManager.class, TopicSelector.class, PedagogicalModelParameters.class).newInstance(smgr, topicSelector, params));
-            setHintSelector((HintSelector) Class.forName( pedagogy.getHintSelectorClass()).getConstructor().newInstance());
-            if (pedagogy.getLearningCompanionClass() != null)
-                setLearningCompanion((LearningCompanion) Class.forName( pedagogy.getLearningCompanionClass()).getConstructor(SessionManager.class).newInstance(smgr));
-            if (pedagogy.getNextProblemInterventionSelector() != null)
-                setNextProblemInterventionSelector(buildNextProblemIS(smgr, pedagogy));
-            if (pedagogy.getAttemptInterventionSelector() != null)
-                setAttemptInterventionSelector(buildAttemptIS(smgr, pedagogy));
+            setProblemSelector((ProblemSelector) Class.forName(tutoringStrategy.getProblemSelectorClass()).getConstructor(SessionManager.class,
+                    TopicSelector.class, PedagogicalModelParameters.class).newInstance(smgr, topicSelector, params));
+            setReviewModeProblemSelector((ReviewModeProblemSelector) Class.forName(tutoringStrategy.getReviewModeProblemSelectorClass()).getConstructor(SessionManager.class,
+                    TopicSelectorImpl.class, PedagogicalModelParameters.class).newInstance(smgr, topicSelector, params));
+            setChallengeModeProblemSelector((ChallengeModeProblemSelector) Class.forName(tutoringStrategy.getChallengeModeProblemSelectorClass()).getConstructor(SessionManager.class,
+                    TopicSelector.class, PedagogicalModelParameters.class).newInstance(smgr, topicSelector, params));
+            setHintSelector((HintSelector) Class.forName( tutoringStrategy.getHintSelectorClass()).getConstructor().newInstance());
+            if (tutoringStrategy.getLearningCompanionClass() != null)
+                setLearningCompanion((LearningCompanion) Class.forName( tutoringStrategy.getLearningCompanionClass()).getConstructor(SessionManager.class).newInstance(smgr));
+            if (tutoringStrategy.getNextProblemInterventionSelector() != null)
+                setNextProblemInterventionSelector(buildNextProblemIS(smgr, tutoringStrategy));
+            if (tutoringStrategy.getAttemptInterventionSelector() != null)
+                setAttemptInterventionSelector(buildAttemptIS(smgr, tutoringStrategy));
         } catch (InstantiationException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (IllegalAccessException e) {
@@ -122,9 +126,9 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
         return sel;
     }
 
-    private NextProblemInterventionSelector buildNextProblemIS(SessionManager smgr, Pedagogy pedagogy) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        InterventionSelectorSpec npSpec = pedagogy.getNextProblemInterventionSelector();
-        List<InterventionSelectorSpec> subs = pedagogy.getSubNextProblemInterventionSelectors();
+    private NextProblemInterventionSelector buildNextProblemIS(SessionManager smgr, TutoringStrategy tutoringStrategy) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        InterventionSelectorSpec npSpec = tutoringStrategy.getNextProblemInterventionSelector();
+        List<InterventionSelectorSpec> subs = tutoringStrategy.getSubNextProblemInterventionSelectors();
         NextProblemInterventionSelector sel = (NextProblemInterventionSelector) newInstance(npSpec,smgr);
         this.addPedagogicalMoveListener(sel);
 
@@ -140,9 +144,9 @@ public class BasePedagogicalModel extends PedagogicalModel implements Pedagogica
         return sel;
     }
 
-    private AttemptInterventionSelector buildAttemptIS(SessionManager smgr, Pedagogy pedagogy) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        InterventionSelectorSpec atSpec = pedagogy.getAttemptInterventionSelector();
-        List<InterventionSelectorSpec> subs = pedagogy.getSubAttemptInterventionSelectors();
+    private AttemptInterventionSelector buildAttemptIS(SessionManager smgr, TutoringStrategy tutoringStrategy) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        InterventionSelectorSpec atSpec = tutoringStrategy.getAttemptInterventionSelector();
+        List<InterventionSelectorSpec> subs = tutoringStrategy.getSubAttemptInterventionSelectors();
         AttemptInterventionSelector sel = (AttemptInterventionSelector) newInstance(atSpec,smgr);
         this.addPedagogicalMoveListener(sel);
         if (subs != null) {

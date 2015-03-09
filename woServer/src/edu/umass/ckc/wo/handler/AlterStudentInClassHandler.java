@@ -6,7 +6,7 @@ import edu.umass.ckc.wo.db.DbClassPedagogies;
 import edu.umass.ckc.wo.db.DbClass;
 import edu.umass.ckc.wo.db.DbUser;
 import edu.umass.ckc.wo.event.admin.*;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.smgr.User;
 
 import javax.servlet.ServletContext;
@@ -75,7 +75,7 @@ public class AlterStudentInClassHandler {
             int pedId = DbUser.getStudentPedagogy(conn,e2.getStudId());
             u.setPedagogyId(pedId);
            
-            List<Pedagogy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn,classId);
+            List<TutoringStrategy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn,classId);
             req.setAttribute("classId",e2.getClassId());
             req.setAttribute("teacherId",e2.getTeacherId());
             req.setAttribute("action", "AdminEditStudent");
@@ -93,7 +93,7 @@ public class AlterStudentInClassHandler {
             int pedId = DbUser.getStudentPedagogy(conn,e2.getStudId());
             u.setPedagogyId(pedId);
 
-            List<Pedagogy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn,classId);
+            List<TutoringStrategy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn,classId);
             req.setAttribute("action","AdminAlterStudent");
             req.setAttribute("pedagogies",pedsInUse);
             req.setAttribute("classId",e2.getClassId());

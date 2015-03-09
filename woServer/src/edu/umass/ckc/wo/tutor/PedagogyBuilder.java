@@ -1,10 +1,6 @@
 package edu.umass.ckc.wo.tutor;
 
 import edu.umass.ckc.wo.admin.PedagogyRetriever;
-import edu.umass.ckc.wo.db.DbUser;
-import edu.umass.ckc.wo.tutormeta.HintSelector;
-import edu.umass.ckc.wo.tutormeta.InterventionSelector;
-import edu.umass.ckc.wo.tutormeta.ProblemSelector;
 import edu.umass.ckc.wo.exc.AdminException;
 
 import java.sql.Connection;
@@ -27,8 +23,8 @@ public class PedagogyBuilder {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public Pedagogy buildPedagogySelectors (Connection conn, int studId) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException, AdminException {
-            Pedagogy ped = PedagogyRetriever.getPedagogy(conn,studId);
+    public TutoringStrategy buildPedagogySelectors (Connection conn, int studId) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException, AdminException {
+            TutoringStrategy ped = PedagogyRetriever.getTutoringStrategy(conn, studId);
 //            ped.setProblemSelector((ProblemSelector) Class.forName(ped.getProblemSelectorClass()).newInstance());
 //            ped.setHintSelector((HintSelector) Class.forName(ped.getHintSelectorClass()).newInstance());
 

@@ -74,7 +74,8 @@ public class TopicEditorHandler {
             req.setAttribute("classInfo", classInfo);
             req.setAttribute("bean", bean);
             TutorModelParameters params = DbClass.getTutorModelParameters(conn, e.getClassId());
-            DbClass.setProblemSelectorParameters(conn,e.getClassId(), params);
+            // Since this is configuring a topic behavior, we can assume that we are working with TopicModelParameters and cast
+            DbClass.setProblemSelectorParameters(conn,e.getClassId(), (TopicModelParameters) params.getLessonModelParameters(), params.getPedagogicalModelParameters());
             req.setAttribute("params",params);
             req.getRequestDispatcher(JSP).forward(req,resp);
         }
@@ -96,8 +97,9 @@ public class TopicEditorHandler {
             PedagogicalModelParameters params = new PedagogicalModelParameters(ee.getDifficultyRate(), ee.getExternalActivityTimeThreshold());
             TopicModelParameters topicModelParameters = new TopicModelParameters(frequency.always,frequency.always,ee.getMaxTimeInTopic(),
                     ee.getMinTimeInTopic(),ee.getMaxNumProbsPerTopic(),ee.getMinNumProbsPerTopic(),ee.getTopicMastery(),ee.getContentFailureThreshold());
-
-            DbClass.setProblemSelectorParameters(conn, e.getClassId(), params);
+            TutorModelParameters tutorModelParameters = new TutorModelParameters(params,topicModelParameters);
+            // Since this is dealing with topics we can assume we need to cast to TopicModel
+            DbClass.setProblemSelectorParameters(conn, e.getClassId(), (TopicModelParameters) tutorModelParameters.getLessonModelParameters(), tutorModelParameters.getPedagogicalModelParameters());
             req.setAttribute("params", params);
             req.setAttribute("topicModelParams",topicModelParameters);
             req.getRequestDispatcher(JSP).forward(req,resp);
@@ -117,16 +119,17 @@ public class TopicEditorHandler {
             req.setAttribute("teacherId",e.getTeacherId());
             req.setAttribute("classId",e.getClassId());
             req.setAttribute("classInfo",classInfo);
-            TutorModelParameters params = DbClass.getTutorModelParameters(conn, e.getClassId());
+            TutorModelParameters tutorModelParameters = DbClass.getTutorModelParameters(conn, e.getClassId());
             // If parameters are not stored for this particular class, a default set should be stored
             // in classconfig table for classId=1.   If nothing there, then use the defaults created
             // in the default PedagogicalModelParameters constructor
-            if (params == null) {
-                params = DbClass.getTutorModelParameters(conn, 1);
-                if (params == null)
-                    params = new PedagogicalModelParameters();
+            if (tutorModelParameters == null) {
+                tutorModelParameters = DbClass.getTutorModelParameters(conn, 1);
+                if (tutorModelParameters == null)
+                    tutorModelParameters = new TutorModelParameters();
             }
-            req.setAttribute("params",params);
+            req.setAttribute("params",tutorModelParameters.getPedagogicalModelParameters());
+            req.setAttribute("topicModelParams",tutorModelParameters.getLessonModelParameters());
             req.getRequestDispatcher(JSP).forward(req,resp);
         }
 

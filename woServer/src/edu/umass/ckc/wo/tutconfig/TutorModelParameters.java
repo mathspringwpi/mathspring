@@ -1,6 +1,7 @@
 package edu.umass.ckc.wo.tutconfig;
 
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
+import edu.umass.ckc.wo.tutormeta.UserTutorParams;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,23 +12,33 @@ import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
  */
 public class TutorModelParameters {
     private PedagogicalModelParameters pedagogicalModelParameters;
-    private TopicModelParameters topicModelParameters;
+    private LessonModelParameters lessonModelParameters;
 
-    public TutorModelParameters(PedagogicalModelParameters pedagogicalModelParameters, TopicModelParameters topicModelParameters) {
+    public TutorModelParameters(PedagogicalModelParameters pedagogicalModelParameters, LessonModelParameters lessonModelParameters) {
         this.pedagogicalModelParameters = pedagogicalModelParameters;
-        this.topicModelParameters = topicModelParameters;
+        this.lessonModelParameters = lessonModelParameters;
     }
 
     public TutorModelParameters() {
         this.pedagogicalModelParameters = new PedagogicalModelParameters();
-        this.topicModelParameters = new TopicModelParameters();
+        this.lessonModelParameters = new TopicModelParameters();
     }
 
     public PedagogicalModelParameters getPedagogicalModelParameters() {
         return pedagogicalModelParameters;
     }
 
-    public TopicModelParameters getTopicModelParameters() {
-        return topicModelParameters;
+    public LessonModelParameters getLessonModelParameters() {
+        return lessonModelParameters;
+    }
+
+    public void overload(TutorModelParameters classParams) {
+        pedagogicalModelParameters = pedagogicalModelParameters.overload(classParams.getPedagogicalModelParameters());
+        lessonModelParameters = lessonModelParameters.overload(classParams.getLessonModelParameters());
+    }
+
+    public void overload (UserTutorParams params) {
+        lessonModelParameters.overload(params);
+        pedagogicalModelParameters.overload(params);
     }
 }

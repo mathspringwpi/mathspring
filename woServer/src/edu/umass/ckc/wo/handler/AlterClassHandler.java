@@ -8,7 +8,7 @@ import edu.umass.ckc.wo.event.admin.*;
 import ckc.servlet.servbase.UserException;
 
 
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.exc.DeveloperException;
 import edu.umass.ckc.wo.admin.ClassCloner;
 import edu.umass.ckc.wo.smgr.User;
@@ -80,7 +80,7 @@ public class AlterClassHandler {
             Classes bean = new Classes(classes);
             req.setAttribute("bean",bean);
             ClassInfo classInfo = DbClass.getClass(conn,classId);
-            List<Pedagogy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn,classId);
+            List<TutoringStrategy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn,classId);
             PretestPool pool = DbPrePost.getPretestPool(conn,classId);
             req.setAttribute("action","AdminAlterClassCloneClass");
             req.setAttribute("pedagogies",pedsInUse);
@@ -94,7 +94,7 @@ public class AlterClassHandler {
         // to be edited.
         else if (e instanceof AdminAlterClassEditEvent) {
             ClassInfo classInfo = DbClass.getClass(conn,((AdminAlterClassEditEvent) e).getClassId());
-            List<Pedagogy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn, ((AdminAlterClassEditEvent) e).getClassId());
+            List<TutoringStrategy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn, ((AdminAlterClassEditEvent) e).getClassId());
             PretestPool pool = DbPrePost.getPretestPool(conn,((AdminAlterClassEditEvent) e).getClassId());
             ClassInfo[] classes = DbClass.getClasses(conn,teacherId);
             Classes bean = new Classes(classes);
@@ -115,7 +115,7 @@ public class AlterClassHandler {
             if (classId < 0) {
                 classId = e2.getClassId();
                 ClassInfo classInfo = DbClass.getClass(conn,classId);
-                List<Pedagogy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn,classId);
+                List<TutoringStrategy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn,classId);
                 PretestPool pool = DbPrePost.getPretestPool(conn,classId);
                 req.setAttribute("action", "AdminAlterClassCloneSubmitInfo");
                 req.setAttribute("pedagogies",pedsInUse);
@@ -126,7 +126,7 @@ public class AlterClassHandler {
             }
             else {
                 ClassInfo classInfo = DbClass.getClass(conn,classId);
-                List<Pedagogy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn, classId);
+                List<TutoringStrategy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn, classId);
                 PretestPool pool = DbPrePost.getPretestPool(conn,classId);
                 req.setAttribute("action", "AdminAlterClassCloneSubmitInfo" );
                 req.setAttribute("pedagogies",pedsInUse);
@@ -145,7 +145,7 @@ public class AlterClassHandler {
             DbClass.updateClass(conn,e2.getClassId(),e2.getClassName(),e2.getSchool(),e2.getSchoolYear(),
                     e2.getTown(),e2.getSection(),e2.getPropGroupId());
             ClassInfo classInfo = DbClass.getClass(conn,((AdminAlterClassSubmitInfoEvent) e).getClassId());
-            List<Pedagogy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn, ((AdminAlterClassSubmitInfoEvent) e).getClassId());
+            List<TutoringStrategy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn, ((AdminAlterClassSubmitInfoEvent) e).getClassId());
             PretestPool pool = DbPrePost.getPretestPool(conn,e2.getClassId());
             req.setAttribute("action","AdminAlterClassSubmitInfoEvent");
             req.setAttribute("pedagogies",pedsInUse);
@@ -319,7 +319,7 @@ public class AlterClassHandler {
 
             DbClass.updateClassEmailSettings(conn,classId,e2.studentEmailInterval,e2.studentReportPeriod,e2.teacherEmailInterval,e2.teacherReportPeriod);
             ClassInfo classInfo = DbClass.getClass(conn,classId);
-            List<Pedagogy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn, classId);
+            List<TutoringStrategy> pedsInUse = DbClassPedagogies.getClassPedagogies(conn, classId);
             PretestPool pool = DbPrePost.getPretestPool(conn,classId);
             req.setAttribute("action","AdminAlterClassOtherConfigSubmitInfo");
             req.setAttribute("pedagogies",pedsInUse);

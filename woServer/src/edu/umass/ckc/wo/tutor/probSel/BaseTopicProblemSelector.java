@@ -2,11 +2,15 @@ package edu.umass.ckc.wo.tutor.probSel;
 
 import edu.umass.ckc.wo.content.Problem;
 //import edu.umass.ckc.wo.content.ProblemImpl;
+import edu.umass.ckc.wo.db.DbProblem;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
+import edu.umass.ckc.wo.tutconfig.TopicModelParameters;
+import edu.umass.ckc.wo.tutconfig.TutorModelParameters;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.pedModel.ProblemGrader;
-import edu.umass.ckc.wo.tutormeta.BaseProblemSelectorOld;
+
+import edu.umass.ckc.wo.tutormeta.ProblemSelector;
 import edu.umass.ckc.wo.tutormeta.StudentModel;
 import edu.umass.ckc.wo.interventions.SelectProblemSpecs;
 import edu.umass.ckc.wo.event.tutorhut.NextProblemEvent;
@@ -79,8 +83,22 @@ import java.util.*;
  * Date: Jun 25, 2007
  * Time: 8:56:59 AM
  */
-public class BaseTopicProblemSelector extends BaseProblemSelectorOld {
+public class BaseTopicProblemSelector   implements ProblemSelector  {
     private static Logger logger = Logger.getLogger(BaseTopicProblemSelector.class);
+
+    protected int classID;
+    protected Problem lastProb;
+    protected String lastProbMode;
+    protected Connection conn;
+    protected int lastProbIndex;
+    protected SessionManager smgr;
+
+    protected int topicID;
+    protected List<Problem> probsInTopic;
+
+
+
+
     Random indexGenerator_ = new Random();
 
     private int newIndex;
@@ -127,24 +145,26 @@ public class BaseTopicProblemSelector extends BaseProblemSelectorOld {
         this.showExampleProblemFirst = showExampleProbFirst;
     }
 
-    public BaseTopicProblemSelector(SessionManager smgr, PedagogicalModelParameters params) throws Exception {
+    public BaseTopicProblemSelector(SessionManager smgr, TutorModelParameters params) throws Exception {
         setParameters(params);
         init(smgr);
     }
 
-    public void setParameters(PedagogicalModelParameters params) {
-        this.maxNumberProbs = params.getMaxNumberProbs();
-        this.maxTimeInTopic = params.getMaxTimeInTopic();
-        this.contentFailureThreshold = params.getContentFailureThreshold();
-        this.topicMastery = params.getTopicMastery();
-        this.minNumberProbs = params.getMinNumberProbs();
-        this.minTimeInTopic = params.getMinTimeInTopic();
-        this.divisor = params.getDifficultyRate();
-        this.showExampleProblemFirst = params.isShowExampleFirst();
-        this.showTopicIntroFirst= params.isShowTopicIntro();
-        this.showAllExample = params.isShowAllExample();
-        this.isSingleTopicMode = params.isSingleTopicMode();
-        this.ccss = params.getCcss();
+    public void setParameters(TutorModelParameters tutorModelParameters) {
+        TopicModelParameters topicModelParameters = (TopicModelParameters) tutorModelParameters.getLessonModelParameters();
+        PedagogicalModelParameters pedModelParameters = (PedagogicalModelParameters) tutorModelParameters.getPedagogicalModelParameters();
+        this.maxNumberProbs = topicModelParameters.getMaxNumberProbs();
+        this.maxTimeInTopic = topicModelParameters.getMaxTimeInTopic();
+        this.contentFailureThreshold = topicModelParameters.getContentFailureThreshold();
+        this.topicMastery = topicModelParameters.getTopicMastery();
+        this.minNumberProbs = topicModelParameters.getMinNumberProbs();
+        this.minTimeInTopic = topicModelParameters.getMinTimeInTopic();
+        this.divisor = pedModelParameters.getDifficultyRate();
+        this.showExampleProblemFirst = topicModelParameters.isShowExampleFirst();
+        this.showTopicIntroFirst= topicModelParameters.isShowTopicIntro();
+        this.showAllExample = pedModelParameters.isShowAllExample();
+        this.isSingleTopicMode = topicModelParameters.isSingleTopicMode();
+        this.ccss = pedModelParameters.getCcss();
 
     }
 

@@ -6,7 +6,6 @@ import edu.umass.ckc.wo.event.SessionEvent;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.tutconfig.LessonModelDescription;
 import edu.umass.ckc.wo.tutconfig.TopicModelDescription;
-import edu.umass.ckc.wo.tutor.Pedagogy;
 import edu.umass.ckc.wo.tutor.probSel.PedagogicalModelParameters;
 import edu.umass.ckc.wo.tutor.response.Response;
 

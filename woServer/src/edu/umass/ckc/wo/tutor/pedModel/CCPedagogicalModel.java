@@ -8,9 +8,8 @@ import edu.umass.ckc.wo.html.tutor.TutorPage;
 import edu.umass.ckc.wo.log.TutorLogger;
 import edu.umass.ckc.wo.smgr.SessionManager;
 import edu.umass.ckc.wo.smgr.StudentState;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 import edu.umass.ckc.wo.tutor.response.*;
-import edu.umass.ckc.wo.tutormeta.Intervention;
 import edu.umass.ckc.wo.tutormeta.StudentEffort;
 import org.apache.log4j.Logger;
 
@@ -36,7 +35,7 @@ public class CCPedagogicalModel extends BasePedagogicalModel {
      * @param ped
      * @throws SQLException
      */
-    public CCPedagogicalModel (SessionManager smgr, Pedagogy ped) throws Exception {
+    public CCPedagogicalModel (SessionManager smgr, TutoringStrategy ped) throws Exception {
         super(smgr,ped);
         studentLessonMgr = new StudentLessonMgr(smgr);
         logger.debug("Instantiated CCPedagogicalModel");

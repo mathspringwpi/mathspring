@@ -3,7 +3,7 @@ package edu.umass.ckc.wo.html.admin;
 import edu.umass.ckc.wo.beans.ClassInfo;
 import edu.umass.ckc.wo.event.admin.AdminActions;
 import ckc.servlet.servbase.View;
-import edu.umass.ckc.wo.tutor.Pedagogy;
+import edu.umass.ckc.wo.tutor.TutoringStrategy;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -107,9 +107,9 @@ public class CreateClassSuccessPage implements View {
         StringBuffer sb = new StringBuffer();
         Iterator itr = this.pedagogies.iterator();
         while (itr.hasNext()) {
-            Pedagogy pedagogy = (Pedagogy) itr.next();
-            String id = pedagogy.getId();
-            String name = pedagogy.getName();
+            TutoringStrategy tutoringStrategy = (TutoringStrategy) itr.next();
+            String id = tutoringStrategy.getId();
+            String name = tutoringStrategy.getName();
             sb.append("<tr><td width=\"40\">" + id + "</td><td width=\"305\">"+  name + "</td></tr>\n");
         }
         return sb.toString();
