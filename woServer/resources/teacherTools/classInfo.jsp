@@ -64,13 +64,13 @@
               <td width="17%" class="whArial">ID</td>
               <td width="83%" class="whArial">Name</td>
           </tr>
-          <%--@elvariable id="pedagogies" type="java.util.List"--%>
-          <%--@elvariable id="ped" type="edu.umass.ckc.wo.tutor.Pedagogy"--%>
-          <c:forEach var="ped" items="${pedagogies}">
+          <%--@elvariable id="strategies" type="java.util.List"--%>
+      <%--@elvariable id="strat" type="edu.umass.ckc.wo.tutor.TutoringStrategy"--%>
+          <c:forEach var="strat" items="${strategies}">
            <tr>
               <td class="whArial">
-              <c:out value="${ped.id}"/></td>
-              <td class="whArial"><c:out value="${ped.name}"/> </td>
+              <c:out value="${strat.id}"/></td>
+              <td class="whArial"><c:out value="${strat.name}"/> </td>
           </tr>
           </c:forEach>
       </table>

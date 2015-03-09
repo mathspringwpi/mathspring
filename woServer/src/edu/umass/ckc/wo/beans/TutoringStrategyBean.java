@@ -7,17 +7,17 @@ package edu.umass.ckc.wo.beans;
  * Time: 10:06:52 AM
  * To change this template use File | Settings | File Templates.
  */
-public class PedagogyBean {
+public class TutoringStrategyBean {
     private int id;
     private String description;
     private boolean selected;
 
-    public PedagogyBean(int id, String description) {
+    public TutoringStrategyBean(int id, String description) {
         this.id = id;
         this.description = description;
     }
 
-    public PedagogyBean() {
+    public TutoringStrategyBean() {
     }
 
     public String getDescription() {

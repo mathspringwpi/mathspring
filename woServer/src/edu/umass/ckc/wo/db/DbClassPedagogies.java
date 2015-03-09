@@ -1,10 +1,10 @@
 package edu.umass.ckc.wo.db;
 
+import edu.umass.ckc.wo.beans.TutoringStrategyBean;
 import edu.umass.ckc.wo.tutor.Settings;
 import edu.umass.ckc.wo.tutor.Pedagogy;
 import edu.umass.ckc.wo.exc.DeveloperException;
 import edu.umass.ckc.wo.handler.ClassAdminHelper;
-import edu.umass.ckc.wo.beans.PedagogyBean;
 import edu.umass.ckc.wo.util.Lists;
 
 import java.sql.Connection;
@@ -67,10 +67,10 @@ public class DbClassPedagogies {
         return pedagogyList;
     }
 
-    public static PedagogyBean[] getClassPedagogyBeans(Connection conn, int classId) throws SQLException {
-        PedagogyBean[] pedagogies = DbClassPedagogies.getAllPedagogies();
+    public static TutoringStrategyBean[] getClassPedagogyBeans(Connection conn, int classId) throws SQLException {
+        TutoringStrategyBean[] pedagogies = DbClassPedagogies.getAllPedagogies();
         List<String> pedIds = DbClassPedagogies.getClassPedagogyIds(conn,classId);
-            for (PedagogyBean b: pedagogies) {
+            for (TutoringStrategyBean b: pedagogies) {
                if (Lists.inList(b.getId(),pedIds))
                    b.setSelected(true);
             }
@@ -115,12 +115,12 @@ public class DbClassPedagogies {
      * Pull all the Pedagogy objects out of the map and return them in order sorted by ID.
      * @return
      */
-    public static PedagogyBean[] getAllPedagogies () {
+    public static TutoringStrategyBean[] getAllPedagogies () {
         Pedagogy[] peds = (Pedagogy[]) Settings.pedagogyGroups.values().toArray(new Pedagogy[Settings.pedagogyGroups.values().size()]);
         Arrays.sort(peds);
-        PedagogyBean[] beans = new PedagogyBean[peds.length];
+        TutoringStrategyBean[] beans = new TutoringStrategyBean[peds.length];
         for (int i=0;i<peds.length;i++) {
-            beans[i] = new PedagogyBean(Integer.parseInt(peds[i].getId()),peds[i].getName());
+            beans[i] = new TutoringStrategyBean(Integer.parseInt(peds[i].getId()),peds[i].getName());
             beans[i].setId(Integer.parseInt(peds[i].getId()));
 
         }

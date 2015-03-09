@@ -175,7 +175,7 @@ public class AlterClassHandler {
             ClassInfo[] classes1 = DbClass.getClasses(conn, teacherId);
             Classes bean1 = new Classes(classes1);
             ClassInfo classInfo = DbClass.getClass(conn,classId);
-            PedagogyBean[] pedagogies = DbClassPedagogies.getClassPedagogyBeans(conn,classId);
+            TutoringStrategyBean[] pedagogies = DbClassPedagogies.getClassPedagogyBeans(conn,classId);
             req.setAttribute("action", "AdminAlterClassPedagogies");
             req.setAttribute("classId", classId);
              req.setAttribute("pedagogies", pedagogies);

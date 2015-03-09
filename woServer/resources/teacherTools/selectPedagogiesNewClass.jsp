@@ -25,10 +25,10 @@
             <table width="334" border="0" height="98">
                 <tr><td width="40"><input type="checkbox" name="0"/><td width="305"><font color="#000000" face="Arial, Helvetica, sans-serif">Default</font></td></tr>
 
-                <%--@elvariable id="pedagogies" type="edu.umass.ckc.wo.beans.PedagogyBean[]"--%>
-                <c:forEach var="pedagogy" items="${pedagogies}">
-                    <tr><td valign="top" width="40"><input type="checkbox" <c:if test="${pedagogy.selected}">checked="checked"</c:if> name="<c:out value="${pedagogy.id}"/>"/></td>
-                        <td width="305"><font color="#000000" face="Arial, Helvetica, sans-serif"><c:out value="${pedagogy.description}"/></font></td></tr>
+                <%--@elvariable id="strategies" type="edu.umass.ckc.wo.beans.TutoringStrategyBean[]"--%>
+                <c:forEach var="s" items="${strategies}">
+                    <tr><td valign="top" width="40"><input type="checkbox" <c:if test="${s.selected}">checked="checked"</c:if> name="<c:out value="${s.id}"/>"/></td>
+                        <td width="305"><font color="#000000" face="Arial, Helvetica, sans-serif"><c:out value="${s.description}"/></font></td></tr>
 
                 </c:forEach>
             </table>
