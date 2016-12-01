@@ -36,6 +36,7 @@ html, body {
     margin-bottom: 20px;
     color: #ffffff;
     font-weight: bold;
+    outline: none;
 }
 
 .teacher-sign-up-btn,
@@ -43,7 +44,6 @@ html, body {
 .teacher-sign-up-btn:focus {
     background: #f1cb6b;
     border-color: #f1cb6b;
-    outline: none;
 }
 
 .teacher-sign-up-btn:hover {
@@ -56,7 +56,6 @@ html, body {
 .student-sign-up-btn:focus {
     background: #41c0ab;
     border-color: #41c0ab;
-    outline: none;
 }
 
 .student-sign-up-btn:hover {
@@ -69,7 +68,6 @@ html, body {
 .guest-try-out-btn:focus {
     background: #f6a623;
     border-color: #f6a623;
-    outline: none;
 }
 
 .guest-try-out-btn:hover {
