@@ -4,7 +4,7 @@ html {
 }
 
 #pots {
-    min-height: 100%;
+    min-height: 100vh;
     padding: 50px 50px 150px 50px;
     background: url(../img/bgv1.png);
     background-size: cover;
@@ -15,7 +15,7 @@ html {
 }
 
 #pots img {
-    padding: 20px;
+    padding-bottom: 10px;
     border: 1px solid #2ECC71;
     border-radius: 15%;
     background-color: rgba(46, 204, 113, 0.3);
@@ -146,6 +146,40 @@ div[topicTitle] > div {
        make sure you have an empty gif
     background-image: url('empty.gif');*/
 }
+
+/*#big-working-button {*/
+    /*position: fixed;*/
+    /*text-align: center;*/
+    /*background: #006739;*/
+    /*padding-top: 15px;*/
+    /*padding-bottom: 50px;*/
+    /*color: white;*/
+    /*transition: background-color 0.5s ease;*/
+    /*bottom: 0;*/
+    /*z-index: 150;*/
+/*}*/
+/*#big-working-button:after {*/
+    /*content: "";*/
+    /*background: #2ECC71;*/
+    /*opacity: 0.1;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*bottom: 0;*/
+    /*right: 0;*/
+    /*position: absolute;*/
+    /*z-index: 0;*/
+/*}*/
+/*#big-working-button h1 {*/
+    /*letter-spacing: 2px;*/
+/*}*/
+/*#big-working-button p {*/
+    /*margin-top: 20px;*/
+    /*letter-spacing: 1px;*/
+/*}*/
+/*#big-working-button:hover {*/
+    /*text-decoration: none;*/
+    /*background: #2ECC71;*/
+/*}*/
 
 .section-panel {
     width: 90%;
