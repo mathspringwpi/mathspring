@@ -34,7 +34,7 @@
     text-rendering: optimizeLegibility;
     margin-top: -5px;
     padding-top: 60px;
-    min-height: 750px;
+    min-height: 800px;
     max-height: 100%;
 }
 #main-tutoring .vertical-button {
@@ -76,6 +76,7 @@
     min-height: 500px;
 }
 #main-tutoring .virtual-character {
+    margin-top: 75px;
     height: 500px;
 }
 #main-tutoring .buttons-below {
