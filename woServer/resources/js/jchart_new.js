@@ -6,38 +6,38 @@ var Chart = {
     /**
      * The graph object. Short-hand for "this". Set in the init-method.
      */
-    o				: null,
+    o               : null,
 
     /**
      * The graph's container element. Passed as a string argument to the init-method.
      */
-    container		: null,
+    container       : null,
 
     /**
      *
      */
-    title			: "",
+    title           : "",
 
 
 
     /**
      * The chart type, bars or columns.
      */
-    type			: null,
+    type            : null,
 
     /**
      * The graph data as an array.
      */
-    data			: null,
+    data            : null,
 
-    attemptsArray	:null,
-    correctArray	:null,
+    attemptsArray   :null,
+    correctArray    :null,
 
     /**
      * The delimiter used for separating the data string passed
      * to the method setData.
-     .	  */
-    dataDelimiter 	: ";",
+     .    */
+    dataDelimiter   : ";",
 
 
 
@@ -45,26 +45,26 @@ var Chart = {
     /**
      * Initialize the graph object.
      */
-    init				: function() {
+    init                : function() {
         o = this;
         o.data = null;
         o.attemptsArray=null;
         o.correctArray=null;
 
 
-        //o.container	= document.getElementById(containerId);
+        //o.container   = document.getElementById(containerId);
 
 
     },
 
-    initCharts				: function(containerId) {
+    initCharts              : function(containerId) {
         o = this;
         o.data = null;
         o.attemptsArray=null;
         o.correctArray=null;
 
 
-        o.container	= document.getElementById(containerId);
+        o.container = document.getElementById(containerId);
 
 
     },
@@ -73,7 +73,7 @@ var Chart = {
      * Set the chart data from a delimited string in the following format:
      * "item1;value1;item2;value2".
      */
-    setData				: function(problemDetailsObj) {
+    setData             : function(problemDetailsObj) {
 
         o.data = problemDetailsObj.chartData.split(o.dataDelimiter);
 
@@ -151,7 +151,7 @@ var Chart = {
 
 
 
-    renderCharts	: function(problemList, c, containerId) {
+    renderCharts    : function(problemList, c, containerId) {
 
         var tableClassName="";
         var topicState="";
@@ -265,15 +265,15 @@ var Chart = {
 
 
 
-    renderMastery				: function(masteryDiv, masteryValue) {
+    renderMastery               : function(masteryDiv, masteryValue) {
 
-        //o.drawMastery	(parseFloat(problemDetailsObj.masteryLevel), jpt);
-        o.drawMastery	(masteryDiv, masteryValue);
+        //o.drawMastery (parseFloat(problemDetailsObj.masteryLevel), jpt);
+        o.drawMastery   (masteryDiv, masteryValue);
 
     },
 
 
-    getColumns			: function() {
+    getColumns          : function() {
 
 
         // Iterate the data array and create columns for each data item.
@@ -305,7 +305,7 @@ var Chart = {
      * Generates a column representing a data item.
      * Returns the element.
      */
-    getColumn			: function(problemDetailsObj,c) {
+    getColumn           : function(problemDetailsObj,c) {
         // Create the actual column and set the hight according to the data item's value.
         var chartWrapper=document.createElement("div");
         chartWrapper.id="cardtableWrapper";
@@ -491,7 +491,7 @@ var Chart = {
 
 
 
-    drawMastery			: function(masteryDiv, masteryLevel) {
+    drawMastery         : function(masteryDiv, masteryLevel) {
         plotArea = document.createElement("div");
         plotArea.id = "plotArea";
         plotArea.className = "plotArea";
@@ -515,7 +515,7 @@ var Chart = {
         masteryDiv.appendChild(plotArea);
     },
 
-    getBarValue		: function(dataItemValue) {
+    getBarValue     : function(dataItemValue) {
         // Create the value text associated with the data item.
         var value;
         value = document.createElement("div");
@@ -634,7 +634,7 @@ var Chart = {
         this.givePlants(plantDiv, pepperPlant, callback);
     },
 
-giveFeedback	: function(remarksDiv, topic_state,topicState_pepperPlant,topicMastery, neglectful_count,studentState_disengaged) {
+giveFeedback    : function(remarksDiv, topic_state,topicState_pepperPlant,topicMastery, neglectful_count,studentState_disengaged) {
 
         var feedbackText="";
 
@@ -768,13 +768,98 @@ giveFeedback	: function(remarksDiv, topic_state,topicState_pepperPlant,topicMast
 
 
     givePlants: function(plant_div, pepperPlant, callback) {
+        function showOverlay(title, numComplete, numTotal) {
+            var percentage = numComplete / numTotal;
+            console.log(percentage);
+            var className = '';
+            if (percentage <= 0.33) {
+                className = 'zero-progress';
+            } else if (percentage > 0.33 && percentage <= 0.66) {
+                className = 'thirty-three-progress';
+            } else {
+                className = 'sixty-six-progress';
+            }
+
+            var buttons = [];
+            if (Number(numComplete) === 0) {
+                buttons = [
+                    $.extend({}, vex.dialog.buttons.NO, {
+                        className: 'class-name',
+                        text: 'Button1',
+                        click: function($vexContent, event) {
+                            window.location='http://www.example.com';
+                        }
+                    })
+                ];
+            } else {
+                buttons = [
+                    $.extend({}, vex.dialog.buttons.NO, {
+                        className: 'class-name',
+                        text: 'Button1',
+                        click: function($vexContent, event) {
+                            window.location='http://www.example.com';
+                        }
+                    }),
+                    $.extend({}, vex.dialog.buttons.NO, {
+                        className: 'class-name',
+                        text: 'Button2',
+                        click: function($vexContent, event) {
+                            console.log("Hello world");
+                        }
+                    }),
+                    $.extend({}, vex.dialog.buttons.NO, {
+                        className: 'class-name',
+                        text: 'Button3',
+                        click: function($vexContent, event) {
+                            console.log("Hello world");
+                        }
+                    })
+                ];
+            }
+
+            vex.dialog.open({
+                buttons: buttons,
+                input: [
+                    '<style>',
+                    '.vex-custom-field-wrapper {',
+                    'margin: 1em 0;',
+                    '}',
+                    '.vex-custom-field-wrapper > label {',
+                    'display: inline-block;',
+                    'margin-bottom: .2em;',
+                    '}',
+                    '.topic-title {',
+                    'font-weight: bold;',
+                    '}',
+                    '</style>',
+                    '<div>',
+                    '<h3 class="topic-title">' + title + '</h3>',
+                    '<div class="visible num-questions">',
+                    '<p>' + numComplete + ' / ' + numTotal + ' problems done</p>',
+                    '</div>',
+                    '<div class="progress overlay">',
+                    '<div class="progress-bar ' + className + '" role="progressbar" aria-valuenow="' + percentage + '"',
+                    'aria-valuemin="0" aria-valuemax="100" style="width:' + percentage * 100 + '%">',
+                    '</div><!-- progress-bar -->',
+                    '</div><!-- progress -->',
+                    '</div><!-- section-panel -->',
+                ].join(''),
+                onSubmit: function() {
+                },
+            });
+        }
         var plantImage = document.createElement("IMG");
         if (pepperPlant.length!=0){plantImage.src="img/pp/"+pepperPlant+".png" ;
         if (document.getElementById(plant_div) == null)
             console.log(plant_div);
         else
             document.getElementById(plant_div).prepend(plantImage);
-            $('#' + plant_div).click(callback);
+            $('#' + plant_div).click(function () {
+                var title = $(this).parent().attr('topicTitle');
+                var totalProblems = $(this).parent().attr('totalProblem');
+                var completeProblems = $(this).parent().attr('completeProblem');
+                showOverlay(title, completeProblems, totalProblems);
+            });
         }
     },
 

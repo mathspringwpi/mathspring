@@ -13,12 +13,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/common_new.css" rel="stylesheet" type="text/css" />
     <link href="css/Dashboard_new.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
     <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/jchart.js"></script>
-    <script src="js/slick.min.js"></script>
+    <!-- <script src="js/jchart.js"></script> -->
     <script src="js/vex.min.js"></script>
+    <script>vex.defaultOptions.className = 'vex-theme-os'</script>
+    <script src="js/jchart_new.js"></script>
     <script>
         $(document).ready(function() {
             <c:forEach var="ts" items="${topicSummaries}">
@@ -47,14 +46,9 @@
                     SOF_SOF_sequence,
                     neglectful_count,
                     problemsDone,
-                    problemsSolved);
+                    problemsSolved
+                );
             </c:forEach>
-
-            $('.plant-garden').slick({
-                slidesToShow: 6,
-                dots: true,
-                infinite: false
-            });
 
             function showOverlay(title, numComplete, numTotal) {
                 var percentage = numComplete / numTotal;
@@ -136,6 +130,7 @@
                     },
                 });
             }
+
         });
     </script>
 </head>
@@ -253,6 +248,7 @@
 
 <!-- SCRIPT - LIBRARIES -->
 <script src="js/bootstrap.min.js"></script>
+<script>vex.defaultOptions.className = 'vex-theme-os'</script>
 
 </body>
 </html>
