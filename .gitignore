@@ -5,3 +5,5 @@
 /servletFramework/target/
 /woServer/target/
 *.swd
+.DS_Store
+/target
