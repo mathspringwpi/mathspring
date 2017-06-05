@@ -143,6 +143,14 @@
             <artifactId>testng</artifactId>
             <version>6.8.8</version>
         </dependency>
+
+        <!--Front end testing with selenium-->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
         <!-- org.dom4j RuleDrivenLearningCompanion-->
         <dependency>
             <groupId>dom4j</groupId>
