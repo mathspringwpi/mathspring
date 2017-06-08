@@ -53,4 +53,32 @@ public class DatabaseDriver {
 
         return null;
     }
+
+    /**
+     * Get the last action of the current sessionId
+     */
+    public String getLastAction() {
+        String q = "SELECT * FROM eventlog ORDER BY id DESC LIMIT 1";
+        try {
+            ResultSet rs = stmt.executeQuery(q);
+            return rs.next() ? rs.getString("action") : null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String getLastActionTimestamp(String action) {
+        String q = "select * from eventlog where sessNum=" + this.getCurrentSessionId() + " AND action='" + action + "'order by id desc limit 1";
+
+        try {
+            ResultSet rs = stmt.executeQuery(q);
+            return rs.next() ? rs.getString("clickTime") : null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
