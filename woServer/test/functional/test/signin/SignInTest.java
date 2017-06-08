@@ -4,10 +4,9 @@
 package functional.test.signin;
 
 import functional.test.base.BaseTest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -24,8 +23,7 @@ public class SignInTest extends BaseTest {
 
     @BeforeTest
     public void setUp() {
-        super.setUp();
-        super.goToTheLoginPage();
+        this.ld.goToTheLoginPage();
     }
 
 
@@ -37,33 +35,13 @@ public class SignInTest extends BaseTest {
 
     @Test(description = "Verify login successfully to the next page")
     public void test_login_successfully() {
-        login();
+        this.ld.login();
 
         this.wait.until(ExpectedConditions.or(
                 ExpectedConditions.titleIs("MathSpring | Existing Session"),
                 ExpectedConditions.titleIs("Mathspring | My Garden")
             )
         );
-    }
-
-
-    /**
-     * Login user
-     * Type in username and password
-     * Click the sign in button
-     * Can go to either the existing session page or dashboard
-     */
-    private void login() {
-        WebElement usernameField = this.driver.findElement(By.name("uname"));
-        usernameField.clear();
-        usernameField.sendKeys("hmngo");
-
-        WebElement passwordField = this.driver.findElement(By.name("password"));
-        passwordField.clear();
-        passwordField.sendKeys("test");
-
-        WebElement loginButton = this.driver.findElement(By.xpath("//button[@type='submit'][@class='btn btn-default btn-block sign-in-btn js-login-btn']"));
-        loginButton.click();
     }
 
 
