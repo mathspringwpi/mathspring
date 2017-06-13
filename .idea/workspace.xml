@@ -7,7 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9179ac1-2462-42bf-b909-02222a92cb15" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/woServer/resources/js/tutorhut_new.js" afterPath="$PROJECT_DIR$/woServer/resources/js/tutorhut_new.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.properties" afterPath="$PROJECT_DIR$/build.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/buildHmngoDev.properties" afterPath="$PROJECT_DIR$/buildHmngoDev.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/buildHmngoDev.xml" afterPath="$PROJECT_DIR$/buildHmngoDev.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/buildSugaree.properties" afterPath="$PROJECT_DIR$/buildSugaree.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/woServer/web/WEB-INF/beta/web.xml" afterPath="$PROJECT_DIR$/woServer/web/WEB-INF/beta/web.xml" />
     </list>
     <list id="91a23cea-bd20-4014-a4ab-ecf3b1986b4c" name="Failed commit: Default" comment="altered email sending" />
     <list id="6b5cc8b8-f685-4fc8-828e-37989d04b55d" name="Failed commit: Default (2)" comment="Changed the default value of istTest=true for the Assistments URL that is action=TeachTopic" />
@@ -243,62 +249,104 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mathspring_new.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/woServer/resources/mathspring_new.jsp">
+      <file leaf-file-name="build.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="416" column="15" lean-forward="false" selection-start-line="416" selection-start-column="15" selection-end-line="416" selection-end-column="15" />
-              <folding>
-                <marker date="1497057277000" expanded="false" signature="40955:40967" ph="..." />
-                <marker date="1497057277000" expanded="false" signature="41230:41244" ph="..." />
-                <marker date="1497057277000" expanded="false" signature="41337:41351" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tutorhut_new.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/woServer/resources/js/tutorhut_new.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="380" column="0" lean-forward="true" selection-start-line="380" selection-start-column="0" selection-end-line="380" selection-end-column="0" />
-              <folding>
-                <marker date="1497057756000" expanded="true" signature="50283:50294" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="50427:50438" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="50568:50579" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="50712:50723" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="50855:50866" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="51597:51608" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="51772:51783" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="51944:51955" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="52119:52130" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="52293:52304" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="60478:60493" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="63916:63929" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="63971:63985" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="67585:67600" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="70121:70134" ph="..." />
-                <marker date="1497057756000" expanded="true" signature="70176:70190" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mathspring_new.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/woServer/resources/css/mathspring_new.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="902">
-              <caret line="347" column="12" lean-forward="false" selection-start-line="347" selection-start-column="12" selection-end-line="347" selection-end-column="12" />
+            <state relative-caret-position="340">
+              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyProgress_new.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/woServer/resources/MyProgress_new.jsp">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="404" column="18" lean-forward="false" selection-start-line="404" selection-start-column="16" selection-end-line="404" selection-end-column="18" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buildSugaree.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/buildSugaree.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="10" column="44" lean-forward="false" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="web.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/woServer/web/WEB-INF/beta/web.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1972">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="web.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/woServer/web/WEB-INF/rose/web.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1904">
+              <caret line="56" column="71" lean-forward="false" selection-start-line="56" selection-start-column="71" selection-end-line="56" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="341" column="50" lean-forward="false" selection-start-line="341" selection-start-column="50" selection-end-line="341" selection-end-column="50" />
+              <folding>
+                <marker date="1497070301000" expanded="true" signature="103255:103270" ph="..." />
+                <marker date="1497070301000" expanded="true" signature="103255:103563" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buildCerulean.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/buildCerulean.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="3" column="50" lean-forward="false" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buildSugaree.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/buildSugaree.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="3" column="49" lean-forward="false" selection-start-line="3" selection-start-column="49" selection-end-line="3" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buildHmngoDev.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/buildHmngoDev.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="64" lean-forward="false" selection-start-line="0" selection-start-column="64" selection-end-line="0" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -318,9 +366,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>topic</find>
-      <find>new Problem</find>
-      <find>iframe</find>
       <find>overl</find>
       <find>nav__item</find>
       <find>n</find>
@@ -346,8 +391,11 @@
       <find>lcload</find>
       <find>lclo</find>
       <find>window</find>
-      <find>new pro</find>
       <find>TutorBrain</find>
+      <find>new pro</find>
+      <find>content</find>
+      <find>we</find>
+      <find>mscon</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -392,11 +440,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/build.xml" />
-        <option value="$PROJECT_DIR$/woServer/src/edu/umass/ckc/wo/db/DbUtil.java" />
-        <option value="U:/temp/build.xml" />
-        <option value="$PROJECT_DIR$/buildSugaree.xml" />
-        <option value="$PROJECT_DIR$/build.properties" />
         <option value="$PROJECT_DIR$/temp.xml" />
         <option value="$PROJECT_DIR$/woServer/src/edu/umass/ckc/wo/admin/PedagogyParser.java" />
         <option value="$PROJECT_DIR$/woServer/src/edu/umass/ckc/wo/tutor/Pedagogy.java" />
@@ -443,6 +486,11 @@
         <option value="$PROJECT_DIR$/woServer/resources/mathspring_new.jsp" />
         <option value="$PROJECT_DIR$/woServer/resources/css/mathspring_new.css" />
         <option value="$PROJECT_DIR$/woServer/resources/js/tutorhut_new.js" />
+        <option value="$PROJECT_DIR$/buildHmngoDev.properties" />
+        <option value="$PROJECT_DIR$/woServer/web/WEB-INF/beta/web.xml" />
+        <option value="$PROJECT_DIR$/build.properties" />
+        <option value="$PROJECT_DIR$/buildSugaree.properties" />
+        <option value="$PROJECT_DIR$/build.xml" />
       </list>
     </option>
   </component>
@@ -550,132 +598,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="woServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mathspring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mathspring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="woServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mathspring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mathspring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="woServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mathspring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mathspring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="woServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bootstrap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mathspring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mathspring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="woServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bootstrap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fonts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mathspring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mathspring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="woServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bootstrap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1821,6 +1743,7 @@
       <workItem from="1495757663970" duration="13160000" />
       <workItem from="1495775029886" duration="2460000" />
       <workItem from="1495820936871" duration="1610000" />
+      <workItem from="1497069892841" duration="580000" />
     </task>
     <task id="LOCAL-00182" summary="Converted Attempt intervention seleecrs to return Response objects">
       <created>1436983369292</created>
@@ -2169,7 +2092,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="359800000" />
+    <option name="totallyTimeSpent" value="361745000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2182,7 +2105,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1076" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2198,23 +2120,20 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29305914" sideWeight="0.7848392" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32629108" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24329692" sideWeight="0.6967841" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298122" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29692155" sideWeight="0.7313617" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29692155" sideWeight="0.7313617" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293011" sideWeight="0.80924857" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298122" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21458334" sideWeight="0.5324074" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34019768" sideWeight="0.32349467" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26606685" sideWeight="0.731535" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20880681" sideWeight="0.4055944" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30062112" sideWeight="0.46977812" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32549942" sideWeight="0.49120122" order="17" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39973873" sideWeight="0.3344788" order="2" side_tool="false" content_ui="tabs" />
@@ -2222,6 +2141,7 @@
       <window_info id="SVN Properties" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.49736643" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962631" sideWeight="0.68037605" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29496402" sideWeight="0.49965918" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24329692" sideWeight="0.6967841" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32902467" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
@@ -2230,6 +2150,7 @@
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22451317" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962963" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26606685" sideWeight="0.731535" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -2520,71 +2441,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/woServer/src/edu/umass/ckc/wo/db/DbStateTableMgr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="251" column="0" lean-forward="false" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/woServer/src/edu/umass/ckc/wo/state/ProblemState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/woServer/src/edu/umass/ckc/wo/state/StudentState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/woServer/src/edu/umass/ckc/wo/smgr/SessionManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1950">
-          <caret line="164" column="0" lean-forward="false" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/woServer/src/edu/umass/ckc/wo/woserver/WoTutorServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1455">
-          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/servletFramework/src/ckc/servlet/servbase/BaseServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2550">
-          <caret line="195" column="0" lean-forward="false" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar!/javax/servlet/http/HttpServlet.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="47" lean-forward="false" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/woServer/resources/Dashboard.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2670">
-          <caret line="178" column="34" lean-forward="false" selection-start-line="178" selection-start-column="34" selection-end-line="178" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/84598465/79cdb3b3-bfa7-45ee-aa68-4b246c1e7051/wayangoutpostdb.problem" />
-    <entry file="file://$PROJECT_DIR$/woServer/resources/img/menu.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/woServer/resources/img/mathspring_logo_new.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -2688,7 +2544,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2610">
           <caret line="174" column="57" lean-forward="false" selection-start-line="174" selection-start-column="53" selection-end-line="174" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2732,7 +2587,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="668">
           <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2747,86 +2601,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="668">
           <caret line="318" column="80" lean-forward="false" selection-start-line="318" selection-start-column="80" selection-end-line="318" selection-end-column="80" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <marker date="1496337418000" expanded="true" signature="7522:7798" ph="/**...*/" />
-            <marker date="1496337418000" expanded="true" signature="7876:10283" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="9139:9506" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="10577:12333" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="11762:11894" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="12432:13194" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="12610:12810" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="13295:13559" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="13654:14586" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="13702:13883" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="14678:15055" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="15132:15555" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="15654:16805" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="16138:16319" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="16900:17422" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="17524:18404" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="17917:18276" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="19815:20181" ph="/**...*/" />
-            <marker date="1496337418000" expanded="true" signature="20276:23536" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="20976:21781" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="21882:22145" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="22605:22862" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="23333:23511" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="23542:23663" ph="/**...*/" />
-            <marker date="1496337418000" expanded="true" signature="23753:25545" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="24395:24882" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="25605:25878" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="25991:27681" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="27791:29460" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="29552:29899" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="29988:30329" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="30336:30508" ph="/**...*/" />
-            <marker date="1496337418000" expanded="true" signature="30589:31353" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="31362:31455" ph="/**...*/" />
-            <marker date="1496337418000" expanded="true" signature="31520:31917" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="31925:32081" ph="/**...*/" />
-            <marker date="1496337418000" expanded="true" signature="32165:35030" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="32176:32436" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="32756:33072" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="33415:33790" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="35034:36542" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="36654:37266" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="37371:37646" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="37745:38017" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="38112:38398" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="38515:38742" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="38855:39080" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="39183:39421" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="39522:39794" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="39899:40174" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="40285:40563" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="40664:40937" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="41034:41363" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="41556:41937" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="42067:43042" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="42392:42637" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="43145:43477" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="47297:48474" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="48129:48355" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="48621:51665" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="48783:49013" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="49803:50116" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="50702:50854" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="51671:51940" ph="/**...*/" />
-            <marker date="1496337418000" expanded="false" signature="51987:51998" ph=" { " />
-            <marker date="1496337418000" expanded="false" signature="52010:52016" ph=" }" />
-            <marker date="1496337418000" expanded="true" signature="52330:54055" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="53042:53274" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="54135:54834" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="54367:54521" ph="//..." />
-            <marker date="1496337418000" expanded="true" signature="54911:55154" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="55241:55451" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="55516:55635" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="55709:55819" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="55918:56044" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="56094:56200" ph="{...}" />
-            <marker date="1496337418000" expanded="true" signature="56275:56460" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2841,7 +2615,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="692">
           <caret line="72" column="8" lean-forward="false" selection-start-line="72" selection-start-column="8" selection-end-line="72" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2849,14 +2622,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="89" column="8" lean-forward="false" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -2871,7 +2636,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="474" column="76" lean-forward="false" selection-start-line="474" selection-start-column="76" selection-end-line="474" selection-end-column="76" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2886,7 +2650,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
           <caret line="6" column="4332" lean-forward="false" selection-start-line="6" selection-start-column="4332" selection-end-line="6" selection-end-column="4332" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2894,7 +2657,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="601">
           <caret line="545" column="58" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1831" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2902,7 +2664,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="359" column="32" lean-forward="false" selection-start-line="359" selection-start-column="32" selection-end-line="359" selection-end-column="32" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/woServer/resources/MyProgress_new.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="406" column="36" lean-forward="false" selection-start-line="406" selection-start-column="36" selection-end-line="406" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -2910,52 +2678,111 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="902">
           <caret line="347" column="12" lean-forward="false" selection-start-line="347" selection-start-column="12" selection-end-line="347" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/woServer/resources/mathspring_new.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="416" column="15" lean-forward="false" selection-start-line="416" selection-start-column="15" selection-end-line="416" selection-end-column="15" />
-          <folding>
-            <marker date="1497057277000" expanded="false" signature="40955:40967" ph="..." />
-            <marker date="1497057277000" expanded="false" signature="41230:41244" ph="..." />
-            <marker date="1497057277000" expanded="false" signature="41337:41351" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/woServer/resources/js/tutorhut_new.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="380" column="0" lean-forward="true" selection-start-line="380" selection-start-column="0" selection-end-line="380" selection-end-column="0" />
-          <folding>
-            <marker date="1497057756000" expanded="true" signature="50283:50294" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="50427:50438" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="50568:50579" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="50712:50723" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="50855:50866" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="51597:51608" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="51772:51783" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="51944:51955" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="52119:52130" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="52293:52304" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="60478:60493" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="63916:63929" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="63971:63985" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="67585:67600" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="70121:70134" ph="..." />
-            <marker date="1497057756000" expanded="true" signature="70176:70190" ph="..." />
-          </folding>
+        <state relative-caret-position="229">
+          <caret line="374" column="0" lean-forward="true" selection-start-line="374" selection-start-column="0" selection-end-line="374" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/woServer/resources/MyProgress_new.jsp">
+    <entry file="file://$PROJECT_DIR$/woServer/resources/mathspring_new.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="404" column="18" lean-forward="false" selection-start-line="404" selection-start-column="16" selection-end-line="404" selection-end-column="18" />
+        <state relative-caret-position="214">
+          <caret line="414" column="26" lean-forward="false" selection-start-line="414" selection-start-column="26" selection-end-line="414" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buildHmngoDev.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1180">
+          <caret line="111" column="30" lean-forward="false" selection-start-line="111" selection-start-column="30" selection-end-line="111" selection-end-column="30" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buildSugaree.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="10" column="44" lean-forward="false" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/woServer/web/WEB-INF/rose/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1904">
+          <caret line="56" column="71" lean-forward="false" selection-start-line="56" selection-start-column="71" selection-end-line="56" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/woServer/web/WEB-INF/beta/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1972">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buildHmngoDev.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="64" lean-forward="false" selection-start-line="0" selection-start-column="64" selection-end-line="0" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buildCerulean.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="3" column="50" lean-forward="false" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buildSugaree.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="3" column="49" lean-forward="false" selection-start-line="3" selection-start-column="49" selection-end-line="3" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="341" column="50" lean-forward="false" selection-start-line="341" selection-start-column="50" selection-end-line="341" selection-end-column="50" />
+          <folding>
+            <marker date="1497070301000" expanded="true" signature="103255:103270" ph="..." />
+            <marker date="1497070301000" expanded="true" signature="103255:103563" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
