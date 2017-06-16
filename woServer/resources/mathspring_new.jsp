@@ -10,33 +10,36 @@
     <link href="css/animate.css" rel="stylesheet">
     <%--<link href="css/common_new.css" rel="stylesheet">--%>
     <link href="css/mathspring_new.css" rel="stylesheet">
-    <!-- css for data table -->
-    <link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.datatables.net/colreorder/1.3.2/css/colReorder.bootstrap4.min.css" rel="stylesheet" type="text/css">
-
-    <!-- css for bootstrap / Font Awesome -->
-    <link rel="stylesheet" href="<c:url value="/js/bootstrap/css/bootstrap-prefix.css" />" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-
-    <!-- updated Jquery to 2.2.2 to make use of bootstrap js-->
     <script type="text/javascript" src="<c:url value="/js/bootstrap/js/jquery-2.2.2.min.js" />"></script>
-    <!-- js for bootstrap-->
-    <script type="text/javascript" src="<c:url value="/js/bootstrap/js/bootstrap.min.js" />"></script>
-
-    <%--<script src="js/jquery-ui-1.10.3/ui/jquery-ui.js"></script>--%>
     <script src="js/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="js/jquery.dialogextend.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+    <%--Developer Mode--%>
+    <c:if test="${showProblemSelector}">
+        <!-- css for data table -->
+        <link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+        <link href="https://cdn.datatables.net/colreorder/1.3.2/css/colReorder.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+        <!-- css for bootstrap / Font Awesome -->
+        <link rel="stylesheet" href="<c:url value="/js/bootstrap/css/bootstrap.css" />" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+
+        <!-- js for bootstrap-->
+        <script type="text/javascript" src="<c:url value="/js/bootstrap/js/bootstrap.min.js" />"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+        <!-- js for data table -->
+        <script type="text/javascript" src="<c:url value="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" />"></script>
+        <script type="text/javascript" src="<c:url value="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap4.min.js" />"></script>
+        <script type="text/javascript" src="<c:url value="https://cdn.datatables.net/colreorder/1.3.2/js/dataTables.colReorder.min.js" />"></script>
+
+        <!-- js for bootstrap-->
+    </c:if>
 
 
-    <!-- js for data table -->
-    <script type="text/javascript" src="<c:url value="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" />"></script>
-    <script type="text/javascript" src="<c:url value="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap4.min.js" />"></script>
-    <script type="text/javascript" src="<c:url value="https://cdn.datatables.net/colreorder/1.3.2/js/dataTables.colReorder.min.js" />"></script>
-    <!-- js for bootstrap-->
     <script type="text/javascript" src="js/simple-slider.js"></script>
     <script type="text/javascript" src="js/tutorutils.js"></script>
     <script type="text/javascript" src="js/tutorAnswer.js"></script>
@@ -127,6 +130,7 @@
         // Unfortunately the back button will run this function too which means that it can generate a BeginExternalActivity
         $(document).ready(function () {
             tutorhut_main(globals,sysGlobals,transients, "${learningCompanionMovie}");
+            generateHighlightRuleDialog();
             $('.ui-dialog-buttonset > button').each(function() {
                 $(this).addClass('btn btn-lg mathspring-btn');
             });
@@ -142,64 +146,50 @@
             if (isJake) {
                 $('.huytran-practice__character-window').width(269);
             } else {
-                $('.huytran-practice__character-window').width(260);
+                $('.huytran-practice__character-window').width(250);
             }
         });
     </script>
 
 
     <style type="text/css">
-        .leftcol {
-            padding: 8px;
-            float: right;
-            width: 1000px;
+        /*Overwrite bootstrap rule for developer mode*/
+        <c:if test="${showProblemSelector}">
+        fieldset.scheduler-border {
+            border: 1px groove #ddd !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 0 0 1.5em 0 !important;
+            -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
         }
-
-        .empty {
+        a {
+            text-decoration: none !important;
         }
+        a span {
+            font-family: Raleway !important;
+        }
+        .huytran-practice__navitem {
+            font-family: Raleway !important;
+        }
+        .huytran-practice__navitem span {
+            font-family: FontAwesome !important;
+        }
+        label {
+            font-family: Raleway !important;
+            font-weight: normal;
+        }
+        .huytran-practice__hide-button span {
+            top: 0 !important;
+        }
+        .glyphicon {
+            font-family: 'Glyphicons Halflings' !important;
+        }
+        </c:if>
 
     </style>
 </head>
 <body>
 
-
-
-<!-- NAVIGATION BAR -->
-<%--<header class="site-header" role="banner">--%>
-    <%--<div id="wrapper">--%>
-        <%--<div class="navbar-header">--%>
-            <%--<img class="logo goto-dashboard-js" src="img/ms_mini_logo_new.png" alt="MathSpring Logo">--%>
-        <%--</div><!-- navbar-header -->--%>
-
-        <%--<nav id="main_nav" class="nav navbar-nav navbar-right">--%>
-            <%--<li class="dropdown dropdown-position custom-dropdown">--%>
-                <%--<a  href="#"--%>
-                    <%--class="dropdown-toggle custom-dropdown-toggle"--%>
-                    <%--data-toggle="dropdown"--%>
-                    <%--role=button--%>
-                    <%--aria-haspopup="true"--%>
-                    <%--aria-expanded="false"--%>
-                <%-->--%>
-                    <%--<i><img src="img/avatar.svg" alt="Avatar"></i>--%>
-                    <%--&nbsp;--%>
-                    <%--${studentFirstName} ${studentLastName}--%>
-                    <%--<span class="caret"></span>--%>
-                <%--</a><!-- dropdown-toggle -->--%>
-
-                <%--<ul class="dropdown-menu">--%>
-                    <%--<li><a href="">HELP</a></li>--%>
-                    <%--<li role="separator" class="divider"></li>--%>
-                    <%--<li><a href="TutorBrain?action=Logout&sessionId=${sessionId}&elapsedTime=${elapsedTime}&var=b">LOGOUT</a></li>--%>
-                <%--</ul><!-- dropdown-menu -->--%>
-            <%--</li><!-- dropdown -->--%>
-        <%--</nav>--%>
-    <%--</div><!-- wrapper -->--%>
-<%--</header>--%>
-
-<%--<section id="navigation-back">--%>
-    <%--<div id="home" class="col-md-6">My Garden</div>--%>
-    <%--<div id="myProg" class="col-md-6">My Progress</div>--%>
-<%--</section>--%>
 
 <audio id='questionaudio' name='questionaudio'>
     <source id='questionogg' src='' type='audio/ogg'>
@@ -231,105 +221,6 @@
 <div id="selectProblemDialog" title="Select Problem">
     <iframe id="selectProblemDialogIframe" width="500" height="500"></iframe>
 </div>
-
-<%--<section id="main-tutoring">--%>
-    <%--<div class="container">--%>
-        <%--<div class="row">--%>
-            <%--<div class="col-md-1 vertical-button">--%>
-                <%--<div data-balloon="Read Problem" data-balloon-pos="right">--%>
-                    <%--<a id="read">--%>
-                        <%--<img src="img/speaker.svg" alt="Read Problem">--%>
-                    <%--</a>--%>
-                <%--</div>--%>
-                <%--<div data-balloon="Show Instruction" data-balloon-pos="right">--%>
-                    <%--<a id="instructions">--%>
-                        <%--<img src="img/info.svg" alt="Show Instruction">--%>
-                    <%--</a>--%>
-                <%--</div>--%>
-                <%--<div class="dropdown custom-dropdown"--%>
-                     <%--data-balloon="More Resources"--%>
-                     <%--data-balloon-pos="right">--%>
-                    <%--<a  href="#"--%>
-                        <%--class="dropdown-toggle custom-dropdown-toggle"--%>
-                        <%--data-toggle="dropdown"--%>
-                        <%--role=button--%>
-                        <%--aria-haspopup="true"--%>
-                        <%--aria-expanded="false"--%>
-                    <%-->--%>
-                        <%--<img src="img/menu.svg" alt="">--%>
-                    <%--</a><!-- dropdown-toggle -->--%>
-
-                    <%--<ul class="dropdown-menu">--%>
-
-                        <%--<li><a id="example" href="#">Show Example</a></li>--%>
-                        <%--<li role="separator" class="divider"></li>--%>
-
-                        <%--<li><a id="video" href="#">Show Video</a></li>--%>
-                        <%--<li role="separator" class="divider"></li>--%>
-
-                        <%--<li><a id="formulas" href="#">Fomular</a></li>--%>
-                        <%--<li role="separator" class="divider"></li>--%>
-
-                        <%--<li><a id="glossary" href="#">Glossary</a></li>--%>
-                    <%--</ul><!-- dropdown-menu -->--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="col-md-7 main-tutoring-frame">--%>
-                <%--<div class="row buttons-below">--%>
-                    <%--<div class="col-sm-3 main-tutoring-button">--%>
-                        <%--<a id="hint" class="problem-control-button">--%>
-                            <%--<img id="hint-lightbulb" src="img/lightbulb.svg" alt=""><span id="hint_label">Hint</span>--%>
-                        <%--</a>--%>
-                    <%--</div>--%>
-                    <%--<div class="col-sm-3 col-md-offset-1 main-tutoring-button">--%>
-                        <%--<a id="replay" class="problem-control-button">--%>
-                            <%--<img src="img/reload.svg" alt="">Replay Hint--%>
-                        <%--</a>--%>
-                    <%--</div>--%>
-                    <%--<div class="col-sm-3 col-md-offset-1 main-tutoring-button">--%>
-                        <%--<a id="nextProb" class="problem-control-button">--%>
-                            <%--<img src="img/right-arrow.svg" alt="">New Problem--%>
-                        <%--</a>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div id="frameContainer" class="problemDiv">--%>
-                    <%--<iframe id="problemWindow" class="probWindow"--%>
-                            <%--name="iframe1"--%>
-                            <%--width="600"--%>
-                            <%--height="600"--%>
-                            <%--src="${activityURL}"--%>
-                            <%--frameborder="no"--%>
-                            <%--scrolling="no">--%>
-                    <%--</iframe>--%>
-                <%--</div>--%>
-                <%--<div id="flashContainer1">--%>
-                    <%--<div id="flashContainer2"></div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="col-md-3 virtual-character">--%>
-                <%--<iframe id="learningCompanionWindow"--%>
-                        <%--name="lciframe"--%>
-                        <%--width="280"--%>
-                        <%--height="600"--%>
-                        <%--src="${learningCompanionMovie}"--%>
-                        <%--scrolling="no">--%>
-                <%--</iframe>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-<%--</section>--%>
-
-<%--<div class="dev-view">--%>
-    <%--<p>--%>
-        <%--Developer Info >>--%>
-        <%--<span class="dev-view-label">Problem ID: </span>--%>
-        <%--<span id="pid">${probId}</span> ||--%>
-        <%--<span class="dev-view-label">Effort: </span>--%>
-        <%--<span id="effort">${effort}</span> ||--%>
-        <%--<span class="dev-view-label">Answer: </span>--%>
-        <%--<span id="answer">${globals.answer}</span>--%>
-    <%--</p>--%>
-<%--</div>--%>
 
 <div class="huytran-tutor">
     <div class="huytran-sitenav">
@@ -472,8 +363,6 @@
 </div>
 
 
-
-
 <div id="eventLogWindow" title="Event Logs" style="display:none;">
     <div class="bootstrap">
     <div class = "containers">
@@ -551,6 +440,7 @@
                                     <span class="glyphicon glyphicon-remove"></span> clickTime
                                 </a>
                             </fieldset>
+
                             <fieldset class="scheduler-border">
                                 <legend>Hightlight Rule Editor</legend>
                                 <div class="form-group">
@@ -780,9 +670,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 <script>
