@@ -59,6 +59,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="bootstrap-slider" level="application" />
     <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.directory.studio:org.apache.commons.io:2.4" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
@@ -109,12 +110,17 @@
     <orderEntry type="library" name="Maven: org.glassfish.jersey.ext:jersey-entity-filtering:2.17" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.3.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.2" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.3.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.3.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.3.2" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" level="project" />
-    <orderEntry type="library" name="bootstrap-slider" level="application" />
+    <orderEntry type="library" name="Maven: org.webjars:webjars-servlet-2.x:1.5" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:webjars-locator:0.32-1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:webjars-locator-core:0.32" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.9" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.3" level="project" />
   </component>
 </module>
