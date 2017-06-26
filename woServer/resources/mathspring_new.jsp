@@ -6,10 +6,9 @@
     <meta charset="utf-8">
     <title>MathSpring | Tutoring</title>
     <link href="js/jquery-ui-1.10.4.custom/css/spring/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
-    <%--<link href="css/bootstrap.min.css" rel="stylesheet">--%>
-    <link href="css/animate.css" rel="stylesheet">
-    <%--<link href="css/common_new.css" rel="stylesheet">--%>
-    <link href="css/mathspring_new.css" rel="stylesheet">
+
+    <link href="sass_compiled/tutor.css" rel="stylesheet">
+
     <script type="text/javascript" src="<c:url value="/js/bootstrap/js/jquery-2.2.2.min.js" />"></script>
     <script src="js/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="js/jquery.dialogextend.min.js"></script>
@@ -45,6 +44,7 @@
     <script type="text/javascript" src="js/tutorAnswer.js"></script>
     <script type="text/javascript" src="js/tutorhint.js"></script>
     <script type="text/javascript" src="js/tutorhut_new.js"></script>
+    <script type="text/javascript" src="js/devdialog.js"></script>
     <script type="text/javascript" src="js/tutorintervention.js"></script>
     <script type="text/javascript" src="js/intervhandlers_new.js"></script>
     <script type="text/javascript" src="js/swfobject.js"></script>
@@ -131,9 +131,7 @@
         $(document).ready(function () {
             tutorhut_main(globals,sysGlobals,transients, "${learningCompanionMovie}");
             generateHighlightRuleDialog();
-            $('.ui-dialog-buttonset > button').each(function() {
-                $(this).addClass('btn btn-lg mathspring-btn');
-            });
+
             if (!globals.showAnswer) {
                 $(".dev-view").remove();
             } else {
@@ -144,6 +142,7 @@
             var srcCompanion = $('#learningCompanionWindow').attr('src');
             var isJake = /.*Jake/.test(srcCompanion);
             if (isJake) {
+                console.log('Hello world');
                 $('.huytran-practice__character-window').width(269);
             } else {
                 $('.huytran-practice__character-window').width(250);
@@ -260,6 +259,10 @@
 					</span>
                 <span class="huytran-sitenav__buttontitle">Show Example</span>
             </a>
+
+            <a href="#" class="huytran-sitenav__button huytran-sitenav__showmore-target" id="clock" style="display: none">
+            </a>
+
             <a href="#" class="huytran-sitenav__button huytran-sitenav__showmore-target" id="video">
 					<span class="huytran-sitenav__icon">
 						<i class="fa fa-video-camera" aria-hidden="true"></i>
